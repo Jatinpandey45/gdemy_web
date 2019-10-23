@@ -41,7 +41,6 @@
 					</a>
 				</div>
 			</div>
-
 			<div class="wsize1 m-lr-auto">
 				<p class="txt-center l1-txt1 p-b-60">
                 “Education is the most powerful weapon which you can use to change the world.” ~ Nelson Mandela
