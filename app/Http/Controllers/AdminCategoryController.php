@@ -59,4 +59,25 @@ class AdminCategoryController extends Controller
 
         return Redirect::route('categories.index')->with('success', $response);
     }
+
+
+    public function edit(Category $category)
+    {
+        return view('admin.categories.create')->with('category', $category);
+    }
+
+    public function show()
+    {
+
+    }
+
+    public function update()
+    {
+
+    }
+
+    public function destroy()
+    {
+
+    }
 }
