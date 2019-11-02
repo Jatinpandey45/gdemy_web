@@ -48,11 +48,12 @@ class AdminCategoryController extends Controller
             Category::create($request->all());
 
             $response = ['code' => Response::HTTP_OK, 'message' => trans('message.category_success')];
-            
+
         } catch (QueryException $e) {
 
             $response = ['code' => $e->getCode(), 'message' => $e->getMessage()];
             Log::error("DB:ERROR:", $response);
+            
         } catch (Exception $e) {
             $response = ['code' => Response::HTTP_UNPROCESSABLE_ENTITY, 'message' => $e->getMessage()];
         }
