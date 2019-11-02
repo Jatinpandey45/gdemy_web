@@ -13,6 +13,9 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
 
+        <script src="{{ asset('js/prestashop-ui-kit.js') }}" defer></script>
+
+
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
 
@@ -23,49 +26,82 @@
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
         <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/bootstrap-prestashop-ui-kit.css') }}" rel="stylesheet">
     </head>
     <body>
         <div id="app">
-            <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-                <div class="container">
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'GkDemy') }}
-                    </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+            <header id="header" class="bootstrap">
+                <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+                    <div class="container">
+                        <a class="navbar-brand" href="{{ url('/') }}">
+                            {{ config('app.name', 'GkDemy') }}
+                        </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportContent">
-                        <!-- Left side of Navbar -->
-                        <ul class="navbar-nav mr-auto">
+                        <div class="collapse navbar-collapse" id="navbarSupportContent">
+                            <!-- Left side of Navbar -->
+                            <ul class="navbar-nav mr-auto">
 
-                        </ul>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </nav>
+                </nav>
+            </header>
             {{-- @section('sidebar')
                 This is the master sidebar.
             @show --}}
 
-            <main class="container-fluid">
-                <div class="row">
-                    <div class="col-md-4">
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <a href="">Article</a>
-                            </li>
-                            <li class="list-group-item">
-                                <a href="{{ route('categories.store') }}">{{ __('message.heading') }}</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-8">
-                        @yield('content')
+            <nav class="nav-bar d-none d-md-block" role="navigation" id="nav-sidebar">
+                <ul class="list-group main-menu"">
+                    <li class="list-group-item" id="tab-AdminArticles">
+                        <a class="link" href="">
+                            <i class="material-icons">local_post_office</i>
+                            <span>Article</span>
+                        </a>
+                    </li>
+                    <li class="list-group-item" id="tab-AdminCategories">
+                        <a class="link" href="{{ route('categories.index') }}">
+                            <i class="material-icons">category</i>
+                            <span>{{ __('message.heading') }}</span>
+                        </a>
+                    </li>
+                    <li class="list-group-item" id="tab-AdminCategories">
+                        <a class="link" href="{{ route('categories.index') }}">
+                            <i class="material-icons">category</i>
+                            <span>Tags</span>
+                        </a>
+                    </li>
+                    <li class="list-group-item" id="tab-AdminCategories">
+                        <a class="link" href="{{ route('categories.index') }}">
+                            <i class="material-icons">category</i>
+                            <span>Monthly CA</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div id="main">
+                <div id="content" class="bootstrap ">
+                    <div class="bootstrap">
+                        <div class="page-head ">
+                            <div class="wrapper clearfix col-md-12">
+                                <div class="row">
+                                    <div class="col-md-2 pl-0">
+                                    </div>
+                                    <div class="col-md-10">
+                                        @yield('content')
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </main>
+            </div>
         </div>
     </body>
 </html>
