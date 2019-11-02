@@ -11,4 +11,15 @@
 |
 */
 
+use App\Providers\RouteServiceProvider;
+
 Route::get('/','HomeController@index')->name('user.home.page');
+
+
+/**
+ * current affair routes
+ */
+
+ Route::get('admin','AdminController@index')->name('admin.current.affairs');
+
+ Route::resource('categories', 'AdminCategoryController');
