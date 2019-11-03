@@ -25,4 +25,5 @@ Route::get('/','HomeController@index')->name('user.home.page');
 
  Route::resource('categories', 'AdminCategoryController');
  Route::resource('tags','AdminTagController');
+ Route::get('category-list','AdminCategoryController@categoryList')->name('admin.category.list.records');
  
