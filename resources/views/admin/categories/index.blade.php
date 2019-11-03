@@ -72,6 +72,16 @@
                                 <th>Count</th>
                             </thead>
                             <tbody>
+                                <td>
+                                    Name
+                                    <div>
+                                        <a href="{{ route('categories.edit', 1) }}">Edit</a>
+                                        <a href="{{ route('categories.destroy', 1) }}">Trash</a>
+                                    </div>
+                                </td>
+                                <td>Test Description</td>
+                                <td>Test Slug</td>
+                                <td>Count</td>
                                 {{-- @foreach ($categories as $category)
                                     <tr>
                                         <td>{{ $category.name }}</td>

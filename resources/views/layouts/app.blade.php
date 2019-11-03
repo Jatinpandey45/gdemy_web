@@ -47,24 +47,25 @@
                         <li class="list-group-item" id="tab-AdminArticles">
                             <a class="link" href="">
                                 <i class="material-icons">local_post_office</i>
-                                <span>Article</span>
+                                <span>Posts</span>
                             </a>
                         </li>
-                        <li class="list-group-item" id="tab-AdminCategories">
+                        <li class="list-group-item @if($controller == 'categories') active @endif" id="tab-AdminCategories">
                             <a class="link" href="{{ route('categories.index') }}">
                                 <i class="material-icons">category</i>
                                 <span>{{ __('message.heading') }}</span>
                             </a>
                         </li>
                         <li class="list-group-item" id="tab-AdminTags">
-                            <a class="link" href="{{ route('tags.index') }}">
+                            {{-- <a class="link" href="{{ route('tags.index') }}"> --}}
+                            <a class="link" href="">
                                 <i class="material-icons">category</i>
                                 <span>Tags</span>
                             </a>
                         </li>
                         <li class="list-group-item" id="tab-AdminCategories">
                             <a class="link" href="{{ route('categories.index') }}">
-                                <i class="material-icons">category</i>
+                                <i class="material-icons">schedule</i>
                                 <span>Monthly CA</span>
                             </a>
                         </li>

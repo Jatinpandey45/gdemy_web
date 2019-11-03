@@ -661,16 +661,19 @@ Primary use:
 }
 
 .list-group .list-group-item.active {
+  border-color: transparent;
   border-left: 2px solid white;
-  background: #00000057;
+  background: #202226;
 }
 
 header#header {
   position: fixed;
   width: 100%;
   top: 0;
+  background: #dbcbcb;
+  z-index: 2;
 }
 
 div#main {
-  margin-top: 5rem;
+  margin-top: 6rem;
 }
