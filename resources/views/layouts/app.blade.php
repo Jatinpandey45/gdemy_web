@@ -103,5 +103,11 @@
                 </div>
             </div>
         </div>
+
+
+
+        @yield('pagescript')
+
+
     </body>
 </html>

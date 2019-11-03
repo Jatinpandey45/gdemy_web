@@ -24,7 +24,9 @@ class CreateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:categories'
+            'category_name' => 'required|unique:gk_category',
+            'category_slug' => 'required|unique:gk_category',
+            'category_icon' => 'mimes:gif,jpeg,jpg,png,tiff,wbmp,ico,jng,bmp,svg,svgz,webp,tif|required|max:1200' // max 10000kb
         ];
     }
 }
