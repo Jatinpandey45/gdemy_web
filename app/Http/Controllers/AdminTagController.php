@@ -56,6 +56,7 @@ class AdminTagController extends Controller
      */
     public function edit($id)
     {
+        return view('admin.tags.edit');
         //
     }
 
