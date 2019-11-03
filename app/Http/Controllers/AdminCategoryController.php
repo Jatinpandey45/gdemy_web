@@ -32,17 +32,6 @@ class AdminCategoryController extends Controller
     }
 
     /**
-     * create
-     * @param : null
-     * @return : application/html
-     */
-
-    public function create()
-    {
-        return view('admin.categories.create');
-    }
-
-    /**
      * store
      * @param : CreateCategoryRequest
      * @return : result with success or failure
@@ -87,25 +76,11 @@ class AdminCategoryController extends Controller
      * @return : application/html
      */
 
-    public function edit(Category $category)
-    {
-        return view('admin.categories.create')->with('category', $category);
+    public function edit($id)
+    {   
+        $decrypt = decrypt($id);
+        return view('admin.categories.create');
     }
-
-    /**
-     * show
-     * @param : null
-     * @return : application/html
-     */
-
-    public function show()
-    { }
-
-    public function update()
-    { }
-
-    public function destroy()
-    { }
 
     /**
      * Display a listing of the resource.
