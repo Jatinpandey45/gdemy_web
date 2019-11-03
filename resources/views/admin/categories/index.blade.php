@@ -64,29 +64,15 @@
             <div class="card card-default">
                 <div class="card-header h3">Categories</div>
                     <div class="card-body">
-                        <table class="table">
+                        <table class="table" id="category_datatable">
                             <thead>
                                 <th>Name</th>
                                 <th>Description</th>
                                 <th>Slug</th>
-                                <th>Count</th>
+                                <th class="text-right">Action</th>
                             </thead>
                             <tbody>
-                                <td>
-                                    Name
-                                    <div>
-                                        <a href="{{ route('categories.edit', 1) }}">Edit</a>
-                                        <a href="{{ route('categories.destroy', 1) }}">Trash</a>
-                                    </div>
-                                </td>
-                                <td>Test Description</td>
-                                <td>Test Slug</td>
-                                <td>Count</td>
-                                {{-- @foreach ($categories as $category)
-                                    <tr>
-                                        <td>{{ $category.name }}</td>
-                                    </tr>
-                                @endforeach --}}
+                               
                             </tbody>
                         </table>
                     </div>
@@ -95,13 +81,41 @@
         </div>
     </div>
 
+  
 
 
 @section('pagescript')
-<script src="{{asset('js/jquery-validation/dist/jquery.validate.min.js')}}"></script>
-<script src="{{asset('js/jquery-validation/dist/additional-methods.min.js')}}"></script>
+<!-- <script src="{{asset('js/jquery-validatioan/dist/jquery.validate.min.js')}}"></script> -->
+<!-- <script src="{{asset('js/jquery-validation/dist/additional-methods.min.js')}}"></script> -->
+<!-- <script type="text/javascript" src="{{asset('js/datatable.min.js')}}"></script> -->
+<!-- <script src="{{asset('js/category.js')}}"></script> -->
 
-<script src="{{asset('js/category.js')}}"></script>
+
+<script type="text/javascript" src="{{asset('js/datatable.min.js')}}"></script>
+
+<script>
+   
+
+    var table = $('#category_datatable').DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: "{{route('admin.category.list.records')}}",
+    columns: [
+        {data: 'category_name', name: 'Category'},
+        {data: 'category_description', name: 'Description'},
+        {data: 'category_slug', name: 'Slug'},
+        {data:"action","className": "text-right", "render" : function ( data, type, row ){
+            return '<a href="'+row.edit_route+'"><i class="material-icons">edit</i></a>'+
+                '<a href="javascript:void(0);" class="remove-item" data-id="'+data+'"><i class="material-icons">delete</i></a>';
+         }
+      }
+    ]
+
+
+
+    });
+ 
+</script>
 
 @endsection
 

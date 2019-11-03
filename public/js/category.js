@@ -36,3 +36,26 @@ $("#category_form_id").validate({
       form.submit();
     }
   });
+
+
+$(document).ready(function(){
+
+  var table = $('#categor_datatable_id').DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: $("#hidden_route_category_list"),
+    columns: [
+        {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+        {data: 'category_name', name: 'Category'},
+        {data: 'category_slug', name: 'Slug'},
+        {data: 'category_description', name: 'Description'},
+        {data: 'action', name: 'action', orderable: false, searchable: false},
+    ]
+});
+
+
+});
+    
+    
+    
+  

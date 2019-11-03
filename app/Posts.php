@@ -16,6 +16,7 @@ class Posts extends Model
         'category_id',
         'month_id',
         'lang_id',
+        'emp_id',
         'featured_image',
         'publish_at',
         'status',

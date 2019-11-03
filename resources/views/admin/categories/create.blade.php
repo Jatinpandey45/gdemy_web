@@ -57,11 +57,10 @@
             </form>
         </div>
     </div>
+    
 @section('pagescript')
 <script src="{{asset('js/jquery-validation/dist/jquery.validate.min.js')}}"></script>
 <script src="{{asset('js/jquery-validation/dist/additional-methods.min.js')}}"></script>
-
-<script src="{{asset('js/category.js')}}"></script>
 
 @endsection
 
