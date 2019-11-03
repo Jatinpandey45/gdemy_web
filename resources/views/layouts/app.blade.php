@@ -11,16 +11,13 @@
         <title>{{ config('app.name', 'GkDemy') }}</title>
 
         <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
 
         <script src="{{ asset('js/prestashop-ui-kit.js') }}" defer></script>
 
 
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
-
-        <link href="https://fonts.google.com/css?family=Nunito" rel="stylesheet" type="text/css">
-
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
@@ -52,15 +49,14 @@
                                 <span>Posts</span>
                             </a>
                         </li>
-                        <li class="list-group-item @if($controller == 'categories') active @endif" id="tab-AdminCategories">
+                        <li class="list-group-item @if(in_array(Route::currentRouteName(),['categories.index','categories.edit'])) active @endif" id="tab-AdminCategories">
                             <a class="link" href="{{ route('categories.index') }}">
                                 <i class="material-icons">category</i>
                                 <span>{{ __('message.heading') }}</span>
                             </a>
                         </li>
-                        <li class="list-group-item" id="tab-AdminTags">
-                            {{-- <a class="link" href="{{ route('tags.index') }}"> --}}
-                            <a class="link" href="">
+                        <li class="list-group-item @if(in_array(Route::currentRouteName(),['tags.index','tags.edit'])) active @endif" id="tab-AdminTags">
+                             <a class="link" href="{{ route('tags.index') }}">
                                 <i class="material-icons">category</i>
                                 <span>Tags</span>
                             </a>
