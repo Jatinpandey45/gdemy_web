@@ -546,3 +546,98 @@ Primary use:
   /*---------------------------------------------*/
 
 }
+
+.nav-bar {
+  -webkit-transition: all .5s ease-out;
+  background: #363a41;
+  bottom: 0;
+  height: 100%;
+  margin-top: 2.5rem;
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
+  transition: all .5s ease-out;
+  width: 210.08px;
+  width: 13.13rem;
+  z-index: 502;
+}
+
+.main-menu {
+  margin: 0;
+  padding: 0 0 5.313rem;
+}
+
+.active .link, .main-menu .link-levelone.ul-open .link, .main-menu .ul-open.link-leveltwo .link {
+  background: #202226;
+}
+
+.main-menu .-active.link-leveltwo > .link, .main-menu .-hover.link-leveltwo > .link, .main-menu .link-levelone.-active > .link, .main-menu .link-levelone.-hover > .link, .main-menu .link-levelone.ul-open > .link, .main-menu .ul-open.link-leveltwo > .link {
+  -webkit-transition: background .3s ease;
+  background: #202226;
+  color: #fff;
+  transition: background .3s ease;
+}
+
+.main-menu .link-levelone > .link, .main-menu .link-leveltwo > .link {
+  -ms-flex-align: end;
+  -webkit-box-align: end;
+  align-items: end;
+  color: #bebebe;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 12px;
+  font-size: .75rem;
+  height: auto;
+  line-height: 16px;
+  line-height: 1rem;
+  overflow: hidden;
+  padding: .5rem .3125rem .5rem .938rem;
+      padding-left: 0.938rem;
+  text-decoration: none;
+  text-overflow: clip;
+  white-space: normal;
+  word-break: break-word;
+  display: block;
+}
+
+.main-menu .-active.link-leveltwo > .link, .main-menu .link-levelone.-active > .link {
+  border-left: .25rem solid #25b9d7;
+  padding-left: .638rem;
+}
+
+.main-menu .-active.link-leveltwo .link, .main-menu .link-levelone.-active .link, .main-menu .link-levelone.ul-open .link, .main-menu .ul-open.link-leveltwo .link {
+    background: #202226;
+}
+
+.list-group  .list-group-item .link {
+  color: white;
+  text-decoration: none;
+}
+
+.list-group .list-group-item {
+  background: transparent;
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
+    url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
+    url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+.link .material-icons {
+  color: #fff;
+  font-size: 19.008px;
+  font-size: 1.188rem;
+  line-height: inherit;
+}
+
+.main-menu .link span {
+  padding-left: .625rem;
+}
