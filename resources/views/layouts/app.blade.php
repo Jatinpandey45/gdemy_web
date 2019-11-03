@@ -72,7 +72,7 @@
                         </a>
                     </li>
                     <li class="list-group-item" id="tab-AdminCategories">
-                        <a class="link" href="{{ route('categories.index') }}">
+                        <a class="link" href="{{ route('tags.index') }}">
                             <i class="material-icons">category</i>
                             <span>Tags</span>
                         </a>
