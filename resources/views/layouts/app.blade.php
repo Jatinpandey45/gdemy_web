@@ -36,55 +36,41 @@
         <div id="app">
             <header id="header" class="bootstrap">
                 <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-                    <div class="container">
-                        <a class="navbar-brand" href="{{ url('/') }}">
-                            {{ config('app.name', 'GkDemy') }}
-                        </a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-
-                        <div class="collapse navbar-collapse" id="navbarSupportContent">
-                            <!-- Left side of Navbar -->
-                            <ul class="navbar-nav mr-auto">
-
-                            </ul>
-                        </div>
-                    </div>
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        {{ config('app.name') }}
+                    </a>
                 </nav>
             </header>
-            {{-- @section('sidebar')
-                This is the master sidebar.
-            @show --}}
-
-            <nav class="nav-bar d-none d-md-block" role="navigation" id="nav-sidebar">
-                <ul class="list-group main-menu"">
-                    <li class="list-group-item" id="tab-AdminArticles">
-                        <a class="link" href="">
-                            <i class="material-icons">local_post_office</i>
-                            <span>Article</span>
-                        </a>
-                    </li>
-                    <li class="list-group-item" id="tab-AdminCategories">
-                        <a class="link" href="{{ route('categories.index') }}">
-                            <i class="material-icons">category</i>
-                            <span>{{ __('message.heading') }}</span>
-                        </a>
-                    </li>
-                    <li class="list-group-item" id="tab-AdminCategories">
-                        <a class="link" href="{{ route('categories.index') }}">
-                            <i class="material-icons">category</i>
-                            <span>Tags</span>
-                        </a>
-                    </li>
-                    <li class="list-group-item" id="tab-AdminCategories">
-                        <a class="link" href="{{ route('categories.index') }}">
-                            <i class="material-icons">category</i>
-                            <span>Monthly CA</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+            @section('sidebar')
+                <nav class="nav-bar d-none d-md-block" role="navigation" id="nav-sidebar">
+                    <ul class="list-group main-menu"">
+                        <li class="list-group-item" id="tab-AdminArticles">
+                            <a class="link" href="">
+                                <i class="material-icons">local_post_office</i>
+                                <span>Article</span>
+                            </a>
+                        </li>
+                        <li class="list-group-item" id="tab-AdminCategories">
+                            <a class="link" href="{{ route('categories.index') }}">
+                                <i class="material-icons">category</i>
+                                <span>{{ __('message.heading') }}</span>
+                            </a>
+                        </li>
+                        <li class="list-group-item" id="tab-AdminTags">
+                            <a class="link" href="{{ route('tags.index') }}">
+                                <i class="material-icons">category</i>
+                                <span>Tags</span>
+                            </a>
+                        </li>
+                        <li class="list-group-item" id="tab-AdminCategories">
+                            <a class="link" href="{{ route('categories.index') }}">
+                                <i class="material-icons">category</i>
+                                <span>Monthly CA</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            @show
             <div id="main">
                 <div id="content" class="bootstrap ">
                     <div class="bootstrap">

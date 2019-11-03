@@ -552,7 +552,7 @@ Primary use:
   background: #363a41;
   bottom: 0;
   height: 100%;
-  margin-top: 2.5rem;
+  margin-top: 5rem;
   overflow-y: auto;
   position: fixed;
   top: 0;
@@ -617,6 +617,12 @@ Primary use:
 
 .list-group .list-group-item {
   background: transparent;
+  border: 1px solid rgba(0,0,0,.125);
+}
+
+.list-group  .list-group-item:first-child,
+.list-group  .list-group-item:last-child {
+  border-radius: 0;
 }
 
 @font-face {
@@ -640,4 +646,31 @@ Primary use:
 
 .main-menu .link span {
   padding-left: .625rem;
+}
+
+
+.list-group  .list-group-item:hover {
+  border-left: 2px solid white;
+  background: #00000057;
+}
+
+
+.list-group  .list-group-item a.link {
+  display: block;
+  outline: none;
+}
+
+.list-group .list-group-item.active {
+  border-left: 2px solid white;
+  background: #00000057;
+}
+
+header#header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+}
+
+div#main {
+  margin-top: 5rem;
 }

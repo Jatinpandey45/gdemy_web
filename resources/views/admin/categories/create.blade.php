@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="card card-default">
-        <div class="card-header h3">Create Categories</div>
+        <div class="card-header h3">Edit Categories</div>
         <div class="card-body">
-          
+        
             <form action="{{route('categories.store')}}" id="category_form_id" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
@@ -17,7 +17,7 @@
 
                 </div>
 
-                   
+                
 
 
                 <div class="form-group">
@@ -29,7 +29,7 @@
 
                 </div>
 
-               
+            
 
                 <div class="form-group">
                     <label for="category_description">Description</label>
@@ -57,9 +57,6 @@
             </form>
         </div>
     </div>
-
-
-
 @section('pagescript')
 <script src="{{asset('js/jquery-validation/dist/jquery.validate.min.js')}}"></script>
 <script src="{{asset('js/jquery-validation/dist/additional-methods.min.js')}}"></script>
