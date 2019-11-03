@@ -85,12 +85,9 @@
 
 
 @section('pagescript')
-<!-- <script src="{{asset('js/jquery-validatioan/dist/jquery.validate.min.js')}}"></script> -->
-<!-- <script src="{{asset('js/jquery-validation/dist/additional-methods.min.js')}}"></script> -->
-<!-- <script type="text/javascript" src="{{asset('js/datatable.min.js')}}"></script> -->
-<!-- <script src="{{asset('js/category.js')}}"></script> -->
-
-
+<script src="{{asset('js/jquery.validate.min.js')}}"></script> 
+<script src="{{asset('js/additional-methods.min.js')}}"></script>
+<script src="{{asset('js/category.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/datatable.min.js')}}"></script>
 
 <script>
