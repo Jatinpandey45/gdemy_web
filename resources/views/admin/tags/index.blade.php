@@ -81,11 +81,11 @@
     var table = $('#tag_datatable').DataTable({
     processing: true,
     serverSide: true,
-    ajax: "{{route('admin.category.list.records')}}",
+    ajax: "{{route('admin.tag.list')}}",
     columns: [
-        {data: 'category_name', name: 'Category'},
+        {data: 'tag_name', name: 'Category'},
         {data: 'tag_desc', name: 'Description'},
-        {data: 'category_slug', name: 'Slug'},
+        {data: 'tag_slug', name: 'Slug'},
         {data:"action","className": "text-right", "render" : function ( data, type, row ){
             return '<a href="'+row.edit_route+'"><i class="material-icons">edit</i></a>'+
                 '<a href="javascript:void(0);" class="remove-item" data-id="'+data+'"><i class="material-icons">delete</i></a>';
