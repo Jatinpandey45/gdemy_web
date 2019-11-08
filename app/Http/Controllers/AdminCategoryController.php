@@ -31,6 +31,11 @@ class AdminCategoryController extends Controller
         return view('admin.categories.index')->with('controller', 'categories');
     }
 
+    public function create()
+    {
+        return view('admin.posts.create');
+    }
+
     /**
      * store
      * @param : CreateCategoryRequest

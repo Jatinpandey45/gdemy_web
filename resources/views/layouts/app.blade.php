@@ -24,12 +24,13 @@
         <script src="{{asset('js/jquery..js')}}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        {{-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> --}}
         <link href="{{ asset('css/main.css') }}" rel="stylesheet">
         <link href="{{ asset('css/bootstrap-prestashop-ui-kit.css') }}" rel="stylesheet">
         <!-- <link rel="stylesheet" type="text/css" href="{{asset('css/jquery.dataTables.min.css')}}"/> -->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css"/>
         
+        @yield('css')
     </head>
     <body>
         <div id="app">
@@ -44,7 +45,7 @@
                 <nav class="nav-bar d-none d-md-block" role="navigation" id="nav-sidebar">
                     <ul class="list-group main-menu"">
                         <li class="list-group-item" id="tab-AdminArticles">
-                            <a class="link" href="">
+                            <a class="link" href="{{ route('categories.create') }}">
                                 <i class="material-icons">local_post_office</i>
                                 <span>Posts</span>
                             </a>
@@ -64,7 +65,7 @@
                         <li class="list-group-item" id="tab-AdminCategories">
                             <a class="link" href="{{ route('categories.index') }}">
                                 <i class="material-icons">schedule</i>
-                                <span>Monthly CA</span>
+                                <span>Monthly Tags</span>
                             </a>
                         </li>
                     </ul>
