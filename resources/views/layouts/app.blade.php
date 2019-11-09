@@ -43,8 +43,8 @@
             @section('sidebar')
                 <nav class="nav-bar d-none d-md-block" role="navigation" id="nav-sidebar">
                     <ul class="list-group main-menu"">
-                        <li class="list-group-item" id="tab-AdminArticles">
-                            <a class="link" href="{{ route('categories.create') }}">
+                        <li class="list-group-item @if(in_array(Route::currentRouteName(),['posts.index','posts.edit'])) active @endif" id="tab-AdminArticles">
+                            <a class="link" href="{{ route('posts.index') }}">
                                 <i class="material-icons">local_post_office</i>
                                 <span>Posts</span>
                             </a>

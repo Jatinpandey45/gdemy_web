@@ -31,4 +31,7 @@ Route::get('/','HomeController@index')->name('user.home.page');
  
  Route::resource('monthly','MonthlyController');
  Route::get('month-list','MonthlyController@monthList')->name('admin.month.list');
+
+ Route::resource('posts','AdminPostController');
+ 
  
