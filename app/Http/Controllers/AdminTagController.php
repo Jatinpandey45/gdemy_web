@@ -120,7 +120,7 @@ class AdminTagController extends Controller
      * @return : application/json
      */
 
-     public function monthList(Request $request)
+     public function tagList(Request $request)
      {
         $columns = array(
             'tag_name',
