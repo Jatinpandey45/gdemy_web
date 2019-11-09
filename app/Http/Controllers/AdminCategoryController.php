@@ -31,7 +31,6 @@ class AdminCategoryController extends Controller
         return view('admin.categories.index')->with('controller', 'categories');
     }
 
-
     /**
      * store
      * @param : CreateCategoryRequest
