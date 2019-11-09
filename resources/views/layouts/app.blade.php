@@ -43,7 +43,7 @@
             @section('sidebar')
                 <nav class="nav-bar d-none d-md-block" role="navigation" id="nav-sidebar">
                     <ul class="list-group main-menu"">
-                        <li class="list-group-item" id="tab-AdminArticles">
+                        <li class="list-group-item @if(in_array(Route::currentRouteName(),['posts.index','posts.edit','posts.create'])) active @endif" id="tab-AdminArticles">
                             <a class="link" href="{{ route('posts.index') }}">
                                 <i class="material-icons">local_post_office</i>
                                 <span>Posts</span>
@@ -61,7 +61,7 @@
                                 <span>Tags</span>
                             </a>
                         </li>
-                        <li class="list-group-item @if(in_array(Route::currentRouteName(),['monthly.index','monthly.edit'])) active @endif"" id="tab-AdminCategories">
+                        <li class="list-group-item @if(in_array(Route::currentRouteName(),['monthly.index','monthly.edit'])) active @endif" id="tab-AdminCategories">
                             <a class="link" href="{{ route('monthly.index') }}">
                                 <i class="material-icons">schedule</i>
                                 <span>Monthly Tags</span>

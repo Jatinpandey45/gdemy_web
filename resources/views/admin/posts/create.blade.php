@@ -34,8 +34,9 @@
 
                     <div class="form-group">
                         <label for="post_desc">Description</label>
-                        <input id="post_desc" type="hidden" name="post_desc">
-                        <trix-editor input="post_desc"></trix-editor>
+                        <!-- <input id="post_desc" type="hidden" name="post_desc">
+                        <trix-editor input="post_desc"></trix-editor> -->
+                        <textarea class="gk_tinymce"></textarea>
                     </div>
 
                     <div class="form-group">
@@ -117,6 +118,8 @@
             </div> --}}
         </div>
     </form>
+    <!-- public/js/tiny_mce/plugins/responsivefilemanager -->
+    <input type="hidden" value="{{asset('js/tiny_mce/plugins/responsivefilemanager')}}" id="filemanagerlink"/>
     {{-- <div class="row">
     </div> --}}
 @section('pagescript')
@@ -124,7 +127,14 @@
 <script src="{{asset('js/jquery-validation/dist/additional-methods.min.js')}}"></script>
 
 <script src="{{asset('js/category.js')}}"></script>
+<!-- <script src="{{asset('js/posts/createpost.js')}}"></script> -->
+<script src="{{asset('js/tiny_mce/tinymce.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.0/trix.js"></script>
+
+<!-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>tinymce.init({selector:'#textarea'});</script> -->
+<script src="{{asset('js/posts/createpost.js')}}"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
     flatpickr('#published_at', {

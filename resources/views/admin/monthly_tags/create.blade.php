@@ -15,7 +15,7 @@
                     </ul>
                 </div>            
             @endif
-            <form action="{{route('monthly_tags.store')}}" method="POST">
+            <form action="{{route('monthly.store')}}" method="POST">
                 @csrf
                 <div class="form-group">
                     <label for="month_name">Name</label>
