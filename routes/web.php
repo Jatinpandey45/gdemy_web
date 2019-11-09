@@ -24,7 +24,11 @@ Route::get('/','HomeController@index')->name('user.home.page');
  Route::get('admin','AdminController@index')->name('admin.current.affairs');
 
  Route::resource('categories', 'AdminCategoryController');
- Route::resource('tags','AdminTagController');
  Route::get('category-list','AdminCategoryController@categoryList')->name('admin.category.list.records');
+ 
+ Route::resource('tags','AdminTagController');
  Route::get('tag-list','AdminTagController@tagList')->name('admin.tag.list');
+ 
+ Route::resource('monthly','MonthlyController');
+ Route::get('month-list','MonthlyController@monthList')->name('admin.month.list');
  
