@@ -3,6 +3,9 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
+            <div class="form-group">
+                <a href="{{ route('posts.create') }}" class="btn btn-primary">Create Post</a>
+            </div>
             <div class="card card-default">
                 <div class="card-header h3">Posts</div>
                     <div class="card-body">
