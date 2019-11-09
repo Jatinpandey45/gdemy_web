@@ -20,4 +20,12 @@ class Tags extends Model
     {
         return $this->belongsTo(Lang::class);
     }
+
+    public static function searchTags($search)
+    {
+        return Tags::query()
+        ->where('tag_name', 'LIKE', "%{$search}%")
+        ->orWhere('tag_slug', 'LIKE', "%{$search}%")
+        ->get();
+    }
 }

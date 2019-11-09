@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\MonthTags;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreMonthTagRequest;
+use Exception;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Redirect;
+use Symfony\Component\HttpFoundation\Response;
 
-class MonthlyController extends Controller
+class AdminMonthlyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,9 +28,7 @@ class MonthlyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        
-    }
+    { }
 
     /**
      * Store a newly created resource in storage.
@@ -32,9 +36,34 @@ class MonthlyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreMonthTagRequest $request)
     {
-        //
+        try {
+            
+            $monthTag  = new MonthTags;
+            $monthTag->month_name = $request->get('month_name');
+            $monthTag->month_slug = $request->get('month_slug');
+            $monthTag->month_desc = $request->get('month_desc','');
+            $monthTag->lang_id  = $this->getLocalId();
+            $monthTag->save();
+            
+
+            $response = ['code' => Response::HTTP_CREATED, 'message' => trans('message.')];
+        } catch(QueryException $e) 
+        {
+            $response = [
+                'code' => $e->getCode(),
+                'message' => $e->getMessage()
+            ];
+      
+        }catch (Exception $e) {
+            $response = [
+                'code' => $e->getCode(),
+                'message' => $e->getMessage()
+            ];
+        }
+
+        return Redirect::back()->with('success', $response);
     }
 
     /**
@@ -56,7 +85,7 @@ class MonthlyController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.tags.edit');
+        return view('admin.monthly_tag.edit');
         //
     }
 
@@ -89,15 +118,15 @@ class MonthlyController extends Controller
      * @return : application/json
      */
 
-     public function monthList(Request $request)
-     {
+    public function monthList(Request $request)
+    {
         $columns = array(
-            'tag_name',
-            'tag_desc',
-            'tag_slug'
+            'month_name',
+            'month_slug',
+            'month_desc'
         );
 
-        $totalData = Tags::count();
+        $totalData = MonthTags::count();
 
         $totalFiltered = $totalData;
 
@@ -107,22 +136,22 @@ class MonthlyController extends Controller
         $dir = $request->input('order.0.dir');
 
         if (empty($request->input('search.value'))) {
-            $tags = Tags::offset($start)
+            $tags = MonthTags::offset($start)
                 ->limit($limit)
                 ->orderBy($order, $dir)
                 ->get();
         } else {
             $search = $request->input('search.value');
 
-            $tags =  Tags::where('tag_name', 'LIKE', "%{$search}%")
-                ->orWhere('tag_slug', 'LIKE', "%{$search}%")
+            $tags =  MonthTags::where('month_name', 'LIKE', "%{$search}%")
+                ->orWhere('month_slug', 'LIKE', "%{$search}%")
                 ->offset($start)
                 ->limit($limit)
                 ->orderBy($order, $dir)
                 ->get();
 
-            $totalFiltered = Tags::where('tag_name', 'LIKE', "%{$search}%")
-                ->orWhere('tag_slug', 'LIKE', "%{$search}%")
+            $totalFiltered = Tags::where('month_name', 'LIKE', "%{$search}%")
+                ->orWhere('month_slug', 'LIKE', "%{$search}%")
                 ->count();
         }
 
@@ -130,12 +159,11 @@ class MonthlyController extends Controller
         if (!empty($tags)) {
             foreach ($tags as $row) {
 
-
-                $nestedData['tag_name'] = $row->tag_name;
-                $nestedData['tag_desc'] = $row->tag_desc;
-                $nestedData['tag_slug'] = $row->tag_slug;
+                $nestedData['month_name'] = $row->month_name;
+                $nestedData['month_slug'] = $row->month_slug;
+                $nestedData['month_desc'] = $row->month_desc;
                 $nestedData['action'] = encrypt($nestedData);
-                $nestedData['edit_route'] = route('categories.edit',encrypt($row->_id));
+                $nestedData['edit_route'] = route('tags.edit', encrypt($row->_id));
                 $data[] = $nestedData;
             }
         }
@@ -148,5 +176,5 @@ class MonthlyController extends Controller
         );
 
         echo json_encode($json_data);
-     }
+    }
 }

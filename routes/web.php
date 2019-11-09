@@ -29,9 +29,10 @@ Route::get('/','HomeController@index')->name('user.home.page');
  Route::resource('tags','AdminTagController');
  Route::get('tag-list','AdminTagController@tagList')->name('admin.tag.list');
  
- Route::resource('monthly','MonthlyController');
- Route::get('month-list','MonthlyController@monthList')->name('admin.month.list');
+ Route::resource('monthly','AdminMonthlyController');
+ Route::get('month-list','AdminMonthlyController@monthList')->name('admin.month.list');
 
  Route::resource('posts','AdminPostController');
  Route::get('post-list','AdminPostController@postList')->name('admin.post.list');
+ Route::get('search-tags','AdminPostController@searchTags')->name('post.search.tags');
  
