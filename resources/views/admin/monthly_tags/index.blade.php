@@ -11,19 +11,19 @@
                         @csrf
                         <div class="form-group">
                             <label for="monthly_name">Name</label>
-                            <input type="text" id="monthly_name" value="{{old('monthly_name')}}" class="form-control" placeholder="Name field must be unique" name="monthly_name">
+                            <input type="text" id="monthly_name" value="{{old('month_name')}}" class="form-control" placeholder="Name field must be unique" name="month_name">
 
-                            @if($errors->has('monthly_name'))
-                                <span class="error">{{ $errors->first('monthly_name') }}</span>
+                            @if($errors->has('month_name'))
+                                <span class="error">{{ $errors->first('month_name') }}</span>
                             @endif
 
                         </div>                  
 
                         <div class="form-group">
                             <label for="monthly_slug">Slug</label>
-                            <input type="text" id="monthly_slug" class="form-control" name="monthly_slug">
-                            @if($errors->has('monthly_slug'))
-                                <span class="error">{{ $errors->first('monthly_slug') }}</span>
+                            <input type="text" id="monthly_slug" value="{{old('month_slug')}}" class="form-control" name="month_slug">
+                            @if($errors->has('month_slug'))
+                                <span class="error">{{ $errors->first('month_slug') }}</span>
                             @endif
 
                         </div>
@@ -32,7 +32,7 @@
 
                         <div class="form-group">
                             <label for="monthly_desc">Description</label>
-                            <textarea name="monthly_desc" class="form-control">
+                            <textarea name="month_desc" class="form-control">
                             </textarea>
                         </div>
                         <div class="form-group">
@@ -78,11 +78,11 @@
     var table = $('#monthly_datatable').DataTable({
     processing: true,
     serverSide: true,
-    ajax: "{{route('admin.tag.list')}}",
+    ajax: "{{route('admin.month.list')}}",
     columns: [
-        {data: 'tag_name', name: 'Category'},
-        {data: 'tag_desc', name: 'Description'},
-        {data: 'tag_slug', name: 'Slug'},
+        {data: 'month_name', name: 'Month'},
+        {data: 'month_desc', name: 'Description'},
+        {data: 'month_slug', name: 'Slug'},
         {data:"action","className": "text-right", "render" : function ( data, type, row ){
             return '<a href="'+row.edit_route+'"><i class="material-icons">edit</i></a>'+
                 '<a href="javascript:void(0);" class="remove-item" data-id="'+data+'"><i class="material-icons">delete</i></a>';
