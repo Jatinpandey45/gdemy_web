@@ -61,8 +61,8 @@
                                 <span>Tags</span>
                             </a>
                         </li>
-                        <li class="list-group-item" id="tab-AdminCategories">
-                            <a class="link" href="{{ route('categories.index') }}">
+                        <li class="list-group-item @if(in_array(Route::currentRouteName(),['monthly.index','monthly.edit'])) active @endif"" id="tab-AdminCategories">
+                            <a class="link" href="{{ route('monthly.index') }}">
                                 <i class="material-icons">schedule</i>
                                 <span>Monthly Tags</span>
                             </a>

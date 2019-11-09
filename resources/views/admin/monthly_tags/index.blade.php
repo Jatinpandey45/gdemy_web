@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="d-flex justify-content-end mb-2">
-        <a href="{{ route('monthly_tags.create') }}" class="btn btn-success float-right">
+        <a href="{{ route('monthly.create') }}" class="btn btn-success float-right">
             Add Monthly Tags
         </a>
     </div>
