@@ -163,7 +163,7 @@ class AdminMonthlyController extends Controller
                 $nestedData['month_slug'] = $row->month_slug;
                 $nestedData['month_desc'] = $row->month_desc;
                 $nestedData['action'] = encrypt($nestedData);
-                $nestedData['edit_route'] = route('tags.edit', encrypt($row->_id));
+                $nestedData['edit_route'] = route('tags.edit', encrypt($row->id));
                 $data[] = $nestedData;
             }
         }
