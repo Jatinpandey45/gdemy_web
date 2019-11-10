@@ -18,9 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 //Route::get('/','HomeController@index')->name('user.home.page');
 
-Route::get('/',function(){
-    return Redirect::route('login');
-});
+Route::get('/','FrontPageController@index');
 
 
 /**
@@ -35,8 +33,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'],function(){
 
     Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('admin','AdminController@index')->name('admin.current.affairs');
-
+  
     Route::resource('categories', 'AdminCategoryController');
     Route::get('category-list','AdminCategoryController@categoryList')->name('admin.category.list.records');
     
