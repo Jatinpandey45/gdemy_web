@@ -25,7 +25,7 @@ class Controller extends BaseController
 
         $find = Lang::where('lang_code',$locale)->first();
 
-        return $find->count() ? self::DEFAULT_LANG_ID : $find->_id;
+        return $find->count() ? self::DEFAULT_LANG_ID : $find->id;
         
     }
 }
