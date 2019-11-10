@@ -102,7 +102,7 @@
 
 
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" name="tag_name">
+                        <input type="text" class="form-control" name="tag_name" id="tag_name">
                         <img id="loader_element_id" width="100" height="100" style="display:none;position: absolute;margin: -67px 203px -7px;" src="{{asset('images/Spinner-1s-200px.gif')}}">
                         <div class="input-group-append">
                             <a class="btn btn-primary" id="add_tag" href="javascript:void(0)">Add</a>
@@ -197,17 +197,17 @@
     //     enableTime: true
     // });
 
-    // $('#tag_name').autocomplete({
-    // serviceUrl: "{{route('post.search.tags')}}",
-    // minChars: 3,
-    // dataType: 'json',
-    // type : "get",
-    // onSearchStart  : function(){$("#loader_element_id").show();},
-    // onSearchComplete    : function(){$("#loader_element_id").hide();},
-    // onSelect: function (suggestion) {
-    //     alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
-    // }
-// });
+    $('#tag_name').autocomplete({
+    serviceUrl: "{{route('post.search.tags')}}",
+    minChars: 3,
+    dataType: 'json',
+    type : "get",
+    onSearchStart  : function(){$("#loader_element_id").show();},
+    onSearchComplete    : function(){$("#loader_element_id").hide();},
+    onSelect: function (suggestion) {
+        alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+    }
+});
 </script>
 @endsection
 
