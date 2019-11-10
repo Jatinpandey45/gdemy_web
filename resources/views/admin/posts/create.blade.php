@@ -44,14 +44,6 @@
                             <span class="error">{{ $errors->first('published_at') }}</span>
                         @endif
                     </div>
-
-                    <div class="form-group">
-                        <label for="featured_image">Feature Image</label>
-                        <input type="file" id="featured_image" class="form-control" name="featured_image">
-                        @if($errors->has('featured_image'))
-                            <span class="error">{{ $errors->first('featured_image') }}</span>
-                        @endif
-                    </div>
                 </div>
             </div>
 
@@ -110,6 +102,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="card card-default form-group">
                 <div class="card-header h3">Categories</div>
                 <div class="card-body">
@@ -136,14 +129,26 @@
                     </div> 
                 </div>
             </div>
+
+            <div class="card card-default form-group">
+                <div class="card-header h3">Featured Image</div>
+                <div class="card-body">
+                    <div class="form-group">
+                        {{-- <label for="featured_image">Feature Image</label> --}}
+                        <input type="file" id="featured_image" class="form-control" name="featured_image">
+                        @if($errors->has('featured_image'))
+                            <span class="error">{{ $errors->first('featured_image') }}</span>
+                        @endif
+                    </div>
+                </div>
+            </div>
             <div class="card card-default form-group">
                 <div class="card-header h3">Monthly Categories</div>
                 <div class="card-body">
                     <div class="form-group">
                         {{-- <label for="tag_name">Name</label> --}}
                         @if($month)
-                            @foreach($month as $val)
-
+                        @foreach($month as $val)
                             <div class="checkbox">
                                 <label>
                                         <input type="checkbox" value="{{$val->_id}}" name="monthly[]"  id="monthly_{{$val->_id}}">
