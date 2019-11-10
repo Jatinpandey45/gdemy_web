@@ -5,8 +5,8 @@
         <div class="card-header h3">Edit Categories</div>
         <div class="card-body">
         
-            <form action="{{route('categories.update',$id)}}" id="category_form_id" method="POST" enctype="multipart/form-data">
-           
+            <form action="{{route('categories.update',$decrypt)}}" id="category_form_id" method="POST" enctype="multipart/form-data">
+               
                 @csrf
                 @method('PUT')
                 <div class="form-group">
