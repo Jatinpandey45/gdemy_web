@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <form action="{{route('posts.store')}}" id="category_form_id" class="row" method="POST" enctype="multipart/form-data">
@@ -135,15 +135,14 @@
 <script src="{{asset('js/jquery-validation/dist/additional-methods.min.js')}}"></script>
 <script src="{{asset('js/category.js')}}"></script>
 <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
-{{-- <script src="{{asset('js/posts/createpost.js')}}"></script> --}}
+<script src="{{asset('js/posts/createpost.js')}}"></script>
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.0/trix.js"></script> --}}
 
 <!-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
     <script>tinymce.init({selector:'#textarea'});</script> -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="{{asset('js/posts/createpost.js')}}"></script>
-<script src="{{asset('js/jQuery-Autocomplete/dist/jquery.autocomplete.min.js')}}"></script>
+<script src="{{asset('js/jquery.autocomplete.js')}}"></script>
 
 <script>
     // flatpickr('#published_at', {

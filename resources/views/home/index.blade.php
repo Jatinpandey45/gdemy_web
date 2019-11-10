@@ -28,6 +28,9 @@
 				
 
 				<div class="flex-w m-t-10 m-b-10">
+				<a href="{{route('categories.index')}}" target="blank"  class="size4 flex-c-m how-social trans-04 m-r-5 m-b-3 m-t-3">
+						<i class="fa fa-user"></i>
+					</a>
 					<a href="https://www.facebook.com/GKdemy-103225121085607/" target="blank"  class="size4 flex-c-m how-social trans-04 m-r-5 m-b-3 m-t-3">
 						<i class="fa fa-facebook"></i>
 					</a>
