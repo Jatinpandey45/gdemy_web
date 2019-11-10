@@ -70,7 +70,7 @@
 
                         <li class="list-group-item" id="tab-AdminLogout">
                             <a class="link" href="{{ route('user.logout') }}">
-                                <i class="material-icons">Logout</i>
+                                <i class="material-icons">logout</i>
                                 <span>Logout</span>
                             </a>
                         </li>
