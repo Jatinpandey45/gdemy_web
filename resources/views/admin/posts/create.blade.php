@@ -4,13 +4,13 @@
     <form action="{{route('posts.store')}}" id="category_form_id" class="row" method="POST" enctype="multipart/form-data">
         
         <div class="col-md-9">
-            <div class="card card-default">
+            <div class="card card-default form-group">
                 <div class="card-header h3">Create Post</div>
                 <div class="card-body">
             
                     @csrf
                     <div class="form-group">
-                        <label for="post_title">Name</label>
+                        <label for="post_title">Title</label>
                         <input type="text" id="post_title" value="{{old('post_title')}}" class="form-control" placeholder="Name field must be unique" name="post_title">
 
                         @if($errors->has('post_title'))
@@ -52,9 +52,30 @@
                             <span class="error">{{ $errors->first('featured_image') }}</span>
                         @endif
                     </div>
+                </div>
+            </div>
+
+            <div class="card card-default form-group">
+                <div class="card-header h3">SEO Settings</div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="post_seo_title">Title Tag</label>
+                        <input type="text" id="post_seo_title" value="{{old('post_seo_title')}}" class="form-control" placeholder="Name field must be unique" name="post_seo_title">
+                        <div class="help-block">Most search engine use upto 70</div>
+                        @if($errors->has('post_seo_title'))
+                            <span class="error">{{ $errors->first('post_seo_title') }}</span>
+                        @endif
+
+                    </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success">Add Post</button>
+                        <label for="meta_desc">Meta Description</label>
+                        <textarea id="meta_desc" class="form-control" name="meta_desc">{{old('post_slug')}}</textarea>
+                        <div class="help-block">Most search engine use upto 140</div>
+                        @if($errors->has('post_slug'))
+                            <span class="error">{{ $errors->first('post_slug') }}</span>
+                        @endif
+
                     </div>
                 </div>
             </div>
@@ -64,18 +85,29 @@
                 <div class="card-header h3">Publish</div>
                 <div class="card-body">
                     <div class="form-group">
-                        
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">Save Draft</button>
+                        </div>
                     </div> 
                 </div>
             </div>            
             <div class="card card-default form-group ">
                 <div class="card-header h3">Tag</div>
                 <div class="card-body">
-                    <div class="form-group">
-                        {{-- <label for="tag_name">Name</label> --}}
+                    {{-- <label for="tag_name">Name</label> --}}
+                    {{-- <div class="form-group">
                         <input type="text" id="tag_name" value="" class="form-control" placeholder="" name="tag_name">
                         <img id="loader_element_id" width="100" height="100" style="display:none;position: absolute;margin: -67px 203px -7px;" src="{{asset('images/Spinner-1s-200px.gif')}}">
-                    </div> 
+                    </div>  --}}
+
+
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="tag_name">
+                        <img id="loader_element_id" width="100" height="100" style="display:none;position: absolute;margin: -67px 203px -7px;" src="{{asset('images/Spinner-1s-200px.gif')}}">
+                        <div class="input-group-append">
+                            <a class="btn btn-primary" id="add_tag" href="javascript:void(0)">Add</a>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="card card-default form-group">
@@ -85,9 +117,17 @@
                         @if($category)
                             @foreach($category as $val)
 
-                            <div class="radio">
-                                <label><input type="radio" name="category" value="{{$val->_id}}"> {{ $val->category_name }}</label>
-                            </div>
+                                <div class="checkbox">
+                                    <label>
+                                         <input type="checkbox" value="{{$val->_id}}" name="category[]"  id="category_{{$val->_id}}">
+                                         <span class="cr">
+                                            <i class="cr-icon material-icons rtl-no-flip checkbox-checked"></i></span>
+                                        </span>
+                                        <span class="gk_name">
+                                            {{ $val->category_name }}
+                                        </span>
+                                    </label>
+                                </div>
 
                             @endforeach
                        
@@ -104,8 +144,16 @@
                         @if($month)
                             @foreach($month as $val)
 
-                            <div class="radio">
-                                <label><input type="radio" name="category" value="{{$val->_id}}"> {{ $val->month_name }}</label>
+                            <div class="checkbox">
+                                <label>
+                                        <input type="checkbox" value="{{$val->_id}}" name="monthly[]"  id="monthly_{{$val->_id}}">
+                                        <span class="cr">
+                                        <i class="cr-icon material-icons rtl-no-flip checkbox-checked"></i></span>
+                                    </span>
+                                    <span class="gk_name">
+                                        {{ $val->monthly_name }}
+                                    </span>
+                                </label>
                             </div>
 
                             @endforeach
@@ -167,6 +215,8 @@
 @section('css')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.0/trix.css"> --}}
+
+<link rel="stylesheet" href={{ asset('css/custom_checkbox.css')}}
 @endsection
 
 
