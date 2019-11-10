@@ -67,8 +67,17 @@
                                 <span>Monthly Tags</span>
                             </a>
                         </li>
+
+                        <li class="list-group-item" id="tab-AdminLogout">
+                            <a class="link" href="{{ route('user.logout') }}">
+                                <i class="material-icons">Logout</i>
+                                <span>Logout</span>
+                            </a>
+                        </li>
+
                     </ul>
                 </nav>
+
             @show
             <div id="main">
                 <div id="content" class="bootstrap ">
