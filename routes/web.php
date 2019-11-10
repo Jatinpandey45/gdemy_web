@@ -49,6 +49,7 @@ Route::group(['middleware' => 'auth'],function(){
     Route::resource('posts','AdminPostController');
     Route::get('post-list','AdminPostController@postList')->name('admin.post.list');
     Route::get('search-tags','AdminPostController@searchTags')->name('post.search.tags');
+    Route::get('user-logout','HomeController@logoutUser')->name('user.logout');
 
 });
 
