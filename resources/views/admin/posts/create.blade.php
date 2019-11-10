@@ -142,7 +142,7 @@
 <script src="{{asset('js/posts/createpost.js')}}"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="{{asset('js/jQuery-Autocomplete/dist/jquery.autocomplete.min.js')}}"></script>
+<script src="{{asset('js/jquery.autocomplete.js')}}"></script>
 
 <script>
     flatpickr('#published_at', {
