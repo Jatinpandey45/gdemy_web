@@ -94,7 +94,7 @@
 
 
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" name="tag_name">
+                        <input type="text" class="form-control" name="tag_name" id="tag_name">
                         <img id="loader_element_id" width="100" height="100" style="display:none;position: absolute;margin: -67px 203px -7px;" src="{{asset('images/Spinner-1s-200px.gif')}}">
                         <div class="input-group-append">
                             <a class="btn btn-primary" id="add_tag" href="javascript:void(0)">Add</a>
@@ -190,38 +190,16 @@
 <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
 <script src="{{asset('js/posts/createpost.js')}}"></script>
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.0/trix.js"></script> --}}
-
-<!-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
-    <script>tinymce.init({selector:'#textarea'});</script> -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="{{asset('js/jquery.autocomplete.js')}}"></script>
 
-<script>
-    // flatpickr('#published_at', {
-    //     enableTime: true
-    // });
-
-    // $('#tag_name').autocomplete({
-    // serviceUrl: "{{route('post.search.tags')}}",
-    // minChars: 3,
-    // dataType: 'json',
-    // type : "get",
-    // onSearchStart  : function(){$("#loader_element_id").show();},
-    // onSearchComplete    : function(){$("#loader_element_id").hide();},
-    // onSelect: function (suggestion) {
-    //     alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
-    // }
-// });
-</script>
 @endsection
 
 
 @section('css')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.0/trix.css"> --}}
-
-<link rel="stylesheet" href={{ asset('css/custom_checkbox.css')}}
+<link rel="stylesheet" href="{{ asset('css/custom_checkbox.css')}}">
 @endsection
 
 
