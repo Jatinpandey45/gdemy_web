@@ -9,8 +9,10 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+        <!-- Scripts -->
+        <script src="{{asset('js/jquery..js')}}"></script>
+        {{-- <script src="{{ asset('js/jquery.min.js') }}" defer></script> --}}
+        <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">

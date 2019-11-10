@@ -127,46 +127,46 @@
         </div>
     </form>
     <!-- public/js/tiny_mce/plugins/responsivefilemanager -->
-    <input type="hidden" value="{{asset('js/tiny_mce/plugins/responsivefilemanager/filemanager')}}" id="filemanagerlink"/>
+    <input type="hidden" value="{{asset('js/tiny_mce/plugins/responsivefilemanager')}}" id="filemanagerlink"/>
+    {{-- <input type="hidden" value="{{asset('js/tiny_mce/plugins/responsivefilemanager/filemanager')}}" id="filemanagerlink"/> --}}
   
 @section('pagescript')
 <script src="{{asset('js/jquery-validation/dist/jquery.validate.min.js')}}"></script>
 <script src="{{asset('js/jquery-validation/dist/additional-methods.min.js')}}"></script>
 <script src="{{asset('js/category.js')}}"></script>
-<!-- <script src="{{asset('js/posts/createpost.js')}}"></script> -->
-<script src="{{asset('js/tiny_mce/tinymce.min.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.0/trix.js"></script>
+<script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
+<script src="{{asset('js/posts/createpost.js')}}"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.0/trix.js"></script> --}}
 
 <!-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-<script>tinymce.init({selector:'#textarea'});</script> -->
-<script src="{{asset('js/posts/createpost.js')}}"></script>
 
+    <script>tinymce.init({selector:'#textarea'});</script> -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="{{asset('js/jquery.autocomplete.js')}}"></script>
 
 <script>
-    flatpickr('#published_at', {
-        enableTime: true
-    });
+    // flatpickr('#published_at', {
+    //     enableTime: true
+    // });
 
-    $('#tag_name').autocomplete({
-    serviceUrl: "{{route('post.search.tags')}}",
-    minChars: 3,
-    dataType: 'json',
-    type : "get",
-    onSearchStart  : function(){$("#loader_element_id").show();},
-    onSearchComplete    : function(){$("#loader_element_id").hide();},
-    onSelect: function (suggestion) {
-        alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
-    }
-});
+    // $('#tag_name').autocomplete({
+    // serviceUrl: "{{route('post.search.tags')}}",
+    // minChars: 3,
+    // dataType: 'json',
+    // type : "get",
+    // onSearchStart  : function(){$("#loader_element_id").show();},
+    // onSearchComplete    : function(){$("#loader_element_id").hide();},
+    // onSelect: function (suggestion) {
+    //     alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+    // }
+// });
 </script>
 @endsection
 
 
 @section('css')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.0/trix.css">
+{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.0/trix.css"> --}}
 @endsection
 
 
