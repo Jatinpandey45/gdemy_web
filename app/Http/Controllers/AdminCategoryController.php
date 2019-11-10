@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Response;
@@ -78,8 +79,72 @@ class AdminCategoryController extends Controller
 
     public function edit($id)
     {   
+        try
+        {
+
+
         $decrypt = decrypt($id);
-        return view('admin.categories.create');
+        dd($decrypt);
+        $categoryData = Category::find($decrypt);
+        dd($categoryData);
+        if($categoryData->isEmpty) {
+            throw new Exception(trans('message.not_found'),Response::HTTP_NOT_FOUND);
+        }
+
+        return view('admin.categories.edit',compact('categoryData','id'));
+
+        }catch(Exception $e)
+        {
+            $response = ['code' => $e->getCode(),'message' => $e->getMessage()];
+            Log::error('ERROR :',$response);
+            abort(Response::HTTP_NOT_FOUND);
+        }
+        
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdateCategoryRequest $request, $id)
+    {
+        try {
+
+            /*
+            |
+            | store a new category 
+            |
+            */
+            dd($request->all());
+            $id  = decrypt($id);
+            $category = Category::find($id);
+            $category->category_name = $request->get('category_name');
+            $category->category_slug = $request->get('category_slug');
+            $category->category_description = $request->get('category_description', '');
+
+            if($request->file('category_icon')) {
+                $category->category_icon = base64_encode(file_get_contents($request->file('category_icon')));
+            }
+            $category->status = ($request->get('status') == self::STATUS_ON) ? self::ACTIVE_STATUS : self::INACTIVE_STATUS;
+            $category->lang_id  = $this->getLocalId();
+            $category->save();
+
+            $response = ['code' => Response::HTTP_OK, 'message' => trans('message.category_success')];
+        } catch (QueryException $e) {
+
+            $response = ['code' => $e->getCode(), 'message' => $e->getMessage()];
+
+            ActivityLogs::create(['payload' => json_encode($response)]);
+        } catch (Exception $e) {
+
+            $response = ['code' => Response::HTTP_UNPROCESSABLE_ENTITY, 'message' => $e->getMessage()];
+        }
+
+        return Redirect::route('categories.index')->with('success', $response);
+
     }
 
     /**
@@ -133,7 +198,7 @@ class AdminCategoryController extends Controller
                 $nestedData['category_description'] = $row->category_description;
                 $nestedData['category_slug'] = $row->category_slug;
                 $nestedData['action'] = encrypt($nestedData);
-                $nestedData['edit_route'] = route('categories.edit',encrypt($row->_id));
+                $nestedData['edit_route'] = route('categories.edit',encrypt($row->id));
                 $data[] = $nestedData;
             }
         }
