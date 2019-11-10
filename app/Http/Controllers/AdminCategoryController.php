@@ -78,28 +78,24 @@ class AdminCategoryController extends Controller
      */
 
     public function edit($id)
-    {   
-        try
-        {
+    {
+        try {
 
 
-        $decrypt = decrypt($id);
-        dd($decrypt);
-        $categoryData = Category::find($decrypt);
-        dd($categoryData);
-        if($categoryData->isEmpty) {
-            throw new Exception(trans('message.not_found'),Response::HTTP_NOT_FOUND);
-        }
+            $decrypt = decrypt($id);
 
-        return view('admin.categories.edit',compact('categoryData','id'));
+            $categoryData = Category::find($decrypt);
 
-        }catch(Exception $e)
-        {
-            $response = ['code' => $e->getCode(),'message' => $e->getMessage()];
-            Log::error('ERROR :',$response);
+            if ($categoryData->isEmpty) {
+                throw new Exception(trans('message.not_found'), Response::HTTP_NOT_FOUND);
+            }
+
+            return view('admin.categories.edit', compact('categoryData', 'decrypt'));
+        } catch (Exception $e) {
+            $response = ['code' => $e->getCode(), 'message' => $e->getMessage()];
+            Log::error('ERROR :', $response);
             abort(Response::HTTP_NOT_FOUND);
         }
-        
     }
 
     /**
@@ -118,14 +114,13 @@ class AdminCategoryController extends Controller
             | store a new category 
             |
             */
-            dd($request->all());
-            $id  = decrypt($id);
             $category = Category::find($id);
+          
             $category->category_name = $request->get('category_name');
             $category->category_slug = $request->get('category_slug');
             $category->category_description = $request->get('category_description', '');
 
-            if($request->file('category_icon')) {
+            if ($request->file('category_icon')) {
                 $category->category_icon = base64_encode(file_get_contents($request->file('category_icon')));
             }
             $category->status = ($request->get('status') == self::STATUS_ON) ? self::ACTIVE_STATUS : self::INACTIVE_STATUS;
@@ -142,9 +137,8 @@ class AdminCategoryController extends Controller
 
             $response = ['code' => Response::HTTP_UNPROCESSABLE_ENTITY, 'message' => $e->getMessage()];
         }
-
+        
         return Redirect::route('categories.index')->with('success', $response);
-
     }
 
     /**
@@ -198,7 +192,7 @@ class AdminCategoryController extends Controller
                 $nestedData['category_description'] = $row->category_description;
                 $nestedData['category_slug'] = $row->category_slug;
                 $nestedData['action'] = encrypt($nestedData);
-                $nestedData['edit_route'] = route('categories.edit',encrypt($row->id));
+                $nestedData['edit_route'] = route('categories.edit', encrypt($row->id));
                 $data[] = $nestedData;
             }
         }
