@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Tags;
 use App\Http\Requests\StoreTagRequest;
+use App\Http\Requests\UpdateTagRequest;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Redirect;
@@ -87,7 +88,25 @@ class AdminTagController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.tags.edit');
+       
+        try 
+        {
+            $decrypt = decrypt($id);
+
+            $tags = Tags::find($decrypt);
+
+            if ($tags->isEmpty) {
+                throw new Exception(trans('message.not_found'), Response::HTTP_NOT_FOUND);
+            }
+
+            return view('admin.tags.edit',compact('tags', 'decrypt'));
+           
+        } catch (Exception $e) {
+            $response = ['code' => $e->getCode(), 'message' => $e->getMessage()];
+            Log::error('ERROR :', $response);
+            abort(Response::HTTP_NOT_FOUND);
+        }
+
         //
     }
 
@@ -98,9 +117,35 @@ class AdminTagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateTagRequest $request, $id)
     {
-        //
+        try {
+
+            /*
+            |
+            | store a new category 
+            |
+            */
+            $tag = Tags::find($id);
+          
+            $tag->tag_name = $request->get('tag_name');
+            $tag->tag_slug = $request->get('tag_slug');
+            $tag->tag_desc = $request->get('tag_desc', '');
+            $tag->lang_id  = $this->getLocalId();
+            $tag->save();
+
+            $response = ['code' => Response::HTTP_OK, 'message' => trans('message.tag_success')];
+        } catch (QueryException $e) {
+
+            $response = ['code' => $e->getCode(), 'message' => $e->getMessage()];
+
+            ActivityLogs::create(['payload' => json_encode($response)]);
+        } catch (Exception $e) {
+
+            $response = ['code' => Response::HTTP_UNPROCESSABLE_ENTITY, 'message' => $e->getMessage()];
+        }
+        
+        return Redirect::route('tags.index')->with('success', $response);
     }
 
     /**
@@ -166,7 +211,7 @@ class AdminTagController extends Controller
                 $nestedData['tag_desc'] = $row->tag_desc;
                 $nestedData['tag_slug'] = $row->tag_slug;
                 $nestedData['action'] = encrypt($nestedData);
-                $nestedData['edit_route'] = route('categories.edit',encrypt($row->_id));
+                $nestedData['edit_route'] = route('tags.edit',encrypt($row->id));
                 $data[] = $nestedData;
             }
         }

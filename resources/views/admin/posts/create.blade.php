@@ -175,9 +175,8 @@
         </div>
     </form>
     <!-- public/js/tiny_mce/plugins/responsivefilemanager -->
-    <input type="hidden" value="{{asset('js/tiny_mce/plugins/responsivefilemanager')}}" id="filemanagerlink"/>
-    {{-- <input type="hidden" value="{{asset('js/tiny_mce/plugins/responsivefilemanager/filemanager')}}" id="filemanagerlink"/> --}}
-  
+<input type="hidden" value="{{asset('js/tiny_mce/plugins/responsivefilemanager')}}" id="filemanagerlink"/> 
+
 @section('pagescript')
 <script src="{{asset('js/jquery-validation/dist/jquery.validate.min.js')}}"></script>
 <script src="{{asset('js/jquery-validation/dist/additional-methods.min.js')}}"></script>
