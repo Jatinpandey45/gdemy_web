@@ -10,7 +10,7 @@
                 @method('PUT')
                 <div class="form-group">
                     <label for="tag_name">Name</label>
-                    <input type="text" id="tag_name" value="{{old('tag_name',$tags->tag_name)}}" class="form-control" placeholder="Name field must be unique" name="tag_name">
+                    <input type="text" id="tag_name"  value="{{old('tag_name',$tags->tag_name)}}" class="form-control" placeholder="Name field must be unique" name="tag_name">
 
                     @if($errors->has('tag_name'))
                         <span class="error">{{ $errors->first('tag_name') }}</span>
@@ -20,7 +20,7 @@
 
                 <div class="form-group">
                     <label for="tag_slug">Slug</label>
-                    <input type="text" id="tag_slug" value="{{old('tag_slug',$tags->tag_slug)}}" class="form-control" name="tag_slug">
+                    <input type="text" id="tag_slug" readonly="readonly" value="{{old('tag_slug',$tags->tag_slug)}}" class="form-control" name="tag_slug">
                     @if($errors->has('tag_slug'))
                         <span class="error">{{ $errors->first('tag_slug') }}</span>
                     @endif
@@ -48,6 +48,11 @@
 @section('pagescript')
 <script src="{{asset('js/jquery-validation/dist/jquery.validate.min.js')}}"></script>
 <script src="{{asset('js/jquery-validation/dist/additional-methods.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/jquery.slugify.js')}}"></script>
+<script>
+ $('#tag_slug').slugify('#tag_name');
+</script>
+
 @endsection
 
 

@@ -79,9 +79,8 @@ class AdminCategoryController extends Controller
 
     public function edit($id)
     {
-        try {
-
-
+        try 
+        {
             $decrypt = decrypt($id);
 
             $categoryData = Category::find($decrypt);

@@ -24,7 +24,7 @@
 
                         <div class="form-group">
                             <label for="category_slug">Slug</label>
-                            <input type="text" id="category_slug" class="form-control" name="category_slug">
+                            <input type="text" id="category_slug" readonly="readonly" class="form-control" name="category_slug">
                             @if($errors->has('category_slug'))
                                 <span class="error">{{ $errors->first('category_slug') }}</span>
                             @endif
@@ -89,6 +89,7 @@
 <script src="{{asset('js/additional-methods.min.js')}}"></script>
 <script src="{{asset('js/category.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/datatable.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/jquery.slugify.js')}}"></script>
 
 <script>
    
@@ -107,11 +108,9 @@
          }
       }
     ]
-
-
-
     });
- 
+    $('#category_slug').slugify('#category_name');
+   
 </script>
 
 @endsection
