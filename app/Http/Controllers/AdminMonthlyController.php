@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\MonthTags;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreMonthTagRequest;
+use App\Http\Requests\UpdateMonthTagRequest;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Redirect;
@@ -85,7 +86,24 @@ class AdminMonthlyController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.monthly_tag.edit');
+        
+        try 
+        {
+            $decrypt = decrypt($id);
+
+            $month = MonthTags::find($decrypt);
+
+            if ($month->isEmpty) {
+                throw new Exception(trans('message.not_found'), Response::HTTP_NOT_FOUND);
+            }
+
+            return view('admin.monthly_tags.edit',compact('month', 'decrypt'));
+           
+        } catch (Exception $e) {
+            $response = ['code' => $e->getCode(), 'message' => $e->getMessage()];
+            Log::error('ERROR :', $response);
+            abort(Response::HTTP_NOT_FOUND);
+        }
         //
     }
 
@@ -96,9 +114,35 @@ class AdminMonthlyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateMonthTagRequest $request, $id)
     {
-        //
+        try {
+
+            /*
+            |
+            | store a new category 
+            |
+            */
+            $tag = MonthTags::find($id);
+          
+            $tag->month_name = $request->get('month_name');
+            $tag->month_slug = $request->get('month_slug');
+            $tag->month_desc = $request->get('month_desc', '');
+            $tag->lang_id  = $this->getLocalId();
+            $tag->save();
+
+            $response = ['code' => Response::HTTP_OK, 'message' => trans('message.month_success')];
+        } catch (QueryException $e) {
+
+            $response = ['code' => $e->getCode(), 'message' => $e->getMessage()];
+
+            ActivityLogs::create(['payload' => json_encode($response)]);
+        } catch (Exception $e) {
+
+            $response = ['code' => Response::HTTP_UNPROCESSABLE_ENTITY, 'message' => $e->getMessage()];
+        }
+        
+        return Redirect::route('monthly.index')->with('success', $response);
     }
 
     /**
@@ -163,7 +207,7 @@ class AdminMonthlyController extends Controller
                 $nestedData['month_slug'] = $row->month_slug;
                 $nestedData['month_desc'] = $row->month_desc;
                 $nestedData['action'] = encrypt($nestedData);
-                $nestedData['edit_route'] = route('tags.edit', encrypt($row->id));
+                $nestedData['edit_route'] = route('monthly.edit', encrypt($row->id));
                 $data[] = $nestedData;
             }
         }

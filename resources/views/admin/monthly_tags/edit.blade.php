@@ -4,34 +4,38 @@
     <div class="card card-default">
         <div class="card-header h3">Create Monthly Tags</div>
         <div class="card-body">
-            @if($errors->any())
-                <div class="alert alert-danger">
-                    <ul class="list-group">
-                        @foreach($errors->all() as $error)
-                            <li class="list-group-item text-danger">
-                                {{ $error }}
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>            
-            @endif
-            <form action="{{route('monthly.store')}}" method="POST">
+         
+            <form action="{{route('monthly.update',$decrypt)}}" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="form-group">
                     <label for="month_name">Name</label>
-                    <input type="text" id="month_name" class="form-control" name="month_name">
+                    <input type="text" id="month_name" value="{{old('month_name',$month->month_name)}}" class="form-control" name="month_name">
+
+                    @if($errors->has('month_name'))
+                        <span class="error">{{ $errors->first('month_name') }}</span>
+                    @endif
+               
+               
+               
                 </div>
                 <div class="form-group">
                     <label for="month_slug">Slug</label>
-                    <input type="text" id="month_slug" readonly="readonly" class="form-control" name="month_slug">
-                </div>
+                    <input type="text" id="month_slug" value="{{old('month_slug',$month->month_slug)}}" class="form-control" name="month_slug">
+
+                    @if($errors->has('month_slug'))
+                        <span class="error">{{ $errors->first('month_slug') }}</span>
+                    @endif
+               
+                 </div>
                 <div class="form-group">
                     <label for="month_desc">Description</label>
                     <textarea name="month_desc" class="form-control">
+                    {{old('month_name',$month->month_desc)}}
                     </textarea>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-success">Add Monthly Tags</button>
+                    <button type="submit" class="btn btn-success">update</button>
                 </div>
             </form>
         </div>

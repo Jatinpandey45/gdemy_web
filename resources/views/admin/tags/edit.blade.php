@@ -20,7 +20,7 @@
 
                 <div class="form-group">
                     <label for="tag_slug">Slug</label>
-                    <input type="text" id="tag_slug" readonly="readonly" value="{{old('tag_slug',$tags->tag_slug)}}" class="form-control" name="tag_slug">
+                    <input type="text" id="tag_slug" value="{{old('tag_slug',$tags->tag_slug)}}" class="form-control" name="tag_slug">
                     @if($errors->has('tag_slug'))
                         <span class="error">{{ $errors->first('tag_slug') }}</span>
                     @endif
