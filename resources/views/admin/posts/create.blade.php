@@ -21,7 +21,7 @@
 
                     <div class="form-group">
                         <label for="category_slug">Slug</label>
-                        <input type="text" id="category_slug" value="{{old('post_slug')}}" class="form-control" name="post_slug">
+                        <input type="text" id="post_slug" value="{{old('post_slug')}}" class="form-control" name="post_slug">
                         @if($errors->has('post_slug'))
                             <span class="error">{{ $errors->first('post_slug') }}</span>
                         @endif
@@ -119,7 +119,7 @@
 
                                 <div class="checkbox">
                                     <label>
-                                         <input type="checkbox" value="{{$val->_id}}" name="category[]"  id="category_{{$val->_id}}">
+                                         <input type="checkbox" value="{{$val->id}}" name="category[]"  id="category_{{$val->id}}">
                                          <span class="cr">
                                             <i class="cr-icon material-icons rtl-no-flip checkbox-checked"></i></span>
                                         </span>
@@ -158,12 +158,12 @@
                         @foreach($month as $val)
                             <div class="checkbox">
                                 <label>
-                                        <input type="checkbox" value="{{$val->_id}}" name="monthly[]"  id="monthly_{{$val->_id}}">
+                                        <input type="checkbox" value="{{$val->id}}" name="monthly[]"  id="monthly_{{$val->id}}">
                                         <span class="cr">
                                         <i class="cr-icon material-icons rtl-no-flip checkbox-checked"></i></span>
                                     </span>
                                     <span class="gk_name">
-                                        {{ $val->monthly_name }}
+                                        {{ $val->month_name }}
                                     </span>
                                 </label>
                             </div>
@@ -187,18 +187,30 @@
         </div>
     </form>
     <!-- public/js/tiny_mce/plugins/responsivefilemanager -->
-    <input type="hidden" value="{{asset('js/tiny_mce/plugins/responsivefilemanager')}}" id="filemanagerlink"/>
-    {{-- <input type="hidden" value="{{asset('js/tiny_mce/plugins/responsivefilemanager/filemanager')}}" id="filemanagerlink"/> --}}
-  
+<input type="hidden" value="{{asset('js/tiny_mce/plugins/responsivefilemanager')}}" id="filemanagerlink"/> 
+<input type="hidden" value="{{route('post.search.tags')}}" id="tag_search_request_route">
+
 @section('pagescript')
+
 <script src="{{asset('js/jquery-validation/dist/jquery.validate.min.js')}}"></script>
 <script src="{{asset('js/jquery-validation/dist/additional-methods.min.js')}}"></script>
 <script src="{{asset('js/category.js')}}"></script>
 <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
+<<<<<<< HEAD
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.0/trix.js"></script> --}}
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="{{asset('js/jquery.autocomplete.js')}}"></script>
 <script src="{{asset('js/posts/createpost.js')}}"></script>
+=======
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="{{asset('js/jquery.autocomplete.js')}}"></script>
+<script src="{{asset('js/posts/createpost.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/jquery.slugify.js')}}"></script>
+
+<script>
+$('#post_slug').slugify('#post_title');
+</script>
+>>>>>>> da0d7d4d6a75a1f29ef67ffa49d9b4381314e2a1
 
 @endsection
 

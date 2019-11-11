@@ -89,6 +89,7 @@
 <script src="{{asset('js/additional-methods.min.js')}}"></script>
 <script src="{{asset('js/category.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/datatable.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/jquery.slugify.js')}}"></script>
 
 <script>
    
@@ -107,11 +108,9 @@
          }
       }
     ]
-
-
-
     });
- 
+    $('#category_slug').slugify('#category_name');
+   
 </script>
 
 @endsection

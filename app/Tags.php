@@ -23,8 +23,8 @@ class Tags extends Model
 
     public static function searchTags($search)
     {
-        return Tags::query()
-        ->where('tag_name', 'LIKE', "%{$search}%")
+        return Tags::
+        where('tag_name', 'LIKE', "%{$search}%")
         ->orWhere('tag_slug', 'LIKE', "%{$search}%")
         ->get();
     }
