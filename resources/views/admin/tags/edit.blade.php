@@ -25,7 +25,7 @@
                         <span class="error">{{ $errors->first('tag_slug') }}</span>
                     @endif
 
-                </div>
+                </div>internatuon
 
             
 
