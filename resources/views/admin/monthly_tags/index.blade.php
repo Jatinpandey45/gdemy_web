@@ -21,7 +21,7 @@
 
                         <div class="form-group">
                             <label for="monthly_slug">Slug</label>
-                            <input type="text" id="monthly_slug" readonly="readonly" value="{{old('month_slug')}}" class="form-control" name="month_slug">
+                            <input type="text" id="monthly_slug"  value="{{old('month_slug')}}" class="form-control" name="month_slug">
                             @if($errors->has('month_slug'))
                                 <span class="error">{{ $errors->first('month_slug') }}</span>
                             @endif
