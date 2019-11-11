@@ -35,8 +35,7 @@
 
                         <div class="form-group">
                             <label for="tag_desc">Description</label>
-                            <textarea name="tag_desc" class="form-control">
-                            </textarea>
+                            <textarea name="tag_desc" class="form-control"></textarea>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-success">Add Tag</button>
