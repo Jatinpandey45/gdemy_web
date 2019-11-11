@@ -30,9 +30,7 @@
                  </div>
                 <div class="form-group">
                     <label for="month_desc">Description</label>
-                    <textarea name="month_desc" class="form-control">
-                    {{old('month_name',$month->month_desc)}}
-                    </textarea>
+                    <textarea name="month_desc" class="form-control">{{old('month_name',$month->month_desc)}}</textarea>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-success">update</button>

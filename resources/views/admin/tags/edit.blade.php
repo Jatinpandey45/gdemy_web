@@ -31,11 +31,7 @@
 
                 <div class="form-group">
                     <label for="tag_desc">Description</label>
-                    <textarea name="tag_desc" class="form-control">
-
-                    {{old('tag_desc',$tags->tag_desc)}}
-
-                    </textarea>
+                    <textarea name="tag_desc" class="form-control">{{old('tag_desc',$tags->tag_desc)}}</textarea>
                 </div>
 
                 <div class="form-group">
