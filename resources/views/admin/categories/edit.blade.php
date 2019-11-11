@@ -24,7 +24,7 @@
 
                 <div class="form-group">
                     <label for="category_slug">Slug</label>
-                    <input type="text" id="category_slug" readonly="readonly" value="{{old('category_slug',$categoryData->category_slug)}}" class="form-control" name="category_slug">
+                    <input type="text" id="category_slug" value="{{old('category_slug',$categoryData->category_slug)}}" class="form-control" name="category_slug">
                     @if($errors->has('category_slug'))
                         <span class="error">{{ $errors->first('category_slug') }}</span>
                     @endif
