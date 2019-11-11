@@ -57,6 +57,6 @@ $('#tag_name').autocomplete({
   onSearchStart  : function(){$("#loader_element_id").show();},
   onSearchComplete    : function(){$("#loader_element_id").hide();},
   onSelect: function (suggestion) {
-      alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+        
   }
 });

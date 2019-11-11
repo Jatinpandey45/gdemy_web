@@ -105,7 +105,7 @@ class AdminPostController extends Controller
 
         $returnData = [];
 
-        if ($result->isEmpty() > 0) {
+        if (!$result->isEmpty()) {
 
             foreach ($result as $key => $val) {
                 $returnData[$key] = ['value' => $val->tag_name, 'data' => $val->id];
