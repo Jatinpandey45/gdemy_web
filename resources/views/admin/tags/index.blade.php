@@ -24,7 +24,7 @@
 
                         <div class="form-group">
                             <label for="tag_slug">Slug</label>
-                            <input type="text" id="tag_slug" class="form-control" name="tag_slug">
+                            <input type="text" id="tag_slug" readonly="readonly" class="form-control" name="tag_slug">
                             @if($errors->has('tag_slug'))
                                 <span class="error">{{ $errors->first('tag_slug') }}</span>
                             @endif
@@ -74,6 +74,7 @@
 <script src="{{asset('js/additional-methods.min.js')}}"></script>
 <script src="{{asset('js/category.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/datatable.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/jquery.slugify.js')}}"></script>
 
 <script>
    
@@ -92,10 +93,9 @@
          }
       }
     ]
-
-
-
     });
+
+    $('#tag_slug').slugify('#tag_name');
  
 </script>
 

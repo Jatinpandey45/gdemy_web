@@ -119,7 +119,7 @@
 
                                 <div class="checkbox">
                                     <label>
-                                         <input type="checkbox" value="{{$val->_id}}" name="category[]"  id="category_{{$val->_id}}">
+                                         <input type="checkbox" value="{{$val->id}}" name="category[]"  id="category_{{$val->id}}">
                                          <span class="cr">
                                             <i class="cr-icon material-icons rtl-no-flip checkbox-checked"></i></span>
                                         </span>
@@ -146,12 +146,12 @@
 
                             <div class="checkbox">
                                 <label>
-                                        <input type="checkbox" value="{{$val->_id}}" name="monthly[]"  id="monthly_{{$val->_id}}">
+                                        <input type="checkbox" value="{{$val->id}}" name="monthly[]"  id="monthly_{{$val->id}}">
                                         <span class="cr">
                                         <i class="cr-icon material-icons rtl-no-flip checkbox-checked"></i></span>
                                     </span>
                                     <span class="gk_name">
-                                        {{ $val->monthly_name }}
+                                        {{ $val->month_name }}
                                     </span>
                                 </label>
                             </div>

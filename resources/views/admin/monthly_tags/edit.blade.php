@@ -23,7 +23,7 @@
                 </div>
                 <div class="form-group">
                     <label for="month_slug">Slug</label>
-                    <input type="text" id="month_slug" class="form-control" name="month_slug">
+                    <input type="text" id="month_slug" readonly="readonly" class="form-control" name="month_slug">
                 </div>
                 <div class="form-group">
                     <label for="month_desc">Description</label>
@@ -36,4 +36,17 @@
             </form>
         </div>
     </div>
+
+
+@section('pagescript')
+<script src="{{asset('js/jquery-validation/dist/jquery.validate.min.js')}}"></script>
+<script src="{{asset('js/jquery-validation/dist/additional-methods.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/jquery.slugify.js')}}"></script>
+<script>
+ $('#month_slug').slugify('#monthly_name');
+</script>
+
+@endsection
+
+
 @endsection
