@@ -176,7 +176,7 @@
     </form>
     <!-- public/js/tiny_mce/plugins/responsivefilemanager -->
 <input type="hidden" value="{{asset('js/tiny_mce/plugins/responsivefilemanager')}}" id="filemanagerlink"/> 
-<input type="hidden" value="{{route(''post.search.tags')}}" id="tag_search_request_route">
+<input type="hidden" value="{{route('post.search.tags')}}" id="tag_search_request_route">
 
 @section('pagescript')
 
