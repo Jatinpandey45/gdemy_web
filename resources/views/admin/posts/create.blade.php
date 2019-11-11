@@ -196,12 +196,6 @@
 <script src="{{asset('js/jquery-validation/dist/additional-methods.min.js')}}"></script>
 <script src="{{asset('js/category.js')}}"></script>
 <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
-<<<<<<< HEAD
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.0/trix.js"></script> --}}
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="{{asset('js/jquery.autocomplete.js')}}"></script>
-<script src="{{asset('js/posts/createpost.js')}}"></script>
-=======
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="{{asset('js/jquery.autocomplete.js')}}"></script>
 <script src="{{asset('js/posts/createpost.js')}}"></script>
@@ -210,7 +204,6 @@
 <script>
 $('#post_slug').slugify('#post_title');
 </script>
->>>>>>> da0d7d4d6a75a1f29ef67ffa49d9b4381314e2a1
 
 @endsection
 
