@@ -46,6 +46,21 @@ $(document).ready(function() {
 
     flatpickr('#published_at', {
         enableTime: true
+<<<<<<< HEAD
+      });
+      
+      $('#tag_name').autocomplete({
+        serviceUrl: "{{route('post.search.tags')}}",
+        minChars: 3,
+        dataType: 'json',
+        type : "get",
+        onSearchStart  : function(){$("#loader_element_id").show();},
+        onSearchComplete    : function(){$("#loader_element_id").hide();},
+        onSelect: function (suggestion) {
+            alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+        }
+      });
+=======
     });
 });
 
@@ -59,4 +74,5 @@ $('#tag_name').autocomplete({
   onSelect: function (suggestion) {
         
   }
+>>>>>>> da0d7d4d6a75a1f29ef67ffa49d9b4381314e2a1
 });

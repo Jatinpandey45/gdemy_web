@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <form action="{{route('posts.store')}}" id="category_form_id" class="row" method="POST" enctype="multipart/form-data">
+    <form action="{{route('posts.store')}}" id="post_form_id" class="row" method="POST" enctype="multipart/form-data">
         
         <div class="col-md-9">
             <div class="card card-default form-group">
@@ -36,22 +36,6 @@
                         <trix-editor input="post_desc"></trix-editor> -->
                         <textarea class="gk_tinymce"></textarea>
                     </div>
-
-                    <div class="form-group">
-                        <label for="published_at">Published At</label>
-                        <input type="text" id="published_at" value="{{old('published_at')}}" class="form-control" name="published_at">
-                        @if($errors->has('published_at'))
-                            <span class="error">{{ $errors->first('published_at') }}</span>
-                        @endif
-                    </div>
-
-                    <div class="form-group">
-                        <label for="featured_image">Feature Image</label>
-                        <input type="file" id="featured_image" class="form-control" name="featured_image">
-                        @if($errors->has('featured_image'))
-                            <span class="error">{{ $errors->first('featured_image') }}</span>
-                        @endif
-                    </div>
                 </div>
             </div>
 
@@ -84,11 +68,26 @@
             <div class="card card-default form-group ">
                 <div class="card-header h3">Publish</div>
                 <div class="card-body">
-                    <div class="form-group">
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-success">Save Draft</button>
-                        </div>
-                    </div> 
+                    <div class="form-group row gk-space-between">
+                        <button type="submit" class="btn btn-success float-left">Save Draft</button>
+                        <a href="javascript:void(0)" class="btn btn-secondary float-right">Preview</a>
+                    </div>
+                    <div class="form-group row gk-align-center">
+                        <label for="visibility" class="col-md-4 pl-1 pr-1">Visibility</label>
+                        <select name="visibility" value="" id="visibility" class="form-control col-md-7">
+                            <option value="1">All</option>
+                            <option value="1">Android</option>
+                            <option value="1">IOS</option>
+                            <option value="1">Web</option>
+                        </select>
+                    </div>
+                    <div class="form-group row gk-align-center">
+                        <label for="publish_at" class="col-md-4 pl-1 pr-1">Publish</label>
+                        <input type="text" id="published_at" value="{{old('published_at')}}" class="form-control col-md-7" name="published_at">
+                        @if($errors->has('published_at'))
+                            <span class="error">{{ $errors->first('published_at') }}</span>
+                        @endif
+                    </div>
                 </div>
             </div>            
             <div class="card card-default form-group ">
@@ -110,6 +109,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="card card-default form-group">
                 <div class="card-header h3">Categories</div>
                 <div class="card-body">
@@ -136,14 +136,26 @@
                     </div> 
                 </div>
             </div>
+
+            <div class="card card-default form-group">
+                <div class="card-header h3">Featured Image</div>
+                <div class="card-body">
+                    <div class="form-group">
+                        {{-- <label for="featured_image">Feature Image</label> --}}
+                        <input type="file" id="featured_image" class="form-control" name="featured_image">
+                        @if($errors->has('featured_image'))
+                            <span class="error">{{ $errors->first('featured_image') }}</span>
+                        @endif
+                    </div>
+                </div>
+            </div>
             <div class="card card-default form-group">
                 <div class="card-header h3">Monthly Categories</div>
                 <div class="card-body">
                     <div class="form-group">
                         {{-- <label for="tag_name">Name</label> --}}
                         @if($month)
-                            @foreach($month as $val)
-
+                        @foreach($month as $val)
                             <div class="checkbox">
                                 <label>
                                         <input type="checkbox" value="{{$val->id}}" name="monthly[]"  id="monthly_{{$val->id}}">
@@ -184,6 +196,12 @@
 <script src="{{asset('js/jquery-validation/dist/additional-methods.min.js')}}"></script>
 <script src="{{asset('js/category.js')}}"></script>
 <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
+<<<<<<< HEAD
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.0/trix.js"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="{{asset('js/jquery.autocomplete.js')}}"></script>
+<script src="{{asset('js/posts/createpost.js')}}"></script>
+=======
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="{{asset('js/jquery.autocomplete.js')}}"></script>
 <script src="{{asset('js/posts/createpost.js')}}"></script>
@@ -192,6 +210,7 @@
 <script>
 $('#post_slug').slugify('#post_title');
 </script>
+>>>>>>> da0d7d4d6a75a1f29ef67ffa49d9b4381314e2a1
 
 @endsection
 
@@ -200,6 +219,7 @@ $('#post_slug').slugify('#post_title');
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.0/trix.css"> --}}
 <link rel="stylesheet" href="{{ asset('css/custom_checkbox.css')}}">
+<link rel="stylesheet" href="{{ asset('css/theme.css')}}">
 @endsection
 
 
