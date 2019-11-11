@@ -21,7 +21,7 @@
 
                     <div class="form-group">
                         <label for="category_slug">Slug</label>
-                        <input type="text" id="category_slug" value="{{old('post_slug')}}" class="form-control" name="post_slug">
+                        <input type="text" id="post_slug" value="{{old('post_slug')}}" class="form-control" name="post_slug">
                         @if($errors->has('post_slug'))
                             <span class="error">{{ $errors->first('post_slug') }}</span>
                         @endif
@@ -187,6 +187,11 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="{{asset('js/jquery.autocomplete.js')}}"></script>
 <script src="{{asset('js/posts/createpost.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/jquery.slugify.js')}}"></script>
+
+<script>
+$('#post_slug').slugify('#post_title');
+</script>
 
 @endsection
 
