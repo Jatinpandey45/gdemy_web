@@ -50,7 +50,7 @@ $(document).ready(function() {
 });
 
 $('#tag_name').autocomplete({
-  serviceUrl: "{{route('post.search.tags')}}",
+  serviceUrl: $("#tag_search_request_route").val(),
   minChars: 3,
   dataType: 'json',
   type : "get",
