@@ -32,8 +32,7 @@
 
                         <div class="form-group">
                             <label for="monthly_desc">Description</label>
-                            <textarea name="month_desc" class="form-control">
-                            </textarea>
+                            <textarea name="month_desc" class="form-control"></textarea>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-success">Add Monthly Tag</button>
