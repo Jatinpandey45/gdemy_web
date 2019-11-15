@@ -277,3 +277,10 @@ div#main {
 .autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
 .autocomplete-group { padding: 2px 5px; }
 .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+
+
+.gk-space-between {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}

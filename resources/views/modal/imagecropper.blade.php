@@ -1,12 +1,8 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/imgareaselect/0.9.10/css/imgareaselect-animated.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/imgareaselect/0.9.10/js/jquery.imgareaselect.min.js"></script>
 <div class="modal fade" id="cropperModal" tabindex="-1" role="dialog" aria-labelledby="cropperModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">Delete?</h5>
+            <h5 class="modal-title">Upload Image</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -14,131 +10,127 @@
         <div class="modal-body">
             <div class="container">
                 <div class="panel panel-info">
-                    <div class="panel-heading">Laravel 5.6 - Preview and Crop Image Before Upload using Ajax- HDTuto.com</div>
+                    {{-- <div class="panel-heading">/div> --}}
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-md-4 text-center">
-                                    <div id="upload-demo"></div>
+                                <div class="col-md-12 form-group" id="image-preview">
+                                    {{-- <img id="preview-crop-image"  style="display: none;" class="img-responsive img-fluid"/> --}}
                                 </div>
-                                <div class="col-md-4" style="padding:5%;">
-                                    <strong>Select image to crop:</strong>
-                                    <input type="file" id="image" class="image">
-                                    <input type="hidden" name="x1" value="" />
-                                    <input type="hidden" name="y1" value="" />
-                                    <input type="hidden" name="w" value="" />
-                                    <input type="hidden" name="h" value="" />
-                                    <button class="btn btn-primary btn-block upload-image" style="margin-top:2%">Upload Image</button>
+                                <div class="col-md-12 form-group">
+                                    {{-- <label>Select image to crop:</label> --}}
+                                    <input type="file" id="{{$name}}" class="image" name="{{$name}}">
+                                    <input type="hidden" name="left" id="left" value="" />
+                                    <input type="hidden" name="top" id="top" value="" />
+                                    <input type="hidden" name="width" id="width" value="" />
+                                    <input type="hidden" name="height" id="height" value="" />
                                 </div>
-                                <div class="col-md-4">
-                                    <div id="preview-crop-image" style="background:#9d9d9d;width:300px;padding:50px 50px;height:300px;"></div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Delete</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="uploaded-image">Done</button>
         </div>
         </div>
     </div>
 </div>
 
-{{-- <input type="hidden" name="x1" value="" />
-<input type="hidden" name="y1" value="" />
-<input type="hidden" name="w" value="" />
-<input type="hidden" name="h" value="" />
-<div class="row mt-5">
-    <p><img id="previewimage" style="display:none;"/></p>
-    @if(session('path'))
-        <img src="{{ session('path') }}" />
-    @endif
-</div>
-       --}}
-<script type="text/javascript">
-    $(document).ready(function() {
-        var p = $("#preview-crop-image");
-        $("body").on("change", ".image", function(){
-
+@section('pagescript')
+    <script type="text/javascript" src={{asset('node_modules/darkroom/vendor/fabric.js')}}></script>
+    <script type="text/javascript" src={{asset('node_modules/darkroom/build/darkroom.js')}}></script>
+    <script type="text/javascript">
+        var imageCropper = false
+        $(document).on("change", ".image", function(){
+            
             var imageReader = new FileReader();
             console.log(imageReader);
             imageReader.readAsDataURL(document.querySelector(".image").files[0]);
-
+            
             imageReader.onload = function (oFREvent) {
-                p.attr('src', oFREvent.target.result).fadeIn();
+                // console.log(typeof imageCropper !== 'undefined');
+                // if (imageCropper) {
+                //     imageCropper.selfDestroy();
+                // }
+                $('#image-preview').find('.darkroom-container').remove();
+                $('#image-preview').append('<img src="'+oFREvent.target.result+'" id="preview-crop-image" class="img-responsive" style="display: none;"/>');
+                var p = $(document).find("#preview-crop-image");
+                // p.show(20);
+                // p.attr('src', oFREvent.target.result).fadeIn();
+                imageCropper = new Darkroom(
+                    '#preview-crop-image',
+                    {
+                        save: {
+                            callback: function() {
+                                console.log(this);
+                            }
+                        },
+                    // Canvas initialization size
+                        minWidth: 100,
+                        minHeight: 100,
+                        maxWidth: 500,
+                        maxHeight: 500,
+
+                        // Plugins options
+                        plugins: {
+                            crop: {
+                            // minHeight: 50,
+                            // minWidth: 50,
+                            // ratio: 1
+                            },
+                            save: false // disable plugin,
+                        },
+
+                        // Post initialization method
+                        initialize: function() {
+                            // Active crop selection
+                            this.plugins['crop'].requireFocus();
+                            this.toolbar.element.children[2].children[1].remove();
+                            this.toolbar.element.children[2].children[1].remove();
+                            // Add custom listener
+                            // this.addEventListener('core:transformation', function() { /* ... */ });
+                        },
+                        // save: function() {
+                        //     alert('hi');
+                        //         // oFREvent.target.result = 
+                        //         console.log('saved!');
+                        //         var oMyForm = new FormData();
+                        //         oMyForm.append("ContentID", $('#ID').val());
+                        //         oMyForm.append("Title", $('#Title').val());
+                        //         oMyForm.append("ContentType", 'content');
+                        //         //Now the file (large version)
+                        //         var oBlob = dkrm.sourceImage.toDataURL();
+
+                        //         oMyForm.append("ImgFile", oBlob);
+                        //         console.log(oMyForm);
+
+                        // },
+                        // save: {
+                        //     callback : function() {
+                        //         alert('hi');
+                        //         console.log(this);
+                        //     }
+                        // }
+                    }
+                );
+                console.log(imageCropper);
             };
         });
-
-        $('#preview-crop-image').imgAreaSelect({
-            onSelectEnd: function (img, selection) {
-                $('input[name="x1"]').val(selection.x1);
-                $('input[name="y1"]').val(selection.y1);
-                $('input[name="w"]').val(selection.width);
-                $('input[name="h"]').val(selection.height);            
+        $(document).on('click', '#uploaded-image', function() {
+            var activeObject = imageCropper.canvas.getActiveObject();
+            if (typeof activeObject != 'undefined') {
+                console.log(activeObject.left);
+                $(document).find('#left').val(activeObject.left);
+                $(document).find('#top').val(activeObject.top);
+                $(document).find('#width').val(activeObject.width);
+                $(document).find('#height').val(activeObject.height);
+                $('#cropperModal').modal('toggle');
             }
         });
-        console.log(p);
-    })
-    // $.ajaxSetup({
-    //     headers: {
-    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //     }
-    // });
-    
-    // var resize = $('#upload-demo').croppie({
-    
-    //     enableExif: true,
-    
-    //     enableOrientation: true,    
-    
-    //     viewport: { 
-    
-    //         width: 200,
-    
-    //         height: 200,
-    
-    //         type: 'circle'
-    
-    //     },
-    
-    //     boundary: {
-    
-    //         width: 300,
-    
-    //         height: 300
-    
-    //     }
-    
-    // });
-    
-    // $('#image').on('change', function () { 
-    //     var reader = new FileReader();
-    //     reader.onload = function (e) {
-    //         resize.croppie('bind',{
-    //             url: e.target.result
-    //         }).then(function(){
-    //             console.log('jQuery bind complete');
-    //         });
-    //     }
-    //     reader.readAsDataURL(this.files[0]);
-    // });
-    
-    // $('.upload-image').on('click', function (ev) {
-    //     resize.croppie('result', {
-    //         type: 'canvas',
-    //         size: 'viewport'
-    //     }).then(function (img) {
-    //         $.ajax({
-    //             url: "{{route('categories.create')}}",
-    //             type: "POST",
-    //             data: {"image":img},
-    //             success: function (data) {
-    //                 html = '<img src="' + img + '" />';
-    //                 $("#preview-crop-image").html(html);
-    //             }
-    //         });
-    //     });
-    // });
-</script>
-    
+    </script>
+@endsection
+
+
+@section('css')
+    <link rel="stylesheet" href="{{asset('node_modules/darkroom/build/darkroom.css')}}">
+@endsection

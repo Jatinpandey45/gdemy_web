@@ -47,12 +47,15 @@
                             <label for="icon">
                                 Upload Logo
                             </label>
-                            <input type="file" class="form-control" name="category_icon">
+                            {{-- <input type="file" class="form-control" name="category_icon"> --}}
+                            <div>
+                                <a href="javscript:void(0)"  class="btn btn-primary" data-toggle="modal" data-target="#cropperModal">Upload</a>
+                                @include('modal.imagecropper', ['name' => 'category_icon'])
+                            </div>
                             @if($errors->has('category_icon'))
                                 <span class="error">{{ $errors->first('category_icon') }}</span>
                             @endif
                         </div>
-                        <a href="javscript:void(0)"  data-toggle="modal" data-target="#cropperModal">Test</a>
                         <div class="form-group">
                             <button type="submit" class="btn btn-success">Add Category</button>
                         </div>
@@ -80,9 +83,7 @@
             </div>
         </div>
     </div>
-    @include('modal.delete', ['type' => 'category'])
-    @include('modal.imagecropper', ['type' => 'category'])
-  
+    @include('modal.delete', ['type' => 'category'])  
 
 
 @section('pagescript')

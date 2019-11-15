@@ -53,7 +53,10 @@
                     <label for="icon">
                         Upload New Logo
                     </label>
-                    <input type="file" class="form-control" name="category_icon">
+                    <div>
+                        <a href="javscript:void(0)"  class="btn btn-primary" data-toggle="modal" data-target="#cropperModal">Upload</a>
+                        @include('modal.imagecropper', ['name' => 'category_icon'])
+                    </div>
                     @if($errors->has('category_icon'))
                         <span class="error">{{ $errors->first('category_icon') }}</span>
                     @endif
