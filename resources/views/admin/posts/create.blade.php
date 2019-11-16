@@ -145,7 +145,7 @@
                 {{-- <label for="featured_image">Feature Image</label> --}}
                 <div>
                             <a href="javscript:void(0)"  class="btn btn-primary" data-toggle="modal" data-target="#cropperModal">Upload</a>
-                            @include('modal.imagecropper', ['name' => 'category_icon'])
+                                @include('modal.imagecropper', ['name' => 'featured_image'])
                         </div>
                 @if($errors->has('featured_image'))
                 <span class="error">{{ $errors->first('featured_image') }}</span>
@@ -306,7 +306,7 @@
 
             var is_seochecked = true;
             $('#tag_listing_data').each(function(i,select) {
-                if (select.selectedIndex <= 0) {
+                if ($(select).has('option:selected').length <= 0) {
                     is_seochecked = false;
                 }
             });
@@ -314,6 +314,11 @@
             if (!is_seochecked) {
                 alert('You must add at least one seo tag!');
                 return false; // The form will *not* submit
+            }
+
+            if($("#file_hidden").val() == "") {
+                alert("Please upload feature image");
+                return false;
             }
 
             form.submit();
