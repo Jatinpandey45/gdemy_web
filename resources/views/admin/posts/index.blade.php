@@ -24,7 +24,7 @@
                                     Title
                                     <div>
                                         <a href="{{ route('categories.edit', 1) }}">Edit</a>
-                                        <a href="{{ route('categories.destroy', 1) }}">Trash</a>
+                                        <a href="{{ route('categories.destroy', 1) }}" data-toggle="modal" data-target="#deleteModal">Trash</a>
                                     </div>
                                 </td>
                                 <td>Post Description</td>
@@ -45,7 +45,7 @@
             </div>
         </div>
     </div>
-
+    @include('modal.delete', ['type' => 'post'])
 
 
 @section('pagescript')

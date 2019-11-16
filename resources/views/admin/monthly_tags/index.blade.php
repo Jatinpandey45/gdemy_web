@@ -61,7 +61,7 @@
             </div>
         </div>
     </div>
-
+    @include('modal.delete', ['type' => 'monthly tags'])
   
 
 
@@ -85,8 +85,8 @@
         {data: 'month_slug', name: 'Slug'},
         {data:"action","className": "text-right", "render" : function ( data, type, row ){
             return '<a href="'+row.edit_route+'"><i class="material-icons">edit</i></a>'+
-                '<a href="javascript:void(0);" class="remove-item" data-id="'+data+'"><i class="material-icons">delete</i></a>';
-         }
+                '<a href="javascript:void(0);" class="remove-item" data-id="'+data+'"><i class="material-icons" data-toggle="modal" data-target="#deleteModal">delete</i></a>';
+        }
       }
     ]
     });

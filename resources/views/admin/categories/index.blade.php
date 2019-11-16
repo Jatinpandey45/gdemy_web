@@ -47,7 +47,11 @@
                             <label for="icon">
                                 Upload Logo
                             </label>
-                            <input type="file" class="form-control" name="category_icon">
+                            {{-- <input type="file" class="form-control" name="category_icon"> --}}
+                            <div>
+                                <a href="javscript:void(0)"  class="btn btn-primary" data-toggle="modal" data-target="#cropperModal">Upload</a>
+                                @include('modal.imagecropper', ['name' => 'category_icon'])
+                            </div>
                             @if($errors->has('category_icon'))
                                 <span class="error">{{ $errors->first('category_icon') }}</span>
                             @endif
@@ -79,8 +83,7 @@
             </div>
         </div>
     </div>
-
-  
+    @include('modal.delete', ['type' => 'category'])  
 
 
 @section('pagescript')
@@ -103,7 +106,7 @@
         {data: 'category_slug', name: 'Slug'},
         {data:"action","className": "text-right", "render" : function ( data, type, row ){
             return '<a href="'+row.edit_route+'"><i class="material-icons">edit</i></a>'+
-                '<a href="javascript:void(0);" class="remove-item" data-id="'+data+'"><i class="material-icons">delete</i></a>';
+                '<a href="javascript:void(0);" class="remove-item" data-id="'+data+'"><i class="material-icons" data-toggle="modal" data-target="#deleteModal">delete</i></a>';
          }
       }
     ]
@@ -112,8 +115,64 @@
    
 </script>
 
+    <script type="text/javascript" src={{asset('node_modules/darkroom/vendor/fabric.js')}}></script>
+    <script type="text/javascript" src={{asset('node_modules/darkroom/build/darkroom.js')}}></script>
+    <script type="text/javascript">
+        var imageCropper = false
+        $(document).on("change", ".image", function(){
+            
+            var imageReader = new FileReader();
+            imageReader.readAsDataURL(document.querySelector(".image").files[0]);
+            
+            imageReader.onload = function (oFREvent) {
+                $('#image-preview').find('.darkroom-container').remove();
+                $('#image-preview').html('<img src="'+oFREvent.target.result+'" id="preview-crop-image" class="img-responsive" style="display: none;"/>');
+                var p = $(document).find("#preview-crop-image");
+                imageCropper = new Darkroom(
+                    '#preview-crop-image',
+                    {
+                        save: {
+                            callback: function() {
+                                console.log(this);
+                            }
+                        },
+                    // Canvas initialization size
+                        minWidth: 100,
+                        minHeight: 100,
+                        maxWidth: 500,
+                        maxHeight: 500,
+
+                        // Post initialization method
+                        initialize: function() {
+                            // Active crop selection
+                            this.plugins['crop'].requireFocus();
+                            saveEventRegister(this.toolbar.element.children[3]);
+                        },  
+                    }
+                );
+            };
+        });
+        $(document).on('click', '#uploaded-image', function() {
+            var activeObject = imageCropper.canvas.getActiveObject();
+            $(document).find('#file_hidden').val($(document).find('#image-preview > img').attr('src'));
+            $('#cropperModal').modal('toggle');
+        });
+        function saveEventRegister(elem) {
+            $(elem).on('click', function() {
+                $(document).find('#image-preview').hide();
+                setTimeout(function() {
+                    $(document).find('#image-preview > img').addClass('img-fluid');
+                    $(document).find('#image-preview').show();
+                }, 100);
+            });
+        }
+    </script>
 @endsection
 
+
+@section('css')
+    <link rel="stylesheet" href="{{asset('node_modules/darkroom/build/darkroom.css')}}">
+@endsection
 
 
 
