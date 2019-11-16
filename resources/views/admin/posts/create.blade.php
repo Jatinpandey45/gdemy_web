@@ -34,7 +34,7 @@
                     <label for="post_desc">Description</label>
                     <!-- <input id="post_desc" type="hidden" name="post_desc">
                         <trix-editor input="post_desc"></trix-editor> -->
-                    <textarea class="gk_tinymce" class="validate[required]" rows="50" name="post_desc">{{old('post_desc')}}</textarea>
+                    <textarea class="gk_tinymce" class="validate[required]" rows="30" name="post_desc">{{old('post_desc')}}</textarea>
                     @if($errors->has('post_desc'))
                     <span class="error">{{ $errors->first('post_desc') }}</span>
                     @endif
