@@ -79,10 +79,10 @@
                 <div class="form-group row gk-align-center">
                     <label for="visibility" class="col-md-4 pl-1 pr-1">Visibility</label>
                     <select name="visibility" value="" id="visibility" class="form-control col-md-7">
-                        <option value="1">All</option>
-                        <option value="1">Android</option>
-                        <option value="1">IOS</option>
-                        <option value="1">Web</option>
+                        <option value="all">All</option>
+                        <option value="android">Android</option>
+                        <option value="ios">IOS</option>
+                        <option value="web">Web</option>
                     </select>
                 </div>
                 <div class="form-group row gk-align-center">
