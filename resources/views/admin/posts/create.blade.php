@@ -146,7 +146,11 @@
                 <div class="card-body">
                     <div class="form-group">
                         {{-- <label for="featured_image">Feature Image</label> --}}
-                        <input type="file" id="featured_image" class="form-control" name="featured_image">
+                        {{-- <input type="file" id="featured_image" class="form-control" name="featured_image"> --}}
+                        <div>
+                            <a href="javscript:void(0)"  class="btn btn-primary" data-toggle="modal" data-target="#cropperModal">Upload</a>
+                            @include('modal.imagecropper', ['name' => 'category_icon'])
+                        </div>
                         @if($errors->has('featured_image'))
                             <span class="error">{{ $errors->first('featured_image') }}</span>
                         @endif
@@ -250,11 +254,62 @@ tabIndex: 0
 
 });
 </script>
+<script type="text/javascript" src={{asset('node_modules/darkroom/vendor/fabric.js')}}></script>
+<script type="text/javascript" src={{asset('node_modules/darkroom/build/darkroom.js')}}></script>
+<script type="text/javascript">
+    var imageCropper = false
+    $(document).on("change", ".image", function(){
+        
+        var imageReader = new FileReader();
+        imageReader.readAsDataURL(document.querySelector(".image").files[0]);
+        
+        imageReader.onload = function (oFREvent) {
+            $('#image-preview').find('.darkroom-container').remove();
+            $('#image-preview').html('<img src="'+oFREvent.target.result+'" id="preview-crop-image" class="img-responsive" style="display: none;"/>');
+            var p = $(document).find("#preview-crop-image");
+            imageCropper = new Darkroom(
+                '#preview-crop-image',
+                {
+                    save: {
+                        callback: function() {
+                            console.log(this);
+                        }
+                    },
+                // Canvas initialization size
+                    minWidth: 100,
+                    minHeight: 100,
+                    maxWidth: 500,
+                    maxHeight: 500,
 
+                    // Post initialization method
+                    initialize: function() {
+                        // Active crop selection
+                        this.plugins['crop'].requireFocus();
+                        saveEventRegister(this.toolbar.element.children[3]);
+                    },  
+                }
+            );
+        };
+    });
+    $(document).on('click', '#uploaded-image', function() {
+        var activeObject = imageCropper.canvas.getActiveObject();
+        $(document).find('#file_hidden').val($(document).find('#image-preview > img').attr('src'));
+        $('#cropperModal').modal('toggle');
+    });
+    function saveEventRegister(elem) {
+        $(elem).on('click', function() {
+            $(document).find('#image-preview').hide();
+            setTimeout(function() {
+                $(document).find('#image-preview > img').addClass('img-fluid');
+                $(document).find('#image-preview').show();
+            }, 100);
+        });
+    }
+</script>
 @endsection
 
-
 @section('css')
+<link rel="stylesheet" href="{{asset('node_modules/darkroom/build/darkroom.css')}}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <link rel="stylesheet" href="{{ asset('css/custom_checkbox.css')}}">
 <link rel="stylesheet" href="{{ asset('css/theme.css')}}">
