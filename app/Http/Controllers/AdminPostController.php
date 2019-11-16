@@ -10,9 +10,11 @@ use App\MonthTags;
 use App\Posts;
 use App\PostSeo;
 use App\Tags;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use phpDocumentor\Reflection\DocBlock\Tag;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class AdminPostController extends Controller
 {
@@ -61,7 +63,7 @@ class AdminPostController extends Controller
 
 
         try {
-            DB::connection()->pdo->beginTransaction();
+            DB::beginTransaction();
             // database queries here
 
             /*
@@ -107,29 +109,15 @@ class AdminPostController extends Controller
                 $postCategory->post_id = $post->id;
                 $postCategory->save();
              }
+             
+             DB::commit();
 
-             /**
-              * 
-              
-              */
-
-
-
-
-
-
-
-
-
-
-
-
-            DB::connection()->pdo->commit();
         } catch (\PDOException $e) {
             // Woopsy
-            DB::connection()->pdo->rollBack();
+            DB::rollBack();
         }
-       
+
+        return Redirect::back()->with('success',['code' => Response::HTTP_OK,'message' => trans('message.post_added')]);
 
      }
 
