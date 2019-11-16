@@ -21,6 +21,7 @@
     line-height: 0;
     top: 50%;
     left: -4%;
+    color: black;
   }
   
   .checkbox label input[type="checkbox"] {
