@@ -176,7 +176,7 @@ $('#post_form_id').validate({ // initialize the plugin
 
         var is_seochecked = true;
         $('#tag_listing_data').each(function(i,select) {
-            if (select.selectedIndex <= 0) {
+            if ($(select).has('option:selected').length <= 0) {
                 is_seochecked = false;
             }
         });
@@ -184,6 +184,11 @@ $('#post_form_id').validate({ // initialize the plugin
         if (!is_seochecked) {
             alert('You must add at least one seo tag!');
             return false; // The form will *not* submit
+        }
+
+        if($("#file_hidden").val() == "") {
+            alert("Please upload feature image");
+            return false;
         }
 
         form.submit();

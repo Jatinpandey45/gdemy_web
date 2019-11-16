@@ -147,7 +147,7 @@
                 {{-- <label for="featured_image">Feature Image</label> --}}
                 <div>
                             <a href="javscript:void(0)"  class="btn btn-primary" data-toggle="modal" data-target="#cropperModal">Upload</a>
-                            @include('modal.imagecropper', ['name' => 'category_icon'])
+                                @include('modal.imagecropper', ['name' => 'featured_image'])
                         </div>
                 @if($errors->has('featured_image'))
                 <span class="error">{{ $errors->first('featured_image') }}</span>
@@ -207,123 +207,6 @@
 <script src="{{asset('js/jquery.autocomplete.js')}}"></script>
 <script src="{{asset('js/tokenized/tokenize2.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/jquery.slugify.js')}}"></script>
-
-<script>
-    // $('#post_slug').slugify('#post_title');
-    // $('#tag_listing_data').tokenize2({
-
-    //     // max number of tags
-    //     tokensMaxItems: 0,
-
-    //     // allow you to create custom tokens
-    //     tokensAllowCustom: false,
-
-    //     // max items in the dropdown
-    //     dropdownMaxItems: 10,
-
-    //     // minimum of characters required to start searching
-    //     searchMinLength: 0,
-
-    //     // specify if Tokenize2 will search from the begining of a string
-    //     searchFromStart: true,
-
-    //     // choose if you want your search highlighted in the result dropdown
-    //     searchHighlight: true,
-
-    //     // custom delimiter
-    //     delimiter: ',',
-
-    //     // data source
-    //     dataSource: $("#serrach_tag_seo").val(),
-
-    //     // waiting time between each search
-    //     debounce: 0,
-
-    //     // custom placeholder text
-    //     placeholder: false,
-
-    //     // enable sortable
-    //     // requires jQuery UI
-    //     sortable: false,
-
-    //     // tabIndex
-    //     tabIndex: 0
-
-    // });
-
-    // $('#tag_selected_data').tokenize2();
-
-    // $('#post_form_id').validate({ // initialize the plugin
-    //     rules: {
-    //         post_title: {
-    //             required: true,
-    //         },
-    //         post_desc: {
-    //             required: true,
-    //         },
-    //         featured_image: {
-    //             required: true
-    //         },
-    //         published_at: {
-    //             required: true,
-    //             date: true,
-    //         },
-
-    //     },
-    
-    //     submitHandler: function(form, event) {
-
-    //         event.preventDefault();
-            
-    //         var is_checked = false;
-    //         $('input[name="category[]"]').each(function() {
-    //             if (this.checked) {
-    //                 is_checked = true;
-    //                 return false;
-    //             }
-    //         });
-
-    //         if (!is_checked) {
-    //             alert('You must check at least one category!');
-    //             return false; // The form will *not* submit
-    //         }
-
-    //         var is_monthchecked = false;
-    //         $('input[name="month[]"]').each(function() {
-    //             if (this.checked) {
-    //                 is_monthchecked = true;
-    //                 return false;
-    //             }
-    //         });
-
-    //         if (!is_monthchecked) {
-    //             alert('You must check at least one month!');
-    //             return false; // The form will *not* submit
-    //         }
-
-    //         var post_content = tinyMCE.activeEditor.getContent();
-    //         if(post_content == "") {
-    //             alert("Post content cannot be empty");
-    //             return false;
-    //         }
-
-    //         var is_seochecked = true;
-    //         $('#tag_listing_data').each(function(i,select) {
-    //             if (select.selectedIndex <= 0) {
-    //                 is_seochecked = false;
-    //             }
-    //         });
-
-    //         if (!is_seochecked) {
-    //             alert('You must add at least one seo tag!');
-    //             return false; // The form will *not* submit
-    //         }
-
-    //         form.submit();
-
-    //     }
-    // });
-</script>
 <script type="text/javascript" src="{{asset('node_modules/darkroom/vendor/fabric.js')}}"></script>
 <script type="text/javascript" src="{{asset('node_modules/darkroom/build/darkroom.js')}}"></script>
 <script src="{{asset('js/posts/createpost.js')}}"></script>
