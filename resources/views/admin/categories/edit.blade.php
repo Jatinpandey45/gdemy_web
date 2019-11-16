@@ -35,9 +35,7 @@
 
                 <div class="form-group">
                     <label for="category_description">Description</label>
-                    <textarea name="category_description" class="form-control"> 
-                        {{old('category_description',$categoryData->category_description)}}
-                    </textarea>
+                    <textarea name="category_description" class="form-control">{{old('category_description',$categoryData->category_description)}}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="status">
