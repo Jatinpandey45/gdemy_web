@@ -45,7 +45,13 @@ class AdminPostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StorePostRequest $request)
-    { }
+    {
+
+
+
+        dd($request->all());
+
+     }
 
     /**
      * Display the specified resource.
@@ -109,9 +115,36 @@ class AdminPostController extends Controller
 
             foreach ($result as $key => $val) {
                 $returnData[$key] = ['value' => $val->tag_name, 'data' => $val->id];
+                
             }
         }
 
         return response()->json(['suggestions' => $returnData ]);
+    }
+
+
+
+    /**
+     * searchTags
+     * @param : query string
+     */
+
+    public function searchTagsSeo(Request $request)
+    {
+        $searchTerm = $request->get('search', '');
+
+        $result = Tags::searchTags($searchTerm);
+
+        $returnData = [];
+
+        if (!$result->isEmpty()) {
+
+            foreach ($result as $key => $val) {
+                $returnData[$key] = ['value' => $val->id, 'text' => $val->tag_name];
+                
+            }
+        }
+
+        return response()->json($returnData);
     }
 }
