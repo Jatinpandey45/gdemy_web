@@ -19,10 +19,10 @@
                                 <div class="col-md-12 form-group">
                                     {{-- <label>Select image to crop:</label> --}}
                                     <input type="file" id="{{$name}}" class="image" name="{{$name}}">
-                                    <input type="hidden" name="left" id="left" value="" />
-                                    <input type="hidden" name="top" id="top" value="" />
+                                    <input type="hidden" name="file_hidden" id="file_hidden" value="" />
+                                    {{-- <input type="hidden" name="top" id="top" value="" />
                                     <input type="hidden" name="width" id="width" value="" />
-                                    <input type="hidden" name="height" id="height" value="" />
+                                    <input type="hidden" name="height" id="height" value="" /> --}}
                                 </div>
                         </div>
                     </div>
@@ -44,19 +44,12 @@
         $(document).on("change", ".image", function(){
             
             var imageReader = new FileReader();
-            console.log(imageReader);
             imageReader.readAsDataURL(document.querySelector(".image").files[0]);
             
             imageReader.onload = function (oFREvent) {
-                // console.log(typeof imageCropper !== 'undefined');
-                // if (imageCropper) {
-                //     imageCropper.selfDestroy();
-                // }
                 $('#image-preview').find('.darkroom-container').remove();
-                $('#image-preview').append('<img src="'+oFREvent.target.result+'" id="preview-crop-image" class="img-responsive" style="display: none;"/>');
+                $('#image-preview').html('<img src="'+oFREvent.target.result+'" id="preview-crop-image" class="img-responsive" style="display: none;"/>');
                 var p = $(document).find("#preview-crop-image");
-                // p.show(20);
-                // p.attr('src', oFREvent.target.result).fadeIn();
                 imageCropper = new Darkroom(
                     '#preview-crop-image',
                     {
@@ -71,62 +64,30 @@
                         maxWidth: 500,
                         maxHeight: 500,
 
-                        // Plugins options
-                        plugins: {
-                            crop: {
-                            // minHeight: 50,
-                            // minWidth: 50,
-                            // ratio: 1
-                            },
-                            save: false // disable plugin,
-                        },
-
                         // Post initialization method
                         initialize: function() {
                             // Active crop selection
                             this.plugins['crop'].requireFocus();
-                            this.toolbar.element.children[2].children[1].remove();
-                            this.toolbar.element.children[2].children[1].remove();
-                            // Add custom listener
-                            // this.addEventListener('core:transformation', function() { /* ... */ });
-                        },
-                        // save: function() {
-                        //     alert('hi');
-                        //         // oFREvent.target.result = 
-                        //         console.log('saved!');
-                        //         var oMyForm = new FormData();
-                        //         oMyForm.append("ContentID", $('#ID').val());
-                        //         oMyForm.append("Title", $('#Title').val());
-                        //         oMyForm.append("ContentType", 'content');
-                        //         //Now the file (large version)
-                        //         var oBlob = dkrm.sourceImage.toDataURL();
-
-                        //         oMyForm.append("ImgFile", oBlob);
-                        //         console.log(oMyForm);
-
-                        // },
-                        // save: {
-                        //     callback : function() {
-                        //         alert('hi');
-                        //         console.log(this);
-                        //     }
-                        // }
+                            saveEventRegister(this.toolbar.element.children[3]);
+                        },  
                     }
                 );
-                console.log(imageCropper);
             };
         });
         $(document).on('click', '#uploaded-image', function() {
             var activeObject = imageCropper.canvas.getActiveObject();
-            if (typeof activeObject != 'undefined') {
-                console.log(activeObject.left);
-                $(document).find('#left').val(activeObject.left);
-                $(document).find('#top').val(activeObject.top);
-                $(document).find('#width').val(activeObject.width);
-                $(document).find('#height').val(activeObject.height);
-                $('#cropperModal').modal('toggle');
-            }
+            $(document).find('#file_hidden').val($(document).find('#image-preview > img').attr('src'));
+            $('#cropperModal').modal('toggle');
         });
+        function saveEventRegister(elem) {
+            $(elem).on('click', function() {
+                $(document).find('#image-preview').hide();
+                setTimeout(function() {
+                    $(document).find('#image-preview > img').addClass('img-fluid');
+                    $(document).find('#image-preview').show();
+                }, 100);
+            });
+        }
     </script>
 @endsection
 
