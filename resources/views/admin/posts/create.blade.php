@@ -111,6 +111,8 @@
                     <a class="btn btn-primary" id="add_tag" href="javascript:void(0)">Add</a>
                 </div>
             </div>
+            <input type="hidden" name="selected_tag" id="selected_tag"/>
+            <input type="hidden" name="selected_tag" id="selected_tag_name"/>
         </div>
     </div>
 
@@ -204,175 +206,128 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="{{asset('js/jquery.autocomplete.js')}}"></script>
 <script src="{{asset('js/tokenized/tokenize2.js')}}"></script>
-<script src="{{asset('js/posts/createpost.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/jquery.slugify.js')}}"></script>
 
 <script>
-    $('#post_slug').slugify('#post_title');
-    $('#tag_listing_data').tokenize2({
+    // $('#post_slug').slugify('#post_title');
+    // $('#tag_listing_data').tokenize2({
 
-        // max number of tags
-        tokensMaxItems: 0,
+    //     // max number of tags
+    //     tokensMaxItems: 0,
 
-        // allow you to create custom tokens
-        tokensAllowCustom: false,
+    //     // allow you to create custom tokens
+    //     tokensAllowCustom: false,
 
-        // max items in the dropdown
-        dropdownMaxItems: 10,
+    //     // max items in the dropdown
+    //     dropdownMaxItems: 10,
 
-        // minimum of characters required to start searching
-        searchMinLength: 0,
+    //     // minimum of characters required to start searching
+    //     searchMinLength: 0,
 
-        // specify if Tokenize2 will search from the begining of a string
-        searchFromStart: true,
+    //     // specify if Tokenize2 will search from the begining of a string
+    //     searchFromStart: true,
 
-        // choose if you want your search highlighted in the result dropdown
-        searchHighlight: true,
+    //     // choose if you want your search highlighted in the result dropdown
+    //     searchHighlight: true,
 
-        // custom delimiter
-        delimiter: ',',
+    //     // custom delimiter
+    //     delimiter: ',',
 
-        // data source
-        dataSource: $("#serrach_tag_seo").val(),
+    //     // data source
+    //     dataSource: $("#serrach_tag_seo").val(),
 
-        // waiting time between each search
-        debounce: 0,
+    //     // waiting time between each search
+    //     debounce: 0,
 
-        // custom placeholder text
-        placeholder: false,
+    //     // custom placeholder text
+    //     placeholder: false,
 
-        // enable sortable
-        // requires jQuery UI
-        sortable: false,
+    //     // enable sortable
+    //     // requires jQuery UI
+    //     sortable: false,
 
-        // tabIndex
-        tabIndex: 0
+    //     // tabIndex
+    //     tabIndex: 0
 
-    });
+    // });
 
-    $('#post_form_id').validate({ // initialize the plugin
-        rules: {
-            post_title: {
-                required: true,
-            },
-            post_desc: {
-                required: true,
-            },
-            featured_image: {
-                required: true
-            },
-            published_at: {
-                required: true,
-                date: true,
-            },
+    // $('#tag_selected_data').tokenize2();
 
-        },
+    // $('#post_form_id').validate({ // initialize the plugin
+    //     rules: {
+    //         post_title: {
+    //             required: true,
+    //         },
+    //         post_desc: {
+    //             required: true,
+    //         },
+    //         featured_image: {
+    //             required: true
+    //         },
+    //         published_at: {
+    //             required: true,
+    //             date: true,
+    //         },
+
+    //     },
     
-        submitHandler: function(form, event) {
+    //     submitHandler: function(form, event) {
 
-            event.preventDefault();
+    //         event.preventDefault();
             
-            var is_checked = false;
-            $('input[name="category[]"]').each(function() {
-                if (this.checked) {
-                    is_checked = true;
-                    return false;
-                }
-            });
+    //         var is_checked = false;
+    //         $('input[name="category[]"]').each(function() {
+    //             if (this.checked) {
+    //                 is_checked = true;
+    //                 return false;
+    //             }
+    //         });
 
-            if (!is_checked) {
-                alert('You must check at least one category!');
-                return false; // The form will *not* submit
-            }
+    //         if (!is_checked) {
+    //             alert('You must check at least one category!');
+    //             return false; // The form will *not* submit
+    //         }
 
-            var is_monthchecked = false;
-            $('input[name="month[]"]').each(function() {
-                if (this.checked) {
-                    is_monthchecked = true;
-                    return false;
-                }
-            });
+    //         var is_monthchecked = false;
+    //         $('input[name="month[]"]').each(function() {
+    //             if (this.checked) {
+    //                 is_monthchecked = true;
+    //                 return false;
+    //             }
+    //         });
 
-            if (!is_monthchecked) {
-                alert('You must check at least one month!');
-                return false; // The form will *not* submit
-            }
+    //         if (!is_monthchecked) {
+    //             alert('You must check at least one month!');
+    //             return false; // The form will *not* submit
+    //         }
 
-            var post_content = tinyMCE.activeEditor.getContent();
-            if(post_content == "") {
-                alert("Post content cannot be empty");
-                return false;
-            }
+    //         var post_content = tinyMCE.activeEditor.getContent();
+    //         if(post_content == "") {
+    //             alert("Post content cannot be empty");
+    //             return false;
+    //         }
 
-            var is_seochecked = true;
-            $('#tag_listing_data').each(function(i,select) {
-                if (select.selectedIndex <= 0) {
-                    is_seochecked = false;
-                }
-            });
+    //         var is_seochecked = true;
+    //         $('#tag_listing_data').each(function(i,select) {
+    //             if (select.selectedIndex <= 0) {
+    //                 is_seochecked = false;
+    //             }
+    //         });
 
-            if (!is_seochecked) {
-                alert('You must add at least one seo tag!');
-                return false; // The form will *not* submit
-            }
+    //         if (!is_seochecked) {
+    //             alert('You must add at least one seo tag!');
+    //             return false; // The form will *not* submit
+    //         }
 
-            form.submit();
+    //         form.submit();
 
-        }
-    });
+    //     }
+    // });
 </script>
 <script type="text/javascript" src="{{asset('node_modules/darkroom/vendor/fabric.js')}}"></script>
 <script type="text/javascript" src="{{asset('node_modules/darkroom/build/darkroom.js')}}"></script>
-<script type="text/javascript">
-    var imageCropper = false
-    $(document).on("change", ".image", function(){
-        
-        var imageReader = new FileReader();
-        imageReader.readAsDataURL(document.querySelector(".image").files[0]);
-        
-        imageReader.onload = function (oFREvent) {
-            $('#image-preview').find('.darkroom-container').remove();
-            $('#image-preview').html('<img src="'+oFREvent.target.result+'" id="preview-crop-image" class="img-responsive" style="display: none;"/>');
-            var p = $(document).find("#preview-crop-image");
-            imageCropper = new Darkroom(
-                '#preview-crop-image',
-                {
-                    save: {
-                        callback: function() {
-                            console.log(this);
-                        }
-                    },
-                // Canvas initialization size
-                    minWidth: 100,
-                    minHeight: 100,
-                    maxWidth: 500,
-                    maxHeight: 500,
-
-                    // Post initialization method
-                    initialize: function() {
-                        // Active crop selection
-                        this.plugins['crop'].requireFocus();
-                        saveEventRegister(this.toolbar.element.children[3]);
-                    },  
-                }
-            );
-        };
-    });
-    $(document).on('click', '#uploaded-image', function() {
-        var activeObject = imageCropper.canvas.getActiveObject();
-        $(document).find('#file_hidden').val($(document).find('#image-preview > img').attr('src'));
-        $('#cropperModal').modal('toggle');
-    });
-    function saveEventRegister(elem) {
-        $(elem).on('click', function() {
-            $(document).find('#image-preview').hide();
-            setTimeout(function() {
-                $(document).find('#image-preview > img').addClass('img-fluid');
-                $(document).find('#image-preview').show();
-            }, 100);
-        });
-    }
-</script>
+<script src="{{asset('js/posts/createpost.js')}}"></script>
+<script src="{{asset('js/imageCropper.js')}}"></script>
 @endsection
 
 @section('css')
