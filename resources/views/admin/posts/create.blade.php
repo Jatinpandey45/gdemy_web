@@ -34,7 +34,10 @@
                         <label for="post_desc">Description</label>
                         <!-- <input id="post_desc" type="hidden" name="post_desc">
                         <trix-editor input="post_desc"></trix-editor> -->
-                        <textarea class="gk_tinymce"></textarea>
+                        <textarea class="gk_tinymce" name="post_desc">{{old('post_desc')}}</textarea>
+                        @if($errors->has('post_desc'))
+                            <span class="error">{{ $errors->first('post_desc') }}</span>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -44,7 +47,8 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="post_seo_title">Title Tag</label>
-                        <input type="text" id="post_seo_title" value="{{old('post_seo_title')}}" class="form-control" placeholder="Name field must be unique" name="post_seo_title">
+                        <!-- <input type="text" id="post_seo_title" value="{{old('post_seo_title')}}" class="form-control" placeholder="Name field must be unique" name="post_seo_title"> -->
+                        <select id="tag_listing_data" name="post_seo_title[]" multiple></select>
                         <div class="help-block">Most search engine use upto 70</div>
                         @if($errors->has('post_seo_title'))
                             <span class="error">{{ $errors->first('post_seo_title') }}</span>
@@ -189,6 +193,7 @@
     <!-- public/js/tiny_mce/plugins/responsivefilemanager -->
 <input type="hidden" value="{{asset('js/tiny_mce/plugins/responsivefilemanager')}}" id="filemanagerlink"/> 
 <input type="hidden" value="{{route('post.search.tags')}}" id="tag_search_request_route">
+<input type="hidden" value="{{route('post.admin.search.search')}}" id="serrach_tag_seo">
 
 @section('pagescript')
 
@@ -198,11 +203,52 @@
 <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="{{asset('js/jquery.autocomplete.js')}}"></script>
+<script src="{{asset('js/tokenized/tokenize2.js')}}"></script>
 <script src="{{asset('js/posts/createpost.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/jquery.slugify.js')}}"></script>
 
 <script>
 $('#post_slug').slugify('#post_title');
+$('#tag_listing_data').tokenize2({
+
+// max number of tags
+tokensMaxItems: 0,
+
+// allow you to create custom tokens
+tokensAllowCustom: false,
+
+// max items in the dropdown
+dropdownMaxItems: 10,
+
+// minimum of characters required to start searching
+searchMinLength: 0,
+
+// specify if Tokenize2 will search from the begining of a string
+searchFromStart: true,
+
+// choose if you want your search highlighted in the result dropdown
+searchHighlight: true,
+
+// custom delimiter
+delimiter: ',',
+
+// data source
+dataSource: $("#serrach_tag_seo").val(),
+
+// waiting time between each search
+debounce: 0,
+
+// custom placeholder text
+placeholder: false,
+
+// enable sortable
+// requires jQuery UI
+sortable: false,
+
+// tabIndex
+tabIndex: 0
+
+});
 </script>
 
 @endsection
@@ -210,9 +256,9 @@ $('#post_slug').slugify('#post_title');
 
 @section('css')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.0/trix.css"> --}}
 <link rel="stylesheet" href="{{ asset('css/custom_checkbox.css')}}">
 <link rel="stylesheet" href="{{ asset('css/theme.css')}}">
+<link rel="stylesheet" href="{{asset('js/tokenized/tokenize2.css')}}"
 @endsection
 
 
