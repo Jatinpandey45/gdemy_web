@@ -119,36 +119,21 @@
         <div class="card-body">
             <div class="form-group">
                 @if($category)
-                @foreach($category as $val)
+                    @foreach($category as $val)
 
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="{{$val->id}}" name="category[]" id="category_{{$val->id}}">
-                        <span class="cr">
-                            <i class="cr-icon material-icons rtl-no-flip checkbox"></i></span>
-                        </span>
-                        <span class="gk_name">
-                            {{ $val->category_name }}
-                        </span>
-                    </label>
-                </div>
-
-            <div class="card card-default form-group">
-                <div class="card-header h3">Featured Image</div>
-                <div class="card-body">
-                    <div class="form-group">
-                        {{-- <label for="featured_image">Feature Image</label> --}}
-                        {{-- <input type="file" id="featured_image" class="form-control" name="featured_image"> --}}
-                        <div>
-                            <a href="javscript:void(0)"  class="btn btn-primary" data-toggle="modal" data-target="#cropperModal">Upload</a>
-                            @include('modal.imagecropper', ['name' => 'category_icon'])
-                        </div>
-                        @if($errors->has('featured_image'))
-                            <span class="error">{{ $errors->first('featured_image') }}</span>
-                        @endif
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="{{$val->id}}" name="category[]" id="category_{{$val->id}}">
+                            <span class="cr">
+                                <i class="cr-icon material-icons rtl-no-flip checkbox"></i></span>
+                            </span>
+                            <span class="gk_name">
+                                {{ $val->category_name }}
+                            </span>
+                        </label>
                     </div>
-                </div>
-            </div>
+                    @endforeach
+             @endif
         </div>
     </div>
 
@@ -157,7 +142,10 @@
         <div class="card-body">
             <div class="form-group">
                 {{-- <label for="featured_image">Feature Image</label> --}}
-                <input type="file" id="featured_image" class="form-control" name="featured_image">
+                <div>
+                            <a href="javscript:void(0)"  class="btn btn-primary" data-toggle="modal" data-target="#cropperModal">Upload</a>
+                            @include('modal.imagecropper', ['name' => 'category_icon'])
+                        </div>
                 @if($errors->has('featured_image'))
                 <span class="error">{{ $errors->first('featured_image') }}</span>
                 @endif
@@ -332,8 +320,8 @@
         }
     });
 </script>
-<script type="text/javascript" src={{asset('node_modules/darkroom/vendor/fabric.js')}}></script>
-<script type="text/javascript" src={{asset('node_modules/darkroom/build/darkroom.js')}}></script>
+<script type="text/javascript" src="{{asset('node_modules/darkroom/vendor/fabric.js')}}"></script>
+<script type="text/javascript" src="{{asset('node_modules/darkroom/build/darkroom.js')}}"></script>
 <script type="text/javascript">
     var imageCropper = false
     $(document).on("change", ".image", function(){
@@ -391,4 +379,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <link rel="stylesheet" href="{{ asset('css/custom_checkbox.css')}}">
 <link rel="stylesheet" href="{{ asset('css/theme.css')}}">
-<link rel="stylesheet" href="{{asset('js/tokenized/tokenize2.css')}}" @endsection @endsection
+<link rel="stylesheet" href="{{asset('js/tokenized/tokenize2.css')}}">
+ @endsection 
+ @endsection
