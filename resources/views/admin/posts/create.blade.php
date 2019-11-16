@@ -133,21 +133,10 @@
                     </label>
                 </div>
 
-            <div class="card card-default form-group">
-                <div class="card-header h3">Featured Image</div>
-                <div class="card-body">
-                    <div class="form-group">
-                        {{-- <label for="featured_image">Feature Image</label> --}}
-                        {{-- <input type="file" id="featured_image" class="form-control" name="featured_image"> --}}
-                        <div>
-                            <a href="javscript:void(0)"  class="btn btn-primary" data-toggle="modal" data-target="#cropperModal">Upload</a>
-                            @include('modal.imagecropper', ['name' => 'category_icon'])
-                        </div>
-                        @if($errors->has('featured_image'))
-                            <span class="error">{{ $errors->first('featured_image') }}</span>
-                        @endif
-                    </div>
-                </div>
+                @endforeach
+
+                @endif
+
             </div>
         </div>
     </div>
@@ -157,7 +146,11 @@
         <div class="card-body">
             <div class="form-group">
                 {{-- <label for="featured_image">Feature Image</label> --}}
-                <input type="file" id="featured_image" class="form-control" name="featured_image">
+                {{-- <input type="file" id="featured_image" class="form-control" name="featured_image"> --}}
+                <div>
+                    <a href="javscript:void(0)"  class="btn btn-primary" data-toggle="modal" data-target="#cropperModal">Upload</a>
+                    @include('modal.imagecropper', ['name' => 'featured_image'])
+                </div>
                 @if($errors->has('featured_image'))
                 <span class="error">{{ $errors->first('featured_image') }}</span>
                 @endif
