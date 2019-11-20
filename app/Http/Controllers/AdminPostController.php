@@ -258,4 +258,74 @@ class AdminPostController extends Controller
 
         return response()->json($http_response_header);
     }
+
+    /**
+     * postList
+     * @param : null
+     * @return : application/html
+     */
+
+     public function postList(Request $request)
+     {
+        $columns = array(
+            'post_title',
+            'post_desc',
+            'month',
+            'publish_at'
+        );
+
+        $totalData = Posts::count();
+
+        $totalFiltered = $totalData;
+
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+
+        if (empty($request->input('search.value'))) {
+            $category = Posts::with(['getMonth'])->offset($start)
+                ->limit($limit)
+                ->orderBy($order, $dir)
+                ->get();
+        } else {
+            $search = $request->input('search.value');
+
+            $category =  Posts::with(['getMonth'])->where('post_title', 'LIKE', "%{$search}%")
+                ->orWhere('post_desc', 'LIKE', "%{$search}%")
+                ->offset($start)
+                ->limit($limit)
+                ->orderBy($order, $dir)
+                ->get();
+
+            $totalFiltered = Posts::with(['getMonth'])->where('post_title', 'LIKE', "%{$search}%")
+                ->orWhere('post_desc', 'LIKE', "%{$search}%")
+                ->count();
+        }
+
+       // dd($category->toArray());
+        $data = array();
+        if (!empty($category)) {
+            foreach ($category as $row) {
+
+                $nestedData['post_title'] = $row->post_title;
+                $nestedData['post_desc'] = $row->post_desc;
+                $nestedData['month'] = $row->getMonth->month_name;
+                $nestedData['publish_at'] = $row->publish_at;
+                $nestedData['action'] = encrypt($nestedData);
+                $nestedData['edit_route'] = route('posts.edit', encrypt($row->id));
+                $data[] = $nestedData;
+            }
+        }
+
+        $json_data = array(
+            "draw"            => intval($request->input('draw')),
+            "recordsTotal"    => intval($totalData),
+            "recordsFiltered" => intval($totalFiltered),
+            "data"            => $data
+        );
+
+        return response()->json($json_data);
+
+     }
 }

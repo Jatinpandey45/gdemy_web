@@ -9,35 +9,16 @@
             <div class="card card-default">
                 <div class="card-header h3">Posts</div>
                     <div class="card-body">
-                        <table class="table">
+                        <table class="table" id="data_table_post">
                             <thead>
                                 <th>Title</th>
                                 <th>Description</th>
-                                <th>Category</th>
-                                <th>Tags</th>
                                 <th>Month</th>
-                                <th>Comments</th>
-                                <th>Status</th>
+                                <th>Published At</th>
+                                <th>Action</th>
                             </thead>
                             <tbody>
-                                <td>
-                                    Title
-                                    <div>
-                                        <a href="{{ route('categories.edit', 1) }}">Edit</a>
-                                        <a href="{{ route('categories.destroy', 1) }}" data-toggle="modal" data-target="#deleteModal">Trash</a>
-                                    </div>
-                                </td>
-                                <td>Post Description</td>
-                                <td>Categories</td>
-                                <td>Tags</td>
-                                <td>Month</td>
-                                <td>Comments</td>
-                                <td>Status</td>
-                                {{-- @foreach ($categories as $category)
-                                    <tr>
-                                        <td>{{ $category.name }}</td>
-                                    </tr>
-                                @endforeach --}}
+                               
                             </tbody>
                         </table>
                     </div>
@@ -51,9 +32,29 @@
 @section('pagescript')
 <script src="{{asset('js/jquery-validation/dist/jquery.validate.min.js')}}"></script>
 <script src="{{asset('js/jquery-validation/dist/additional-methods.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/datatable.min.js')}}"></script>
+<script>
+  var table = $('#data_table_post').DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: "{{route('admin.post.list.records')}}",
+    columns: [
+        {data: 'post_title', name: 'Category'},
+        {data: 'post_desc', name: 'Description','orderable':false},
+        {data: 'month', name: 'Month','orderable' :false},
+        {data: 'publish_at', name: 'Created'},
+        {data:"action","className": "text-right", "render" : function ( data, type, row ){
+            return '<a href="'+row.edit_route+'"><i class="material-icons">edit</i></a>'+
+                '<a href="javascript:void(0);" class="remove-item" data-id="'+data+'"><i class="material-icons" data-toggle="modal" data-target="#deleteModal">delete</i></a>';
+         }
+      }
+    ]
+    });
 
-<script src="{{asset('js/category.js')}}"></script>
 
+
+
+</script>
 @endsection
 
 

@@ -26,11 +26,11 @@ class Posts extends Model
 
     public function getCategory()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo('App\Category','category_id','id');
     }
 
     public function getMonth()
     {
-        return $this->belongsTo(MonthTags::class);
+        return $this->belongsTo('App\MonthTags','month_id','id');
     }
 }
