@@ -78,7 +78,7 @@ class AdminPostController extends Controller
             $post->month_id   = $request->get('month')[0];
             $post->lang_id    = $this->getLocalId();
             $post->emp_id     = Auth::user()->id;
-            $post->featured_image  = $request->get('file_hidden','');
+            $post->featured_image  = $request->get('file_hidden', '');
             $post->publish_at   = $request->get('published_at');
             $post->target_device  = $request->get('visibility');
             $post->save();
@@ -102,24 +102,22 @@ class AdminPostController extends Controller
              * store cateogry into the database
              */
 
-             $category = $request->get('category');
-             foreach($category as $key => $val) {
+            $category = $request->get('category');
+            foreach ($category as $key => $val) {
                 $postCategory = new GkCategoryPost;
                 $postCategory->category_id = $val;
                 $postCategory->post_id = $post->id;
                 $postCategory->save();
-             }
-             
-             DB::commit();
+            }
 
+            DB::commit();
         } catch (\PDOException $e) {
             // Woopsy
             DB::rollBack();
         }
 
-        return Redirect::back()->with('success',['code' => Response::HTTP_OK,'message' => trans('message.post_added')]);
-
-     }
+        return Redirect::back()->with('success', ['code' => Response::HTTP_OK, 'message' => trans('message.post_added')]);
+    }
 
     /**
      * Display the specified resource.
@@ -183,11 +181,10 @@ class AdminPostController extends Controller
 
             foreach ($result as $key => $val) {
                 $returnData[$key] = ['value' => $val->tag_name, 'data' => $val->id];
-                
             }
         }
 
-        return response()->json(['suggestions' => $returnData ]);
+        return response()->json(['suggestions' => $returnData]);
     }
 
 
@@ -209,10 +206,56 @@ class AdminPostController extends Controller
 
             foreach ($result as $key => $val) {
                 $returnData[$key] = ['value' => $val->tag_name, 'text' => $val->tag_name];
-                
             }
         }
 
         return response()->json($returnData);
+    }
+
+    /**
+     * 
+     * storetagData 
+     * @param  : request 
+     * @return : application/json
+     */
+
+    public function storetagData(Request $request)
+    {
+
+        $id = $request->get('id');
+
+        if (is_null($id)) {
+
+            $tag = new Tags;
+            $tag->lang_id = $this->getLocalId();
+            $tag->tag_name  = $request->get('tag');
+            $tag->tag_slug  = str_slug($tag->tag_name, '-');
+            $tag->tag_desc  = "--";
+            $tag->save();
+
+            $http_response_header =
+                [
+                    'code' => Response::HTTP_CREATED,
+                    'message' => "New tag created",
+                    'data' => [
+                        'tag' => $request->get('tag'),
+                        'id' => $tag->id
+                    ]
+                ];
+        } else {
+
+            $http_response_header =
+                [
+                    'code' => Response::HTTP_OK,
+                    'message' => "Tag processed",
+                    'data' => [
+                        'tag' => $request->get('tag'),
+                        'id' => $request->get('id')
+                    ]
+                ];
+        }
+
+
+        return response()->json($http_response_header);
     }
 }
