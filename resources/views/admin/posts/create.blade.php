@@ -111,6 +111,10 @@
                     <button class="btn btn-primary" id="add_tag">Add</button>
                 </div>
             </div>
+            <div class="input-group" id="selected_post_tag">
+                <select type="hidden" class="d-none" name="post_tags" id="post_tags" value=""/>
+                </select>
+            </div>
             
             <input type="hidden" name="selected_id" id="selected_tag"/>
             <input type="hidden" name="selected_name" id="selected_tag_name"/>

@@ -3,6 +3,20 @@ a > i.material-icons {
   color: #25b9d7;
 }
 
+.selected-tag {
+  width: 100%;
+  border-bottom: 1px solid #dbdbdb;
+  padding: 2px 5px;
+}
+
+.selected-tag:hover {
+  background: #25b9d7;
+  color: white;
+}
+
+.selected-tag > .delete-post-tag {
+  cursor: pointer;
+}
 .nav-bar {
   -webkit-transition: all .5s ease-out;
   background: #363a41;
@@ -142,10 +156,13 @@ div#main {
   white-space: nowrap;
   word-wrap: normal;
   direction: ltr;
-  -webkit-font-feature-settings: 'liga';
-  -webkit-font-smoothing: antialiased;
-  color: #fff;
+  color: black;
 }
+
+span.delete-post-tag >i..material-icons {
+  color: white;
+}
+
 
 
 
