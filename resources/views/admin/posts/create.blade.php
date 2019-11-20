@@ -151,9 +151,12 @@
             <div class="form-group">
                 {{-- <label for="featured_image">Feature Image</label> --}}
                 <div>
-                            <a href="javscript:void(0)"  class="btn btn-primary" data-toggle="modal" data-target="#cropperModal">Upload</a>
-                                @include('modal.imagecropper', ['name' => 'featured_image'])
-                        </div>
+                    <a href="javscript:void(0)"  class="btn btn-primary form-group" data-toggle="modal" data-target="#cropperModal">Upload</a>
+                    <div>
+                        <img src="" class="img-responsive img-fluid" id="preview_image" style="display: none;"/>
+                    </div>
+                    @include('modal.imagecropper', ['name' => 'featured_image'])
+                </div>
                 @if($errors->has('featured_image'))
                 <span class="error">{{ $errors->first('featured_image') }}</span>
                 @endif

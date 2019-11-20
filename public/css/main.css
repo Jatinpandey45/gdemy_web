@@ -1,3 +1,6 @@
+img#preview_image {
+  max-width: 150px;
+}
 
 a > i.material-icons {
   color: #25b9d7;

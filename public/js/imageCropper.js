@@ -60,6 +60,8 @@ function saveEventRegister(elem) {
             $(document).find('#image-preview > img').addClass('img-fluid');
             $(document).find('#image-preview').show();
             $(document).find('#file_hidden').val($(document).find('#image-preview > img').attr('src'));
+            $(document).find('#preview_image').attr('src', $(document).find('#image-preview > img').attr('src'));
+            $(document).find('#preview_image').show();
         }, 100);
     });
 }
