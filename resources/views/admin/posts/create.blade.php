@@ -108,11 +108,12 @@
                 <input type="text" class="form-control" name="tag_name" id="tag_name">
                 <img id="loader_element_id" width="100" height="100" style="display:none;position: absolute;margin: -67px 203px -7px;" src="{{asset('images/Spinner-1s-200px.gif')}}">
                 <div class="input-group-append">
-                    <a class="btn btn-primary" id="add_tag" href="javascript:void(0)">Add</a>
+                    <button class="btn btn-primary" id="add_tag">Add</button>
                 </div>
             </div>
-            <input type="hidden" name="selected_tag" id="selected_tag"/>
-            <input type="hidden" name="selected_tag" id="selected_tag_name"/>
+            
+            <input type="hidden" name="selected_id" id="selected_tag"/>
+            <input type="hidden" name="selected_name" id="selected_tag_name"/>
         </div>
     </div>
 
@@ -196,9 +197,9 @@
 <input type="hidden" value="{{asset('js/tiny_mce/plugins/responsivefilemanager')}}" id="filemanagerlink" />
 <input type="hidden" value="{{route('post.search.tags')}}" id="tag_search_request_route">
 <input type="hidden" value="{{route('post.admin.search.search')}}" id="serrach_tag_seo">
+<input type="hidden" value="{{route('post.add.new.tag')}}" id="add_new_tag_from_post_id">
 
 @section('pagescript')
-
 <script src="{{asset('js/jquery-validation/dist/jquery.validate.min.js')}}"></script>
 <script src="{{asset('js/jquery-validation/dist/additional-methods.min.js')}}"></script>
 <script src="{{asset('js/category.js')}}"></script>
@@ -220,4 +221,5 @@
 <link rel="stylesheet" href="{{ asset('css/theme.css')}}">
 <link rel="stylesheet" href="{{asset('js/tokenized/tokenize2.css')}}">
  @endsection 
+
  @endsection

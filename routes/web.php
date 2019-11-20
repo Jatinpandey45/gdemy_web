@@ -48,6 +48,8 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('search-tags','AdminPostController@searchTags')->name('post.search.tags');
     Route::get('search-seo-tags','AdminPostController@searchTagsSeo')->name('post.admin.search.search');
     Route::get('user-logout','HomeController@logoutUser')->name('user.logout');
+    Route::post('post-add-tag','AdminPostController@storetagData')->name('post.add.new.tag');
+    Route::get('post-list','AdminPostController@postList')->name('admin.post.list.records');
 
 });
 
