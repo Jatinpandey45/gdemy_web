@@ -52,7 +52,9 @@ $(document).ready(function () {
     $("#post_tags option[value='"+$(this).data('id')+"']").remove();
     $(this).closest('.selected-tag').remove();
   });
+
 });
+$('#lfm').filemanager('image');
 
 // $('#tag_name').autocomplete({
 //   serviceUrl: $("#tag_search_request_route").val(),

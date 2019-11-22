@@ -147,16 +147,27 @@
         <div class="card-body">
             <div class="form-group">
                 {{-- <label for="featured_image">Feature Image</label> --}}
-                <div>
+                {{-- <div>
                     <a href="javscript:void(0)"  class="btn btn-primary form-group" data-toggle="modal" data-target="#cropperModal">Upload</a>
                     <div>
                         <img src="" class="img-responsive img-fluid" id="preview_image" style="display: none;"/>
                     </div>
                     @include('modal.imagecropper', ['name' => 'featured_image'])
+                </div> --}}      
+
+                <img id="holder" style="margin-bottom:15px;max-height:100px;">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                      <a id="lfm" data-input="featured_image" data-preview="holder" class="btn btn-primary">
+                          <i class="fa fa-picture-o"></i> Choose
+                        </a>
+                    </span>
+                    <input id="featured_image" class="form-control" type="text" name="featured_image">
                 </div>
                 @if($errors->has('featured_image'))
                 <span class="error">{{ $errors->first('featured_image') }}</span>
                 @endif
+                
             </div>
         </div>
     </div>
@@ -208,18 +219,19 @@
 <script src="{{asset('js/jquery-validation/dist/additional-methods.min.js')}}"></script>
 <script src="{{asset('js/category.js')}}"></script>
 <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
+<script src="{{asset('vendor/laravel-filemanager/js/lfm.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="{{asset('js/jquery.autocomplete.js')}}"></script>
 <script src="{{asset('js/tokenized/tokenize2.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/jquery.slugify.js')}}"></script>
-<script type="text/javascript" src="{{asset('node_modules/darkroom/vendor/fabric.js')}}"></script>
-<script type="text/javascript" src="{{asset('node_modules/darkroom/build/darkroom.js')}}"></script>
+{{-- <script type="text/javascript" src="{{asset('node_modules/darkroom/vendor/fabric.js')}}"></script>
+<script type="text/javascript" src="{{asset('node_modules/darkroom/build/darkroom.js')}}"></script> --}}
 <script src="{{asset('js/posts/createpost.js')}}"></script>
-<script src="{{asset('js/imageCropper.js')}}"></script>
+{{-- <script src="{{asset('js/imageCropper.js')}}"></script> --}}
 @endsection
 
 @section('css')
-<link rel="stylesheet" href="{{asset('node_modules/darkroom/build/darkroom.css')}}">
+{{-- <link rel="stylesheet" href="{{asset('node_modules/darkroom/build/darkroom.css')}}"> --}}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <link rel="stylesheet" href="{{ asset('css/custom_checkbox.css')}}">
 <link rel="stylesheet" href="{{ asset('css/theme.css')}}">
