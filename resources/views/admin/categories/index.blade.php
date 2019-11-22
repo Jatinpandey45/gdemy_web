@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-4">
-            <div class="card card-default">
+            <div class="card card-default form-group">
                 <div class="card-header h3">Create Categories</div>
                 <div class="card-body">
                 
@@ -67,7 +67,7 @@
             </div>
         </div>
         <div class="col-md-8">
-            <div class="card card-default">
+            <div class="card card-default form-group">
                 <div class="card-header h3">Categories</div>
                     <div class="card-body">
                         <table class="table" id="category_datatable">

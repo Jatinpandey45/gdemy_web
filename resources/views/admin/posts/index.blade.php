@@ -12,7 +12,7 @@
                         <table class="table" id="data_table_post">
                             <thead>
                                 <th>Title</th>
-                                <th>Description</th>
+                                {{-- <th>Description</th> --}}
                                 <th>Month</th>
                                 <th>Published At</th>
                                 <th>Action</th>
@@ -40,7 +40,7 @@
     ajax: "{{route('admin.post.list.records')}}",
     columns: [
         {data: 'post_title', name: 'Category'},
-        {data: 'post_desc', name: 'Description','orderable':false},
+        // {data: 'post_desc', name: 'Description','orderable':false},
         {data: 'month', name: 'Month','orderable' :false},
         {data: 'publish_at', name: 'Created'},
         {data:"action","className": "text-right", "render" : function ( data, type, row ){
