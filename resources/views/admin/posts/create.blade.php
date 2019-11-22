@@ -47,8 +47,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="post_seo_title">Title Tag</label>
-                    <!-- <input type="text" id="post_seo_title" value="{{old('post_seo_title')}}" class="form-control" placeholder="Name field must be unique" name="post_seo_title"> -->
-                    <select id="tag_listing_data" name="post_seo_title[]" multiple="multiple"></select>
+                    <input type="text" id="post_seo_title" value="{{old('post_seo_title')}}" class="form-control" placeholder="Name field must be unique" name="post_seo_title">
                     <div class="help-block">Most search engine use upto 70</div>
                     @if($errors->has('post_seo_title'))
                     <span class="error">{{ $errors->first('post_seo_title') }}</span>
@@ -99,17 +98,15 @@
             <div class="card-body">
                 {{-- <label for="tag_name">Name</label> --}}
                 {{-- <div class="form-group">
-                        <input type="text" id="tag_name" value="" class="form-control" placeholder="" name="tag_name">
+                        <select id="tag_listing_data" name="tag_name[]" multiple="multiple"></select>
                         <img id="loader_element_id" width="100" height="100" style="display:none;position: absolute;margin: -67px 203px -7px;" src="{{asset('images/Spinner-1s-200px.gif')}}">
             </div> --}}
 
 
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" name="tag_name" id="tag_name">
+            <div class="form-group">
+                <!-- <input type="text" class="form-control" name="tag_name" id="tag_name"> -->
+                <select id="tag_listing_data" class="form-control" name="tag_name[]" multiple="multiple"></select>
                 <img id="loader_element_id" width="100" height="100" style="display:none;position: absolute;margin: -67px 203px -7px;" src="{{asset('images/Spinner-1s-200px.gif')}}">
-                <div class="input-group-append">
-                    <button class="btn btn-primary" id="add_tag">Add</button>
-                </div>
             </div>
             <div class="input-group" id="selected_post_tag">
                 <select type="hidden" class="d-none" name="post_tags" id="post_tags" value=""/>

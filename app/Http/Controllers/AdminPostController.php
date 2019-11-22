@@ -92,7 +92,7 @@ class AdminPostController extends Controller
 
             $postSeo = new PostSeo;
             $postSeo->post_id = $post->id;
-            $postSeo->keyword  = implode($request->get('post_seo_title'));
+            $postSeo->keyword  = $request->get('post_seo_title');
             $postSeo->description = $request->get('seo_desc');
             $postSeo->titile = "--";
             $postSeo->save();
@@ -109,6 +109,14 @@ class AdminPostController extends Controller
                 $postCategory->post_id = $post->id;
                 $postCategory->save();
             }
+
+
+            /**
+             * 
+             * Store tags into the data either create custom ones and or save existing with ids
+             */
+
+             
 
             DB::commit();
         } catch (\PDOException $e) {
@@ -171,31 +179,6 @@ class AdminPostController extends Controller
 
     public function searchTags(Request $request)
     {
-        $searchTerm = $request->get('query', '');
-
-        $result = Tags::searchTags($searchTerm);
-
-        $returnData = [];
-
-        if (!$result->isEmpty()) {
-
-            foreach ($result as $key => $val) {
-                $returnData[$key] = ['value' => $val->tag_name, 'data' => $val->id];
-            }
-        }
-
-        return response()->json(['suggestions' => $returnData]);
-    }
-
-
-
-    /**
-     * searchTags
-     * @param : query string
-     */
-
-    public function searchTagsSeo(Request $request)
-    {
         $searchTerm = $request->get('search', '');
 
         $result = Tags::searchTags($searchTerm);
@@ -205,59 +188,16 @@ class AdminPostController extends Controller
         if (!$result->isEmpty()) {
 
             foreach ($result as $key => $val) {
-                $returnData[$key] = ['value' => $val->tag_name, 'text' => $val->tag_name];
+                $returnData[$key] = ['value' => $val->id, 'text' => $val->tag_name];
             }
-        }
+        } 
 
         return response()->json($returnData);
     }
 
-    /**
-     * 
-     * storetagData 
-     * @param  : request 
-     * @return : application/json
-     */
-
-    public function storetagData(Request $request)
-    {
-
-        $id = $request->get('id');
-
-        if (is_null($id)) {
-
-            $tag = new Tags;
-            $tag->lang_id = $this->getLocalId();
-            $tag->tag_name  = $request->get('tag');
-            $tag->tag_slug  = str_slug($tag->tag_name, '-');
-            $tag->tag_desc  = "--";
-            $tag->save();
-
-            $http_response_header =
-                [
-                    'code' => Response::HTTP_CREATED,
-                    'message' => "New tag created",
-                    'data' => [
-                        'tag' => $request->get('tag'),
-                        'id' => $tag->id
-                    ]
-                ];
-        } else {
-
-            $http_response_header =
-                [
-                    'code' => Response::HTTP_OK,
-                    'message' => "Tag processed",
-                    'data' => [
-                        'tag' => $request->get('tag'),
-                        'id' => $request->get('id')
-                    ]
-                ];
-        }
 
 
-        return response()->json($http_response_header);
-    }
+    
 
     /**
      * postList

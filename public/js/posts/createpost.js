@@ -54,47 +54,50 @@ $(document).ready(function () {
   });
 });
 
-$('#tag_name').autocomplete({
-  serviceUrl: $("#tag_search_request_route").val(),
-  minChars: 3,
-  dataType: 'json',
-  type: "get",
-  onSearchStart: function () {
-    $("#loader_element_id").show();
-  },
-  onSearchComplete: function (data, result) {
-    $("#loader_element_id").hide();
-    if (result.length == 0) {
-      $('#selected_tag').val('');
-      $('#selected_tag_name').val(data);
-    } else {
-      // $('#selected_tag').val('');
-      // $('#selected_tag_name').val('');
-    }
-  },
-  onSelect: function (suggestion) {
-    $('#selected_tag').val(suggestion.data);
-    $('#selected_tag_name').val(suggestion.value);
-    var selectBox = document.getElementById('post_tags');
-    selectBox.options.add( new Option(suggestion.value, suggestion.data, true) );
+// $('#tag_name').autocomplete({
+//   serviceUrl: $("#tag_search_request_route").val(),
+//   minChars: 3,
+//   dataType: 'json',
+//   type: "get",
+//   onSearchStart: function () {
+//     $("#loader_element_id").show();
+//   },
+//   onSearchComplete: function (data, result) {
+//     $("#loader_element_id").hide();
+//     if (result.length == 0) {
+//       $('#selected_tag').val('');
+//       $('#selected_tag_name').val(data);
+//     } else {
+//       // $('#selected_tag').val('');
+//       // $('#selected_tag_name').val('');
+//     }
+//   },
+//   onSelect: function (suggestion) {
+//     $('#selected_tag').val(suggestion.data);
+//     $('#selected_tag_name').val(suggestion.value);
+//     var selectBox = document.getElementById('post_tags');
+//     selectBox.options.add( new Option(suggestion.value, suggestion.data, true) );
 
-    $('#selected_post_tag').append(
-      '<div class="selected-tag">'+
-        '<span>'+suggestion.value+'</span>'+
-        '<span class="float-right delete-post-tag" data-id="'+suggestion.data+'"><i class="material-icons">delete</i></span>'+
-      '</div>'
-    );
-  }
-});
+//     $('#selected_post_tag').append(
+//       '<div class="selected-tag">'+
+//         '<span>'+suggestion.value+'</span>'+
+//         '<span class="float-right delete-post-tag" data-id="'+suggestion.data+'"><i class="material-icons">delete</i></span>'+
+//       '</div>'
+//     );
+
+    
+//   }
+// });
 
 $('#post_slug').slugify('#post_title');
-$('#tag_listing_data').tokenize2({
+var tokenInput = null;
+tokenInput = $('#tag_listing_data').tokenize2({
 
   // max number of tags
   tokensMaxItems: 0,
 
   // allow you to create custom tokens
-  tokensAllowCustom: false,
+  tokensAllowCustom: true,
 
   // max items in the dropdown
   dropdownMaxItems: 10,
@@ -112,13 +115,13 @@ $('#tag_listing_data').tokenize2({
   delimiter: ',',
 
   // data source
-  dataSource: $("#serrach_tag_seo").val(),
+  dataSource: $("#tag_search_request_route").val(),
 
   // waiting time between each search
   debounce: 0,
 
   // custom placeholder text
-  placeholder: false,
+  placeholder: "Please search for tags here",
 
   // enable sortable
   // requires jQuery UI
@@ -130,9 +133,7 @@ $('#tag_listing_data').tokenize2({
 });
 
 
-function initialiseTagData() {
-  $('#tag_selected_data').tokenize2();
-}
+
 
 $('#post_form_id').validate({ // initialize the plugin
   rules: {
@@ -188,18 +189,7 @@ $('#post_form_id').validate({ // initialize the plugin
       return false;
     }
 
-    var is_seochecked = true;
-    $('#tag_listing_data').each(function (i, select) {
-      if ($(select).has('option:selected').length <= 0) {
-        is_seochecked = false;
-      }
-    });
-
-    if (!is_seochecked) {
-      alert('You must add at least one seo tag!');
-      return false; // The form will *not* submit
-    }
-
+  
     if ($("#file_hidden").val() == "") {
       alert("Please upload feature image");
       return false;
@@ -210,66 +200,4 @@ $('#post_form_id').validate({ // initialize the plugin
   }
 });
 
-
-var ADD_TAG = {
-
-  _APPEND_TAG_DATA: function (id,data,$this) {
-
-    $.ajax({
-      type: "post",
-
-      headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-
-      url: $("#add_new_tag_from_post_id").val(),
-
-      data: {id:id,tag:data},
-
-      dataType: "json",
-
-      beforeSend : function() {
-        $this.html('<i class="fa fa-spinner" style="font-size:36px;"></i>');
-      },
-
-
-      success: function (response) {
-        if (response.code == 201) {
-          var selectBox = document.getElementById('post_tags');
-          selectBox.options.add( new Option(response.data.tag, response.data.id, true) );
-
-          $('#selected_post_tag').append(
-            '<div class="">'+
-              '<span>'+response.data.tag+'</span>'+
-              '<span class="float-right"><i class="material-icons">delete</i></span>'+
-            '</div>'
-          );
-
-          $('#selected_post_tag').append(
-            '<div class="">'+
-              '<span>'+response.data.tag+'</span>'+
-              '<span class="float-right delete-post-tag" data-id="'+response.data.id+'"><i class="material-icons">delete</i></span>'+
-            '</div>'
-          );
-        }
-      },
-
-      error: function () {
-        alert("Something went wrong. Please try after some time");
-      },
-      complete: function () {
-          $this.html('Add');
-      }
-    });
-
-  }
-
-}
-
-
-// driver function here //
-
-$('body').on('click','#add_tag',function(){
-  var id = $("#selected_tag").val();
-  var tag = $("#selected_tag_name").val();
-  ADD_TAG._APPEND_TAG_DATA(id,tag,$(this));
-});
 
