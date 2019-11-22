@@ -48,16 +48,28 @@
                                 Upload Logo
                             </label>
                             {{-- <input type="file" class="form-control" name="category_icon"> --}}
-                            <div>
+                            {{-- <div>
                                 <a href="javscript:void(0)"  class="btn btn-primary form-group" data-toggle="modal" data-target="#cropperModal">Upload</a>
                                 <div>
                                     <img src="" class="img-responsive img-fluid" id="preview_image" style="display: none;"/>
                                 </div>
                                 @include('modal.imagecropper', ['name' => 'category_icon'])
+                            </div> --}}
+
+                            <div>
+                                <img id="holder" style="margin-bottom:15px;max-height:100px;">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                    <a id="lfm" data-input="category_icon" data-preview="holder" class="btn btn-primary">
+                                        <i class="fa fa-picture-o"></i> Choose
+                                        </a>
+                                    </span>
+                                    <input id="category_icon" class="form-control" type="text" name="category_icon">
+                                </div>
+                                @if($errors->has('category_icon'))
+                                    <span class="error">{{ $errors->first('category_icon') }}</span>
+                                @endif
                             </div>
-                            @if($errors->has('category_icon'))
-                                <span class="error">{{ $errors->first('category_icon') }}</span>
-                            @endif
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-success">Add Category</button>
@@ -92,6 +104,7 @@
 @section('pagescript')
 <script src="{{asset('js/jquery.validate.min.js')}}"></script> 
 <script src="{{asset('js/additional-methods.min.js')}}"></script>
+<script src="{{asset('vendor/laravel-filemanager/js/lfm.js')}}"></script>
 <script src="{{asset('js/category.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/datatable.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/jquery.slugify.js')}}"></script>
@@ -115,19 +128,12 @@
     ]
     });
     $('#category_slug').slugify('#category_name');
-   
+    $('#lfm').filemanager('image');
 </script>
 
-    <script type="text/javascript" src={{asset('node_modules/darkroom/vendor/fabric.js')}}></script>
-    <script type="text/javascript" src={{asset('node_modules/darkroom/build/darkroom.js')}}></script>
-    <script src="{{asset('js/imageCropper.js')}}"></script>
+    {{-- <script type="text/javascript" src={{asset('node_modules/darkroom/vendor/fabric.js')}}></script>
+    <script type="text/javascript" src={{asset('node_modules/darkroom/build/darkroom.js')}}></script> --}}
+    {{-- <script src="{{asset('js/imageCropper.js')}}"></script> --}}
 @endsection
-
-
-@section('css')
-    <link rel="stylesheet" href="{{asset('node_modules/darkroom/build/darkroom.css')}}">
-@endsection
-
-
 
 @endsection

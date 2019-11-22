@@ -47,8 +47,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="post_seo_title">Title Tag</label>
-                    <!-- <input type="text" id="post_seo_title" value="{{old('post_seo_title')}}" class="form-control" placeholder="Name field must be unique" name="post_seo_title"> -->
-                    <select id="tag_listing_data" name="post_seo_title[]" multiple="multiple"></select>
+                    <input type="text" id="post_seo_title" value="{{old('post_seo_title')}}" class="form-control" placeholder="Name field must be unique" name="post_seo_title">
                     <div class="help-block">Most search engine use upto 70</div>
                     @if($errors->has('post_seo_title'))
                     <span class="error">{{ $errors->first('post_seo_title') }}</span>
@@ -99,17 +98,15 @@
             <div class="card-body">
                 {{-- <label for="tag_name">Name</label> --}}
                 {{-- <div class="form-group">
-                        <input type="text" id="tag_name" value="" class="form-control" placeholder="" name="tag_name">
+                        <select id="tag_listing_data" name="tag_name[]" multiple="multiple"></select>
                         <img id="loader_element_id" width="100" height="100" style="display:none;position: absolute;margin: -67px 203px -7px;" src="{{asset('images/Spinner-1s-200px.gif')}}">
             </div> --}}
 
 
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" name="tag_name" id="tag_name">
+            <div class="form-group">
+                <!-- <input type="text" class="form-control" name="tag_name" id="tag_name"> -->
+                <select id="tag_listing_data" class="form-control" name="tag_name[]" multiple="multiple"></select>
                 <img id="loader_element_id" width="100" height="100" style="display:none;position: absolute;margin: -67px 203px -7px;" src="{{asset('images/Spinner-1s-200px.gif')}}">
-                <div class="input-group-append">
-                    <button class="btn btn-primary" id="add_tag">Add</button>
-                </div>
             </div>
             <div class="input-group" id="selected_post_tag">
                 <select type="hidden" class="d-none" name="post_tags" id="post_tags" value=""/>
@@ -150,16 +147,27 @@
         <div class="card-body">
             <div class="form-group">
                 {{-- <label for="featured_image">Feature Image</label> --}}
-                <div>
+                {{-- <div>
                     <a href="javscript:void(0)"  class="btn btn-primary form-group" data-toggle="modal" data-target="#cropperModal">Upload</a>
                     <div>
                         <img src="" class="img-responsive img-fluid" id="preview_image" style="display: none;"/>
                     </div>
                     @include('modal.imagecropper', ['name' => 'featured_image'])
+                </div> --}}      
+
+                <img id="holder" style="margin-bottom:15px;max-height:100px;">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                      <a id="lfm" data-input="featured_image" data-preview="holder" class="btn btn-primary">
+                          <i class="fa fa-picture-o"></i> Choose
+                        </a>
+                    </span>
+                    <input id="featured_image" class="form-control" type="text" name="featured_image">
                 </div>
                 @if($errors->has('featured_image'))
                 <span class="error">{{ $errors->first('featured_image') }}</span>
                 @endif
+                
             </div>
         </div>
     </div>
@@ -211,18 +219,19 @@
 <script src="{{asset('js/jquery-validation/dist/additional-methods.min.js')}}"></script>
 <script src="{{asset('js/category.js')}}"></script>
 <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
+<script src="{{asset('vendor/laravel-filemanager/js/lfm.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="{{asset('js/jquery.autocomplete.js')}}"></script>
 <script src="{{asset('js/tokenized/tokenize2.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/jquery.slugify.js')}}"></script>
-<script type="text/javascript" src="{{asset('node_modules/darkroom/vendor/fabric.js')}}"></script>
-<script type="text/javascript" src="{{asset('node_modules/darkroom/build/darkroom.js')}}"></script>
+{{-- <script type="text/javascript" src="{{asset('node_modules/darkroom/vendor/fabric.js')}}"></script>
+<script type="text/javascript" src="{{asset('node_modules/darkroom/build/darkroom.js')}}"></script> --}}
 <script src="{{asset('js/posts/createpost.js')}}"></script>
-<script src="{{asset('js/imageCropper.js')}}"></script>
+{{-- <script src="{{asset('js/imageCropper.js')}}"></script> --}}
 @endsection
 
 @section('css')
-<link rel="stylesheet" href="{{asset('node_modules/darkroom/build/darkroom.css')}}">
+{{-- <link rel="stylesheet" href="{{asset('node_modules/darkroom/build/darkroom.css')}}"> --}}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <link rel="stylesheet" href="{{ asset('css/custom_checkbox.css')}}">
 <link rel="stylesheet" href="{{ asset('css/theme.css')}}">
