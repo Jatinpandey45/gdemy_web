@@ -47,6 +47,11 @@ $(document).ready(function () {
   flatpickr('#published_at', {
     enableTime: true
   });
+
+  $(document).on('click', '.delete-post-tag', function(e) {
+    $("#post_tags option[value='"+$(this).data('id')+"']").remove();
+    $(this).closest('.selected-tag').remove();
+  });
 });
 
 $('#tag_name').autocomplete({
@@ -70,6 +75,15 @@ $('#tag_name').autocomplete({
   onSelect: function (suggestion) {
     $('#selected_tag').val(suggestion.data);
     $('#selected_tag_name').val(suggestion.value);
+    var selectBox = document.getElementById('post_tags');
+    selectBox.options.add( new Option(suggestion.value, suggestion.data, true) );
+
+    $('#selected_post_tag').append(
+      '<div class="selected-tag">'+
+        '<span>'+suggestion.value+'</span>'+
+        '<span class="float-right delete-post-tag" data-id="'+suggestion.data+'"><i class="material-icons">delete</i></span>'+
+      '</div>'
+    );
   }
 });
 
@@ -218,9 +232,24 @@ var ADD_TAG = {
 
 
       success: function (response) {
+        if (response.code == 201) {
+          var selectBox = document.getElementById('post_tags');
+          selectBox.options.add( new Option(response.data.tag, response.data.id, true) );
 
-        console.log(response);
+          $('#selected_post_tag').append(
+            '<div class="">'+
+              '<span>'+response.data.tag+'</span>'+
+              '<span class="float-right"><i class="material-icons">delete</i></span>'+
+            '</div>'
+          );
 
+          $('#selected_post_tag').append(
+            '<div class="">'+
+              '<span>'+response.data.tag+'</span>'+
+              '<span class="float-right delete-post-tag" data-id="'+response.data.id+'"><i class="material-icons">delete</i></span>'+
+            '</div>'
+          );
+        }
       },
 
       error: function () {
