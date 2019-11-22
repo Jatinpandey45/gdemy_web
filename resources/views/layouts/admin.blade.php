@@ -16,7 +16,7 @@
 
         <script src="{{ asset('js/prestashop-ui-kit.js') }}" defer></script>
 
-
+        <script src="{{asset('js/admintab.js')}}"></script>
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <!-- Latest compiled and minified CSS -->
@@ -43,32 +43,35 @@
             @section('sidebar')
                 <nav class="nav-bar d-none d-md-block" role="navigation" id="nav-sidebar">
                     <ul class="list-group main-menu"">
-                        <li class="list-group-item @if(in_array(Route::currentRouteName(),['posts.index','posts.edit','posts.create'])) active @endif" id="tab-AdminArticles">
+                        <li class="list-group-item collapse-drawer gk-cursor-pointer" id="tab-AdminArticles">
+                            <span><i class="material-icons">chevron_left</i></span>
+                        </li>
+                        <li class="list-group-item link-levelone @if(in_array(Route::currentRouteName(),['posts.index','posts.edit','posts.create'])) active @endif" id="tab-AdminArticles">
                             <a class="link" href="{{ route('posts.index') }}">
                                 <i class="material-icons">local_post_office</i>
                                 <span>Posts</span>
                             </a>
                         </li>
-                        <li class="list-group-item @if(in_array(Route::currentRouteName(),['categories.index','categories.edit'])) active @endif" id="tab-AdminCategories">
+                        <li class="list-group-item link-levelone @if(in_array(Route::currentRouteName(),['categories.index','categories.edit'])) active @endif" id="tab-AdminCategories">
                             <a class="link" href="{{ route('categories.index') }}">
                                 <i class="material-icons">category</i>
                                 <span>{{ __('message.heading') }}</span>
                             </a>
                         </li>
-                        <li class="list-group-item @if(in_array(Route::currentRouteName(),['tags.index','tags.edit'])) active @endif" id="tab-AdminTags">
+                        <li class="list-group-item link-levelone @if(in_array(Route::currentRouteName(),['tags.index','tags.edit'])) active @endif" id="tab-AdminTags">
                              <a class="link" href="{{ route('tags.index') }}">
                                 <i class="material-icons">category</i>
                                 <span>Tags</span>
                             </a>
                         </li>
-                        <li class="list-group-item @if(in_array(Route::currentRouteName(),['monthly.index','monthly.edit'])) active @endif" id="tab-AdminCategories">
+                        <li class="list-group-item link-levelone @if(in_array(Route::currentRouteName(),['monthly.index','monthly.edit'])) active @endif" id="tab-AdminCategories">
                             <a class="link" href="{{ route('monthly.index') }}">
                                 <i class="material-icons">schedule</i>
                                 <span>Monthly Tags</span>
                             </a>
                         </li>
 
-                        <li class="list-group-item" id="tab-AdminLogout">
+                        <li class="list-group-item  link-levelone " id="tab-AdminLogout">
                             <a class="link" href="{{ route('user.logout') }}">
                                 <i class="material-icons">logout</i>
                                 <span>Logout</span>
@@ -85,9 +88,7 @@
                         <div class="page-head ">
                             <div class="wrapper clearfix col-md-12">
                                 <div class="row">
-                                    <div class="col-md-2 pl-0">
-                                    </div>
-                                    <div class="col-md-10">
+                                    <div class="col-md-12">
                                         @yield('content')
                                     </div>
                                 </div>
