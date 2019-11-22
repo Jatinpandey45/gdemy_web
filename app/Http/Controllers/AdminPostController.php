@@ -116,7 +116,7 @@ class AdminPostController extends Controller
             DB::rollBack();
         }
 
-        return Redirect::back()->with('success', ['code' => Response::HTTP_OK, 'message' => trans('message.post_added')]);
+        return Redirect::route('posts.index')->with('success', ['code' => Response::HTTP_OK, 'message' => trans('message.post_added')]);
     }
 
     /**
