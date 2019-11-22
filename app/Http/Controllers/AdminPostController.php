@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\GkCategoryPost;
+use App\GkTagPost;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePostRequest;
 use App\MonthTags;
@@ -116,7 +117,28 @@ class AdminPostController extends Controller
              * Store tags into the data either create custom ones and or save existing with ids
              */
 
-             
+
+            $tags = $request->get('tag_name');
+            if (!empty($tags)) {
+                foreach ($tags as $val) {
+                    $item = $val;
+                    if (!is_numeric($val)) {
+                       
+                        $newTag = new Tags;
+                        $newTag->tag_name = $val;
+                        $newTag->tag_slug = str_slug($val);
+                        $newTag->tag_desc = "--";
+                        $newTag->lang_id  = $this->getLocalId();
+                        $newTag->save();
+                        $item = $newTag->id;
+                    }
+
+                    $tagAssociation = new GkTagPost;
+                    $tagAssociation->tag_id = $item;
+                    $tagAssociation->post_id = $post->id;
+                    $tagAssociation->save();
+                }
+            }
 
             DB::commit();
         } catch (\PDOException $e) {
@@ -190,14 +212,14 @@ class AdminPostController extends Controller
             foreach ($result as $key => $val) {
                 $returnData[$key] = ['value' => $val->id, 'text' => $val->tag_name];
             }
-        } 
+        }
 
         return response()->json($returnData);
     }
 
 
 
-    
+
 
     /**
      * postList
@@ -205,8 +227,8 @@ class AdminPostController extends Controller
      * @return : application/html
      */
 
-     public function postList(Request $request)
-     {
+    public function postList(Request $request)
+    {
         $columns = array(
             'post_title',
             'post_desc',
@@ -243,7 +265,7 @@ class AdminPostController extends Controller
                 ->count();
         }
 
-       // dd($category->toArray());
+        // dd($category->toArray());
         $data = array();
         if (!empty($category)) {
             foreach ($category as $row) {
@@ -266,6 +288,5 @@ class AdminPostController extends Controller
         );
 
         return response()->json($json_data);
-
-     }
+    }
 }
