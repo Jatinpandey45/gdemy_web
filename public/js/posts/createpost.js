@@ -51,7 +51,7 @@ $(document).ready(function () {
      minTime: "09:00",
      maxTime: "23:59",
 		  altInput: true,
-		  altFormat: "F j, Y",
+		  altFormat: "F j, Y H:i",
 		  dateFormat: "Y-m-d H:i",
   });
 
