@@ -1,6 +1,7 @@
 var table = $('#data_table_post').DataTable({
     processing: true,
     serverSide: true,
+    order: [[ 3, "desc" ]],
     ajax: $("#route_post_list").val(),
     columns: [{
             data: 'post_title',
