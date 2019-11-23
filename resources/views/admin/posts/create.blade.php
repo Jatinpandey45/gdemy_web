@@ -89,7 +89,7 @@
                     <div id="published_at">
                    
                    
-                                <input type="text" id="" readonly="readonly" placeholder="Select Date.." data-input > <!-- input is mandatory -->
+                                <input type="text" name="published_at" readonly="readonly" placeholder="Select Date.." data-input > <!-- input is mandatory -->
 
                                 <a class="input-button" title="toggle" data-toggle>
                                     <i class="material-icons">calendar_today</i>

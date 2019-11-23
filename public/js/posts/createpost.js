@@ -47,7 +47,7 @@ $(document).ready(function () {
   flatpickr('#published_at', {
     wrap: true,
      enableTime: true,
-     defaultDate: "today",
+     defaultDate: new Date(),
      minTime: "09:00",
      maxTime: "23:59",
 		  altInput: true,

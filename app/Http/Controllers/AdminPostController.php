@@ -77,6 +77,7 @@ class AdminPostController extends Controller
             $post->post_title = $request->get('post_title');
             $post->post_desc  = $request->get('post_desc');
             $post->month_id   = $request->get('month')[0];
+            $post->post_slug  = $request->get('post_slug');
             $post->lang_id    = $this->getLocalId();
             $post->emp_id     = Auth::user()->id;
             $post->featured_image  = $request->get('featured_image', '');

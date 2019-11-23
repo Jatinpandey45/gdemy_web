@@ -28,6 +28,7 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css"/>
         <link href="{{ asset('css/bootstrap-prestashop-ui-kit.css') }}" rel="stylesheet">
         <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+    
         
         @yield('css')
     </head>
