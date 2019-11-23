@@ -4,9 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Posts;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
+    
     protected $table = "gk_category";
 
     protected $fillable = [

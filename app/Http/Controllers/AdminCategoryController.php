@@ -186,7 +186,7 @@ class AdminCategoryController extends Controller
         $data = array();
         if (!empty($category)) {
             foreach ($category as $row) {
-
+                $nestedData['id'] = $row->id;
                 $nestedData['category_name'] = $row->category_name;
                 $nestedData['category_description'] = $row->category_description;
                 $nestedData['category_slug'] = $row->category_slug;

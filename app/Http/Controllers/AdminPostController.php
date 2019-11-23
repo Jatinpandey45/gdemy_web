@@ -79,7 +79,7 @@ class AdminPostController extends Controller
             $post->month_id   = $request->get('month')[0];
             $post->lang_id    = $this->getLocalId();
             $post->emp_id     = Auth::user()->id;
-            $post->featured_image  = $request->get('file_hidden', '');
+            $post->featured_image  = $request->get('featured_image', '');
             $post->publish_at   = $request->get('published_at');
             $post->target_device  = $request->get('visibility');
             $post->save();
@@ -269,7 +269,8 @@ class AdminPostController extends Controller
         $data = array();
         if (!empty($category)) {
             foreach ($category as $row) {
-
+                
+                $nestedData['id'] = $row->id;
                 $nestedData['post_title'] = $row->post_title;
                 $nestedData['post_desc'] = $row->post_desc;
                 $nestedData['month'] = $row->getMonth->month_name;

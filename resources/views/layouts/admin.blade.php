@@ -98,8 +98,8 @@
                 </div>
             </div>
         </div>
-
-
+        <input type="hidden" value="{{route('move.trash')}}" id="trash_route">
+        <script src="{{asset('js/sweetalert.js')}}"></script>
         @yield('pagescript')
 
 
