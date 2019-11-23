@@ -89,7 +89,9 @@
         {data:"action","className": "text-right", "render" : function ( data, type, row ){
             return '<a href="'+row.edit_route+'"><i class="material-icons">edit</i></a>'+
                 '<a href="javascript:void(0);" class="remove-item" data-id="'+data+'"><i class="material-icons">delete</i></a>';
-         }
+         },
+         'orderable': false,
+        "sortable":false,
       }
     ]
     });

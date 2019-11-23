@@ -1,17 +1,18 @@
 var table = $('#data_table_post').DataTable({
     processing: true,
     serverSide: true,
-    order: [[ 3, "desc" ]],
+    order: [[ 2, "desc" ]],
     ajax: $("#route_post_list").val(),
     columns: [{
             data: 'post_title',
-            name: 'Category'
+            name: 'Category',
         },
         // {data: 'post_desc', name: 'Description','orderable':false},
         {
             data: 'month',
             name: 'Month',
-            'orderable': false
+            'orderable': false,
+            "sortable":false,
         },
         {
             data: 'publish_at',
@@ -23,7 +24,10 @@ var table = $('#data_table_post').DataTable({
             "render": function(data, type, row) {
                 return '<a href="' + row.edit_route + '"><i class="material-icons">edit</i></a>' +
                     '<a href="javascript:void(0);" class="remove-item" data-id="' + data + '"><i class="material-icons">delete</i></a>';
-            }
+            },
+            'orderable': false,
+            
+            "sortable":false,
         }
     ]
 });

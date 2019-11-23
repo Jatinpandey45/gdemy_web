@@ -232,7 +232,6 @@ class AdminPostController extends Controller
     {
         $columns = array(
             'post_title',
-            'post_desc',
             'month',
             'publish_at'
         );
