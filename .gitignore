@@ -12,3 +12,4 @@ npm-debug.log
 yarn-error.log
 public/mix-manifest.json
 package-lock.json
+/public/photos/
