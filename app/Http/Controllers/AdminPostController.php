@@ -238,7 +238,7 @@ class AdminPostController extends Controller
             'publish_at'
         );
 
-        $totalData = 1000;
+        $totalData = Posts::count();
 
         $totalFiltered = $totalData;
 
@@ -274,7 +274,6 @@ class AdminPostController extends Controller
                 
                 $nestedData['id'] = $row->id;
                 $nestedData['post_title'] = $row->post_title;
-                $nestedData['post_desc'] = $row->post_desc;
                 $nestedData['month'] = $row->getMonth->month_name;
                 $nestedData['publish_at'] = $row->publish_at;
                 $nestedData['action'] = encrypt($nestedData);
