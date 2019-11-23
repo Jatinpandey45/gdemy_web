@@ -238,9 +238,9 @@ class AdminPostController extends Controller
             'publish_at'
         );
 
-       // $totalData = Posts::count();
+        $totalData = 1000;
 
-        //$totalFiltered = $totalData;
+        $totalFiltered = $totalData;
 
         $limit = $request->input('length');
         $start = $request->input('start');
@@ -285,8 +285,8 @@ class AdminPostController extends Controller
 
         $json_data = array(
             "draw"            => intval($request->input('draw')),
-           // "recordsTotal"    => intval($totalData),
-           // "recordsFiltered" => intval($totalFiltered),
+            "recordsTotal"    => intval($totalData),
+            "recordsFiltered" => intval($totalFiltered),
             "data"            => $data
         );
 
