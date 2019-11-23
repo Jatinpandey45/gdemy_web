@@ -28,6 +28,8 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css"/>
         <link href="{{ asset('css/bootstrap-prestashop-ui-kit.css') }}" rel="stylesheet">
         <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+        <link href="{{ asset('js/jquery-toast-plugin/src/jquery.toast.css') }}" rel="stylesheet">
+        
     
         
         @yield('css')
@@ -103,6 +105,18 @@
         <script src="{{asset('js/sweetalert.js')}}"></script>
         <script src="{{asset('js/word-count/textcounter.min.js')}}"></script>
         <script src="{{asset('js/custom.counter.js')}}"></script>
+        <script src="{{asset('js/jquery-toast-plugin/src/jquery.toast.js')}}"></script>
+        <script>
+        @if(Session::has('error'))
+        $.toast({
+                heading: 'Error',
+                text: "{{Session::get('error')['message']}}",
+                showHideTransition: 'fade',
+                icon: 'error'
+        });
+        @endif
+        </script>
+        
         @yield('pagescript')
 
 

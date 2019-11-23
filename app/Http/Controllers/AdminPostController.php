@@ -142,12 +142,17 @@ class AdminPostController extends Controller
             }
 
             DB::commit();
+
+            $http_response_header = ['code' => Response::HTTP_OK, 'message' => trans('message.post_added')];
+            
         } catch (\PDOException $e) {
             // Woopsy
+            $http_response_header = ['code' => $e->getCode(),'message' => $e->getMessage()];
             DB::rollBack();
+
         }
 
-        return Redirect::route('posts.index')->with('success', ['code' => Response::HTTP_OK, 'message' => trans('message.post_added')]);
+        return Redirect::route('posts.index')->with('success',$http_response_header);
     }
 
     /**
@@ -217,9 +222,6 @@ class AdminPostController extends Controller
 
         return response()->json($returnData);
     }
-
-
-
 
 
     /**
