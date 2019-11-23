@@ -101,6 +101,8 @@
         </div>
         <input type="hidden" value="{{route('move.trash')}}" id="trash_route">
         <script src="{{asset('js/sweetalert.js')}}"></script>
+        <script src="{{asset('js/word-count/textcounter.min.js')}}"></script>
+        <script src="{{asset('js/custom.counter.js')}}"></script>
         @yield('pagescript')
 
 

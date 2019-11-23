@@ -47,8 +47,8 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="post_seo_title">Title Tag</label>
-                    <input type="text" id="post_seo_title" value="{{old('post_seo_title')}}" class="form-control" placeholder="Name field must be unique" name="post_seo_title">
-                    <div class="help-block">Most search engine use upto 70</div>
+                    <input type="text" id="post_seo_title" value="{{old('post_seo_title')}}" class="form-control enable-counter" placeholder="Name field must be unique" name="post_seo_title">
+                    <div class="help-block text-count-wrapper">Most search engine use upto 70</div>
                     @if($errors->has('post_seo_title'))
                     <span class="error">{{ $errors->first('post_seo_title') }}</span>
                     @endif
@@ -57,7 +57,7 @@
 
                 <div class="form-group">
                     <label for="meta_desc">Meta Description</label>
-                    <textarea id="meta_desc" class="form-control" name="seo_desc">{{old('seo_desc')}}</textarea>
+                    <textarea id="meta_desc" class="form-control enable-counter" name="seo_desc">{{old('seo_desc')}}</textarea>
                     <div class="help-block">Most search engine use upto 140</div>
                     @if($errors->has('seo_desc'))
                     <span class="error">{{ $errors->first('seo_desc') }}</span>
