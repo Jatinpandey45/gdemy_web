@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\MonthTags;
 use Illuminate\Http\Request;
 use App\Posts;
+use App\Tags;
 use Symfony\Component\HttpFoundation\Response;
 
 class TrashController extends Controller
@@ -13,29 +15,44 @@ class TrashController extends Controller
     {
 
         $table = $request->get('type');
-        $data=  decrypt($request->get('id'));
-      
-        switch($table)
-        {
+        $data =  decrypt($request->get('id'));
 
-            case 'post' :
+        switch ($table) {
 
-            $post = Posts::find($data['id']);
-            $post->delete();
+            case 'post':
 
-            break;
+                $post = Posts::find($data['id']);
+                $post->delete();
+
+                break;
 
             case 'category':
 
-            $category = Category::find($data['id']);
+                $category = Category::find($data['id']);
 
-            $category->delete();
+                $category->delete();
 
-            break;
+                break;
 
-            default : 
-            break;
 
+            case "tags":
+
+                $tags = Tags::find($data['id']);
+                $tags->delete();
+
+                break;
+
+            case "month" :
+
+                $month = MonthTags::find($data['id']);
+                $month->delete();
+
+                break;
+
+
+
+            default:
+                break;
         }
 
 
@@ -45,6 +62,5 @@ class TrashController extends Controller
         ];
 
         return response()->json($http_response_header);
-
     }
 }

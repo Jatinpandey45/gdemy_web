@@ -206,7 +206,7 @@ class AdminTagController extends Controller
         if (!empty($tags)) {
             foreach ($tags as $row) {
 
-
+                $nestedData['id'] = $row->id;
                 $nestedData['tag_name'] = $row->tag_name;
                 $nestedData['tag_desc'] = $row->tag_desc;
                 $nestedData['tag_slug'] = $row->tag_slug;
