@@ -109,10 +109,12 @@
         <script>
         @if(Session::has('success'))
         $.toast({
-                heading: 'Error',
+                heading: 'Information',
                 text: "{{Session::get('success')['message']}}",
                 showHideTransition: 'fade',
-                icon: 'error'
+                hideAfter: false,
+                position: 'mid-center',
+                icon: 'info'
         });
         @endif
         </script>

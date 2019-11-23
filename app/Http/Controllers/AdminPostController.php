@@ -144,7 +144,7 @@ class AdminPostController extends Controller
             DB::commit();
 
             $http_response_header = ['code' => Response::HTTP_OK, 'message' => trans('message.post_added')];
-            
+
         } catch (\PDOException $e) {
             // Woopsy
             $http_response_header = ['code' => $e->getCode(),'message' => $e->getMessage()];
@@ -238,9 +238,9 @@ class AdminPostController extends Controller
             'publish_at'
         );
 
-        $totalData = Posts::count();
+       // $totalData = Posts::count();
 
-        $totalFiltered = $totalData;
+        //$totalFiltered = $totalData;
 
         $limit = $request->input('length');
         $start = $request->input('start');
@@ -285,8 +285,8 @@ class AdminPostController extends Controller
 
         $json_data = array(
             "draw"            => intval($request->input('draw')),
-            "recordsTotal"    => intval($totalData),
-            "recordsFiltered" => intval($totalFiltered),
+           // "recordsTotal"    => intval($totalData),
+           // "recordsFiltered" => intval($totalFiltered),
             "data"            => $data
         );
 
