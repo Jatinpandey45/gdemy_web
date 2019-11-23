@@ -51,5 +51,13 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('post-add-tag','AdminPostController@storetagData')->name('post.add.new.tag');
     Route::get('post-list','AdminPostController@postList')->name('admin.post.list.records');
 
+    /*
+    |
+    | define trash routes
+    |
+    */
+
+    Route::get('remove-status','TrashController@updateStatusAsTrash')->name('move.trash');
+
 });
 

@@ -269,7 +269,8 @@ class AdminPostController extends Controller
         $data = array();
         if (!empty($category)) {
             foreach ($category as $row) {
-
+                
+                $nestedData['id'] = $row->id;
                 $nestedData['post_title'] = $row->post_title;
                 $nestedData['post_desc'] = $row->post_desc;
                 $nestedData['month'] = $row->getMonth->month_name;

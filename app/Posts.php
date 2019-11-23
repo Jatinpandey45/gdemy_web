@@ -5,9 +5,15 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Category;
 use App\MonthTags;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Posts extends Model
 {
+
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
+
     protected $table = "gk_posts";
 
     protected $fillable = [
