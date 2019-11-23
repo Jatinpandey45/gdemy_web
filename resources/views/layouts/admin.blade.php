@@ -107,10 +107,10 @@
         <script src="{{asset('js/custom.counter.js')}}"></script>
         <script src="{{asset('js/jquery-toast-plugin/src/jquery.toast.js')}}"></script>
         <script>
-        @if(Session::has('error'))
+        @if(Session::has('success'))
         $.toast({
                 heading: 'Error',
-                text: "{{Session::get('error')['message']}}",
+                text: "{{Session::get('success')['message']}}",
                 showHideTransition: 'fade',
                 icon: 'error'
         });

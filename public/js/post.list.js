@@ -2,6 +2,7 @@ var table = $('#data_table_post').DataTable({
     processing: true,
     serverSide: true,
     order: [[ 2, "desc" ]],
+     "sDom": "lfrti",
     ajax: $("#route_post_list").val(),
     columns: [{
             data: 'post_title',
@@ -26,7 +27,7 @@ var table = $('#data_table_post').DataTable({
                     '<a href="javascript:void(0);" class="remove-item" data-id="' + data + '"><i class="material-icons">delete</i></a>';
             },
             'orderable': false,
-            
+
             "sortable":false,
         }
     ]
