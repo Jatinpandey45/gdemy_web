@@ -202,7 +202,8 @@ class AdminMonthlyController extends Controller
         $data = array();
         if (!empty($tags)) {
             foreach ($tags as $row) {
-
+                
+                $nestedData['id'] = $row->id;
                 $nestedData['month_name'] = $row->month_name;
                 $nestedData['month_slug'] = $row->month_slug;
                 $nestedData['month_desc'] = $row->month_desc;

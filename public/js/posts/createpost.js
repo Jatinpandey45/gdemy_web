@@ -45,7 +45,14 @@ $(document).ready(function () {
   // });
 
   flatpickr('#published_at', {
-    enableTime: true
+    wrap: true,
+     enableTime: true,
+     defaultDate: "today",
+     minTime: "09:00",
+     maxTime: "23:59",
+		  altInput: true,
+		  altFormat: "F j, Y",
+		  dateFormat: "Y-m-d H:i",
   });
 
   $(document).on('click', '.delete-post-tag', function(e) {

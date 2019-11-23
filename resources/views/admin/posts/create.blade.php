@@ -85,8 +85,22 @@
                     </select>
                 </div>
                 <div class="form-group row gk-align-center">
-                    <label for="publish_at" class="col-md-4 pl-1 pr-1">Publish</label>
-                    <input type="text" id="published_at" value="{{old('published_at')}}" class="form-control col-md-7" name="published_at">
+                <label for="publish_at" class="col-md-4 pl-1 pr-1">Publish</label>
+                    <div id="published_at">
+                   
+                   
+                                <input type="text" id="" readonly="readonly" placeholder="Select Date.." data-input > <!-- input is mandatory -->
+
+                                <a class="input-button" title="toggle" data-toggle>
+                                    <i class="material-icons">calendar_today</i>
+                                </a>
+
+                                <a class="input-button" title="clear" data-clear>
+                                    <i class="material-icons">close</i>
+                                </a>
+                    </div>
+
+
                     @if($errors->has('published_at'))
                     <span class="error">{{ $errors->first('published_at') }}</span>
                     @endif
@@ -220,7 +234,7 @@
 <script src="{{asset('js/category.js')}}"></script>
 <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
 <script src="{{asset('vendor/laravel-filemanager/js/lfm.js')}}"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="{{asset('js/flatpick.js')}}"></script>
 <script src="{{asset('js/jquery.autocomplete.js')}}"></script>
 <script src="{{asset('js/tokenized/tokenize2.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/jquery.slugify.js')}}"></script>
@@ -232,7 +246,7 @@
 
 @section('css')
 {{-- <link rel="stylesheet" href="{{asset('node_modules/darkroom/build/darkroom.css')}}"> --}}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" href="{{asset('css/flatpick.css')}}">
 <link rel="stylesheet" href="{{ asset('css/custom_checkbox.css')}}">
 <link rel="stylesheet" href="{{ asset('css/theme.css')}}">
 <link rel="stylesheet" href="{{asset('js/tokenized/tokenize2.css')}}">

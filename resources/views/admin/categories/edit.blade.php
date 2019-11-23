@@ -43,9 +43,7 @@
                         <input data-toggle="switch" class="" id="status" data-inverse="true" type="checkbox" name="status" checked>
                     </label>
                 </div>
-                <div class="form-group">
-                     <img src="data:image/png;base64, {{$categoryData->category_icon}}" width="100" height="100">
-                </div>
+              
                 <div class="form-group">
                    
                     <label for="icon">
@@ -59,7 +57,7 @@
                         @include('modal.imagecropper', ['name' => 'category_icon'])
                     </div> --}}
                     <div>
-                        <img id="holder" style="margin-bottom:15px;max-height:100px;">
+                        <img id="holder" src="{{$categoryData->category_icon}}" style="margin-bottom:15px;max-height:100px;">
                         <div class="input-group">
                             <span class="input-group-btn">
                             <a id="lfm" data-input="category_icon" data-preview="holder" class="btn btn-primary">

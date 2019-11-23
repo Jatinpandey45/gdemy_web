@@ -152,7 +152,7 @@ __REMOVE_FROM_LIST: function(type, id) {
                 .remove()
                 .draw();
 
-            swal("Your post has been moved to trash!", {
+            swal("Your category has been moved to trash!", {
                 icon: "success",
             });
 
@@ -165,8 +165,6 @@ __REMOVE_FROM_LIST: function(type, id) {
 
 
 $('body').on('click', '.remove-item', function() {
-
-
 
 swal({
         title: "Are you sure?",
@@ -181,9 +179,6 @@ swal({
             REMOVE_DATA_FROM_TABLE.__REMOVE_FROM_LIST("category", id);
         }
     });
-
-
-
 
 });
 

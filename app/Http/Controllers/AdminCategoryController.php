@@ -52,7 +52,7 @@ class AdminCategoryController extends Controller
             $category->category_name = $request->get('category_name');
             $category->category_slug = $request->get('category_slug');
             $category->category_description = $request->get('category_description', '');
-            $category->category_icon = base64_encode(file_get_contents($request->file('category_icon')));
+            $category->category_icon = $request->get('category_icon');
             $category->status = ($request->get('status') == self::STATUS_ON) ? self::ACTIVE_STATUS : self::INACTIVE_STATUS;
             $category->lang_id  = $this->getLocalId();
             $category->save();
@@ -119,8 +119,8 @@ class AdminCategoryController extends Controller
             $category->category_slug = $request->get('category_slug');
             $category->category_description = $request->get('category_description', '');
 
-            if ($request->file('category_icon')) {
-                $category->category_icon = base64_encode(file_get_contents($request->file('category_icon')));
+            if ($request->has('category_icon') && !empty($request->get('category_icon'))) {
+                $category->category_icon = $request->get('category_icon');
             }
             $category->status = ($request->get('status') == self::STATUS_ON) ? self::ACTIVE_STATUS : self::INACTIVE_STATUS;
             $category->lang_id  = $this->getLocalId();
@@ -203,6 +203,6 @@ class AdminCategoryController extends Controller
             "data"            => $data
         );
 
-        echo json_encode($json_data);
+        return response()->json($json_data);
     }
 }
