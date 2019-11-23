@@ -284,8 +284,8 @@ class AdminPostController extends Controller
 
         $json_data = array(
             "draw"            => intval($request->input('draw')),
-            "recordsTotal"    => intval($totalData),
-            "recordsFiltered" => intval($totalFiltered),
+          //  "recordsTotal"    => intval($totalData),
+           // "recordsFiltered" => intval($totalFiltered),
             "data"            => $data
         );
 
