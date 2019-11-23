@@ -238,10 +238,6 @@ class AdminPostController extends Controller
             'publish_at'
         );
 
-        $totalData = Posts::count();
-
-        $totalFiltered = $totalData;
-
         $limit = $request->input('length');
         $start = $request->input('start');
         $order = $columns[$request->input('order.0.column')];
@@ -262,9 +258,6 @@ class AdminPostController extends Controller
                 ->orderBy($order, $dir)
                 ->get();
 
-            $totalFiltered = Posts::with(['getMonth'])->where('post_title', 'LIKE', "%{$search}%")
-                ->orWhere('post_desc', 'LIKE', "%{$search}%")
-                ->count();
         }
 
         // dd($category->toArray());
@@ -284,8 +277,6 @@ class AdminPostController extends Controller
 
         $json_data = array(
             "draw"            => intval($request->input('draw')),
-          //  "recordsTotal"    => intval($totalData),
-           // "recordsFiltered" => intval($totalFiltered),
             "data"            => $data
         );
 
