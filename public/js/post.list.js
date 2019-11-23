@@ -3,6 +3,7 @@ var table = $('#data_table_post').DataTable({
     serverSide: true,
     order: [[ 2, "desc" ]],
     "pagingType": "simple",
+    "dom": "lfrtp",
     ajax: $("#route_post_list").val(),
     columns: [{
             data: 'post_title',
