@@ -9,7 +9,7 @@
         },
         "version": "1.0.0"
     },
-    "host": "admin.gkdemy.com",
+    "host": "gkdemy.com",
     "basePath": "/",
     "schemes": [
         "http"

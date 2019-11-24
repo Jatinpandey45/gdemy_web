@@ -1,3 +1,3 @@
 <?php
 
-define("API_HOST",'admin.gkdemy.com');
+define("API_HOST",'gkdemy.com');
