@@ -85,6 +85,7 @@
                         <table class="table" id="category_datatable">
                             <thead>
                                 <th>Name</th>
+                                <th>Posts</th>
                                 <th>Description</th>
                                 <th>Slug</th>
                                 <th class="text-right">Action</th>
@@ -118,6 +119,7 @@
     ajax: "{{route('admin.category.list.records')}}",
     columns: [
         {data: 'category_name', name: 'Category'},
+        {data : 'count',name : "Posts"},
         {data: 'category_description', name: 'Description'},
         {data: 'category_slug', name: 'Slug'},
         {data:"action","className": "text-right", "render" : function ( data, type, row ){

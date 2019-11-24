@@ -29,6 +29,7 @@ class AdminCategoryController extends Controller
      */
     public function index()
     {
+
         return view('admin.categories.index')->with('controller', 'categories');
     }
 
@@ -161,10 +162,10 @@ class AdminCategoryController extends Controller
         $limit = $request->input('length');
         $start = $request->input('start');
         $order = $columns[$request->input('order.0.column')];
-        $dir = $request->input('order.0.dir');
+        $dir   = $request->input('order.0.dir');
 
         if (empty($request->input('search.value'))) {
-            $category = Category::offset($start)
+            $category = Category::withCount('post')->offset($start)
                 ->limit($limit)
                 ->orderBy($order, $dir)
                 ->get();
@@ -173,6 +174,7 @@ class AdminCategoryController extends Controller
 
             $category =  Category::where('category_name', 'LIKE', "%{$search}%")
                 ->orWhere('category_slug', 'LIKE', "%{$search}%")
+                ->withCount('post')
                 ->offset($start)
                 ->limit($limit)
                 ->orderBy($order, $dir)
@@ -183,6 +185,7 @@ class AdminCategoryController extends Controller
                 ->count();
         }
 
+
         $data = array();
         if (!empty($category)) {
             foreach ($category as $row) {
@@ -190,6 +193,7 @@ class AdminCategoryController extends Controller
                 $nestedData['category_name'] = $row->category_name;
                 $nestedData['category_description'] = $row->category_description;
                 $nestedData['category_slug'] = $row->category_slug;
+                $nestedData['count'] = $row->post_count;
                 $nestedData['action'] = encrypt($nestedData);
                 $nestedData['edit_route'] = route('categories.edit', encrypt($row->id));
                 $data[] = $nestedData;

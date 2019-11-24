@@ -25,6 +25,8 @@ class Category extends Model
 
     public function post()
     {
-        return $this->hasOne(Posts::class);
+        return $this->belongsToMany('App\Posts','gk_category_post','category_id','post_id');
     }
+
+
 }
