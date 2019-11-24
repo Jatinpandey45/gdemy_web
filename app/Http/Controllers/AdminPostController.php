@@ -33,8 +33,10 @@ class AdminPostController extends Controller
 
         $pagination = Posts::simplePaginate(self::LIMIT);
 
+        $count      = Posts::count();
 
-        return view('admin.posts.index', ['page' => $pagination]);
+
+        return view('admin.posts.index', ['page' => $pagination,'count' => $count]);
     }
 
     /**

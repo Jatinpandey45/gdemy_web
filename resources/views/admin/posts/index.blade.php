@@ -5,9 +5,12 @@
     <div class="col-md-12">
         <div class="form-group">
             <a href="{{ route('posts.create') }}" class="btn btn-primary">Create Post</a>
+           
         </div>
+        <h2>Total Posts : {{$count}}</h2>
         <div class="card card-default">
             <div class="card-header h3">Posts</div>
+
             <div class="card-body">
                 <table class="table" id="data_table_post">
                     <thead>
