@@ -21,6 +21,8 @@
 
                     </tbody>
                 </table>
+                {{$page->links()}}
+                <input type="hidden" value="{{$page->currentPage()}}" id="get_current_page">
             </div>
         </div>
     </div>

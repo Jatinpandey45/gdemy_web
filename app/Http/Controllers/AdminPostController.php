@@ -19,6 +19,9 @@ use Illuminate\Support\Facades\Redirect;
 
 class AdminPostController extends Controller
 {
+
+    const LIMIT = 10;
+
     /**
      * Display a listing of the resource.
      *
@@ -26,8 +29,12 @@ class AdminPostController extends Controller
      */
     public function index()
     {
-        //
-        return view('admin.posts.index');
+
+
+        $pagination = Posts::simplePaginate(self::LIMIT);
+
+
+        return view('admin.posts.index', ['page' => $pagination]);
     }
 
     /**
@@ -124,7 +131,7 @@ class AdminPostController extends Controller
                 foreach ($tags as $val) {
                     $item = $val;
                     if (!is_numeric($val)) {
-                       
+
                         $newTag = new Tags;
                         $newTag->tag_name = $val;
                         $newTag->tag_slug = str_slug($val);
@@ -144,15 +151,13 @@ class AdminPostController extends Controller
             DB::commit();
 
             $http_response_header = ['code' => Response::HTTP_OK, 'message' => trans('message.post_added')];
-
         } catch (\PDOException $e) {
             // Woopsy
-            $http_response_header = ['code' => $e->getCode(),'message' => $e->getMessage()];
+            $http_response_header = ['code' => $e->getCode(), 'message' => $e->getMessage()];
             DB::rollBack();
-
         }
 
-        return Redirect::route('posts.index')->with('success',$http_response_header);
+        return Redirect::route('posts.index')->with('success', $http_response_header);
     }
 
     /**
@@ -239,32 +244,34 @@ class AdminPostController extends Controller
         );
 
         $limit = $request->input('length');
-        $start = $request->input('start');
+        $start = ($request->input('page') - 1) * $limit;
         $order = $columns[$request->input('order.0.column')];
         $dir = $request->input('order.0.dir');
 
-        if (empty($request->input('search.value'))) {
-            $category = Posts::with(['getMonth'])->offset($start)
-                ->limit($limit)
-                ->orderBy($order, $dir)
-                ->get();
-        } else {
-            $search = $request->input('search.value');
 
+        if (!empty($request->input('search.value'))) {
+
+            $search = $request->input('search.value');
             $category =  Posts::with(['getMonth'])->where('post_title', 'LIKE', "%{$search}%")
                 ->orWhere('post_desc', 'LIKE', "%{$search}%")
                 ->offset($start)
                 ->limit($limit)
                 ->orderBy($order, $dir)
                 ->get();
+        } else {
 
+            $category = Posts::with(['getMonth'])->offset($start)
+                ->limit($limit)
+                ->orderBy($order, $dir)
+                ->get();
         }
 
-        // dd($category->toArray());
+       
         $data = array();
+        
         if (!empty($category)) {
             foreach ($category as $row) {
-                
+
                 $nestedData['id'] = $row->id;
                 $nestedData['post_title'] = $row->post_title;
                 $nestedData['month'] = $row->getMonth->month_name;
