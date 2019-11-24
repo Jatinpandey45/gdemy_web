@@ -9,7 +9,7 @@
         },
         "version": "1.0.0"
     },
-    "host": "localhost:8000",
+    "host": "admin.gkdemy.com",
     "basePath": "/",
     "schemes": [
         "http"
