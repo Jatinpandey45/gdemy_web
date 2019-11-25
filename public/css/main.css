@@ -18,6 +18,26 @@
   line-height: normal;
 }
 
+.menu-collapse .material-icons:last-child {
+  margin-left: -1.313rem;
+}
+
+.menu-collapse {
+  color: #bebebe;
+  cursor: pointer;
+  display: block;
+  line-height: 13.008px;
+  line-height: .813rem;
+  padding: .688rem .5rem .688rem 0rem;
+  text-align: right;
+}
+
+.page-sidebar-closed:not(.mobile) .menu-collapse {
+  -webkit-transform: rotate(180deg);
+  padding-right: .8rem;
+  transform: rotate(180deg);
+}
+
 .main-menu .link-levelone>.link, .main-menu .link-leveltwo>.link {
   -ms-flex-align: end;
   -webkit-box-align: end;

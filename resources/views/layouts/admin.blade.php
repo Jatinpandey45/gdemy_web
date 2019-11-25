@@ -35,16 +35,22 @@
         <div id="app">
             <header id="header" class="bootstrap">
                 <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name') }}
-                    </a>
+                    <div>
+                        <i class="material-icons mr-2">menu</i>
+                        <a class="navbar-brand" href="{{ url('/') }}">
+                            {{ config('app.name') }}
+                        </a>
+                    </div>
                 </nav>
             </header>
             @section('sidebar')
                 <nav class="nav-bar d-none d-md-block" role="navigation" id="nav-sidebar">
-                    <ul class="list-group main-menu"">
-                        <li class="list-group-item collapse-drawer gk-cursor-pointer" id="tab-AdminArticles">
-                            <span><i class="material-icons">chevron_left</i></span>
+                    <ul class="list-group main-menu">
+                        <li class="list-group-item collapse-drawer gk-cursor-pointer  d-none d-md-block" id="tab-AdminArticles">
+                            <span class="menu-collapse">
+                                <i class="material-icons">chevron_left</i>
+                                <i class="material-icons">chevron_left</i>
+                            </span>
                         </li>
                         <li class="list-group-item link-levelone @if(in_array(Route::currentRouteName(),['posts.index','posts.edit','posts.create'])) active @endif" id="tab-AdminArticles">
                             <a class="link" href="{{ route('posts.index') }}">

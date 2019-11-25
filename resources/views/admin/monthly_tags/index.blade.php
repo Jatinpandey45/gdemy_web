@@ -73,8 +73,6 @@
 <script type="text/javascript" src="{{asset('js/jquery.slugify.js')}}"></script>
 
 <script>
-   
-
     var table = $('#monthly_datatable').DataTable({
     processing: true,
     serverSide: true,
@@ -90,6 +88,8 @@
       }
     ]
     });
+    $( table.table().container() )
+    .addClass( 'table table-responsive
  
     $('#monthly_slug').slugify('#monthly_name');
 </script>

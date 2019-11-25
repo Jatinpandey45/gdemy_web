@@ -50,7 +50,8 @@
       }
     ]
     });
-
+    $( table.table().container() )
+    .addClass( 'table table-responsive
 
 
 

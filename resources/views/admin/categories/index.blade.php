@@ -127,6 +127,8 @@
       }
     ]
     });
+    $( table.table().container() )
+    .addClass( 'table table-responsive' );
     $('#category_slug').slugify('#category_name');
     $('#lfm').filemanager('image');
 </script>
