@@ -170,7 +170,7 @@ class AdminPostController extends Controller
      */
     public function show($id)
     {
-        //
+      
     }
 
     /**
@@ -181,7 +181,14 @@ class AdminPostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::all();
+        
+        $month    = MonthTags::all();
+
+        $post     = Posts::getPostById(decrypt($id));
+    
+       return view('admin.posts.edit',compact('category', 'month','post','id'));
+        
     }
 
     /**
@@ -193,7 +200,7 @@ class AdminPostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd("Under development");
     }
 
     /**
@@ -254,7 +261,7 @@ class AdminPostController extends Controller
         if (!empty($request->input('search.value'))) {
 
             $search = $request->input('search.value');
-            $category =  Posts::with(['getMonth'])->where('post_title', 'LIKE', "%{$search}%")
+            $category =  Posts::with(['Month'])->where('post_title', 'LIKE', "%{$search}%")
                 ->orWhere('post_desc', 'LIKE', "%{$search}%")
                 ->offset($start)
                 ->limit($limit)
@@ -262,7 +269,7 @@ class AdminPostController extends Controller
                 ->get();
         } else {
 
-            $category = Posts::with(['getMonth'])->offset($start)
+            $category = Posts::with(['Month'])->offset($start)
                 ->limit($limit)
                 ->orderBy($order, $dir)
                 ->get();
@@ -276,7 +283,7 @@ class AdminPostController extends Controller
 
                 $nestedData['id'] = $row->id;
                 $nestedData['post_title'] = $row->post_title;
-                $nestedData['month'] = $row->getMonth->month_name;
+                $nestedData['month'] = $row->Month->month_name;
                 $nestedData['publish_at'] = $row->publish_at;
                 $nestedData['action'] = encrypt($nestedData);
                 $nestedData['edit_route'] = route('posts.edit', encrypt($row->id));
