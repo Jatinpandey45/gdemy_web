@@ -124,7 +124,7 @@
 
                 @if($post->Tags)
                     @foreach($post->Tags as $val)
-                    <option value="{{$val->id}}">{{$val->tag_name}}</option>
+                    <option value="{{$val->id}}" selected="selected">{{$val->tag_name}}</option>
                     @endforeach
                 @endif
 
@@ -163,23 +163,15 @@
         <div class="card-header h3">Featured Image</div>
         <div class="card-body">
             <div class="form-group">
-                {{-- <label for="featured_image">Feature Image</label> --}}
-                {{-- <div>
-                    <a href="javscript:void(0)"  class="btn btn-primary form-group" data-toggle="modal" data-target="#cropperModal">Upload</a>
-                    <div>
-                        <img src="" class="img-responsive img-fluid" id="preview_image" style="display: none;"/>
-                    </div>
-                    @include('modal.imagecropper', ['name' => 'featured_image'])
-                </div> --}}      
-
-                <img id="holder" style="margin-bottom:15px;max-height:100px;">
+            
+                <img id="holder" src="{{asset($post->featured_image)}}" style="margin-bottom:15px;max-height:100px;">
                 <div class="input-group">
                     <span class="input-group-btn">
                       <a id="lfm" data-input="featured_image" data-preview="holder" class="btn btn-primary">
                           <i class="fa fa-picture-o"></i> Choose
                         </a>
                     </span>
-                    <input id="featured_image" class="form-control" type="text" name="featured_image">
+                    <input id="featured_image" value="{{$post->featured_image}}" class="form-control" type="text" name="featured_image">
                 </div>
                 @if($errors->has('featured_image'))
                 <span class="error">{{ $errors->first('featured_image') }}</span>
@@ -214,15 +206,7 @@
             </div>
         </div>
     </div>
-    {{-- <div class="card card-defaut">
-                
-            </div>
-            <div class="card card-defaut">
-            </div>
-            <div class="card card-defaut">
-            </div>
-            <div class="card card-defaut">
-            </div> --}}
+
     </div>
 </form>
 <!-- public/js/tiny_mce/plugins/responsivefilemanager -->

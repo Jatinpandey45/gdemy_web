@@ -49,6 +49,7 @@ class AdminPostController extends Controller
         //
 
         $category = Category::all();
+
         $month    = MonthTags::all();
 
         return view('admin.posts.create', compact('category', 'month'));
@@ -200,7 +201,113 @@ class AdminPostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd("Under development");
+        //dd($request->all());
+
+
+        /**
+         * 
+         *  start storing 
+         * 
+         */
+
+
+        try {
+            DB::beginTransaction();
+            // database queries here
+
+            /*
+            |
+            | store all post data into the database.
+            |
+            */
+
+            $postId = decrypt($id);
+           
+            $post = Posts::find($postId);
+            $post->post_title = $request->get('post_title');
+            $post->post_desc  = $request->get('post_desc');
+            $post->month_id   = $request->get('month')[0];
+            $post->post_slug  = $request->get('post_slug');
+            $post->lang_id    = $this->getLocalId();
+            $post->emp_id     = Auth::user()->id;
+            $post->featured_image  = $request->get('featured_image', '');
+            $post->publish_at   = $request->get('published_at');
+            $post->target_device  = $request->get('visibility');
+            $post->save();
+
+
+            /*
+            |
+            | store tag and post data 
+            |
+            */
+
+            $postSeo = new PostSeo;
+            $postSeo->post_id =  $postId ;
+            $postSeo->keyword  = $request->get('post_seo_title');
+            $postSeo->description = $request->get('seo_desc');
+            $postSeo->titile = "--";
+            $postSeo->save();
+
+
+            /**
+             * store cateogry into the database
+             * remove existing category
+             */
+
+             GkCategoryPost::where('post_id',$postId)->delete();
+             
+
+            $category = $request->get('category');
+            foreach ($category as $key => $val) {
+                $postCategory = new GkCategoryPost;
+                $postCategory->category_id = $val;
+                $postCategory->post_id = $postId;
+                $postCategory->save();
+            }
+
+
+            /**
+             * 
+             * Store tags into the data either create custom ones and or save existing with ids
+             */
+
+             GkTagPost::where('post_id',$postId)->delete();
+
+            $tags = $request->get('tag_name');
+            if (!empty($tags)) {
+                foreach ($tags as $val) {
+                    $item = $val;
+                    if (!is_numeric($val)) {
+
+                        $newTag = new Tags;
+                        $newTag->tag_name = $val;
+                        $newTag->tag_slug = str_slug($val);
+                        $newTag->tag_desc = "--";
+                        $newTag->lang_id  = $this->getLocalId();
+                        $newTag->save();
+                        $item = $newTag->id;
+                    }
+
+                    $tagAssociation = new GkTagPost;
+                    $tagAssociation->tag_id = $item;
+                    $tagAssociation->post_id = $postId;
+                    $tagAssociation->save();
+                }
+            }
+
+            DB::commit();
+
+            $http_response_header = ['code' => Response::HTTP_OK, 'message' => trans('message.post_updated')];
+        } catch (\PDOException $e) {
+            // Woopsy
+            $http_response_header = ['code' => $e->getCode(), 'message' => $e->getMessage()];
+            DB::rollBack();
+        }
+
+        return Redirect::route('posts.index')->with('success', $http_response_header);
+
+
     }
 
     /**
