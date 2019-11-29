@@ -111,13 +111,7 @@
         <div class="card card-default form-group ">
             <div class="card-header h3">Tag</div>
             <div class="card-body">
-                {{-- <label for="tag_name">Name</label> --}}
-                {{-- <div class="form-group">
-                        <select id="tag_listing_data" name="tag_name[]" multiple="multiple"></select>
-                        <img id="loader_element_id" width="100" height="100" style="display:none;position: absolute;margin: -67px 203px -7px;" src="{{asset('images/Spinner-1s-200px.gif')}}">
-            </div> --}}
-
-
+          
             <div class="form-group">
                 <!-- <input type="text" class="form-control" name="tag_name" id="tag_name"> -->
                 <select id="tag_listing_data" class="form-control" name="tag_name[]" multiple="multiple">
@@ -144,7 +138,7 @@
 
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" @if(($val->id == $post->Category[$key]['category_id'])) checked="checked" @endif value="{{$val->id}}" name="category[]" id="category_{{$val->id}}">
+                            <input type="checkbox" @if(in_array($val->id,array_column($post->Category->toArray(),'category_id'))) checked="checked" @endif value="{{$val->id}}" name="category[]" id="category_{{$val->id}}">
                             <span class="cr">
                                 <i class="cr-icon material-icons rtl-no-flip checkbox"></i></span>
                             </span>

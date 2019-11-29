@@ -187,6 +187,8 @@ class AdminPostController extends Controller
         $month    = MonthTags::all();
 
         $post     = Posts::getPostById(decrypt($id));
+
+    //  dd($post->toArray());
     
        return view('admin.posts.edit',compact('category', 'month','post','id'));
         
