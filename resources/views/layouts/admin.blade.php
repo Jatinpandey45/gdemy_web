@@ -74,6 +74,13 @@
                             </a>
                         </li>
 
+                        <li class="list-group-item link-levelone @if(in_array(Route::currentRouteName(),['jobs.index','jobs.edit','jobs.create'])) active @endif" id="tab-AdminArticles">
+                            <a class="link" href="{{ route('jobs.index') }}">
+                                <i class="material-icons">local_post_office</i>
+                                <span>Job Posts</span>
+                            </a>
+                        </li>
+
                         <li class="list-group-item  link-levelone " id="tab-AdminLogout">
                             <a class="link" href="{{ route('user.logout') }}">
                                 <i class="material-icons">logout</i>

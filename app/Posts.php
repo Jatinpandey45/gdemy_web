@@ -19,7 +19,6 @@ class Posts extends Model
     protected $fillable = [
         'post_title',
         'post_desc',
-        'category_id',
         'month_id',
         'lang_id',
         'emp_id',

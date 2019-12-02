@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AdminJobPosts;
 use App\Category;
 use App\MonthTags;
 use Illuminate\Http\Request;
@@ -42,10 +43,17 @@ class TrashController extends Controller
 
                 break;
 
-            case "month" :
+            case "month":
 
                 $month = MonthTags::find($data['id']);
                 $month->delete();
+
+                break;
+
+            case "jobs":
+
+                $jobs = AdminJobPosts::find($data['id']);
+                $jobs->delete();
 
                 break;
 

@@ -60,6 +60,17 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('user-logout','HomeController@logoutUser')->name('user.logout');
     Route::post('post-add-tag','AdminPostController@storetagData')->name('post.add.new.tag');
     Route::get('post-list','AdminPostController@postList')->name('admin.post.list.records');
+    
+    
+    /**
+     * define jobs post routes
+     * 
+     */
+    
+    
+    Route::resource('jobs','AdminJobController');
+    Route::get('jobs-list','AdminJobController@postList')->name('admin.jobs.list.records');
+    Route::get('search-job-tags','AdminJobController@searchTags')->name('jobs.search.tags');
 
     /*
     |
