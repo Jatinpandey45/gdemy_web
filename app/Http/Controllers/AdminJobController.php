@@ -224,7 +224,7 @@ class AdminJobController extends Controller
              * Store tags into the data either create custom ones and or save existing with ids
              */
 
-            AdminJobTags::where('job_post_id',$postId)->delete();
+            AdminJobPostTags::where('job_post_id',$postId)->delete();
             
             $tags = $request->get('tag_name');
             if (!empty($tags)) {
