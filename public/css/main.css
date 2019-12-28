@@ -391,3 +391,6 @@ div#data_table_post_processing {
   font-style: inherit;
   font-weight: bold;
 }
+.error{
+  color: red;
+}

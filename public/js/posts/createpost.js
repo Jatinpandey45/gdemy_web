@@ -159,6 +159,9 @@ $('#post_form_id').validate({ // initialize the plugin
       required: true,
       date: true,
     },
+    post_seo_title : {
+      required : true
+    }
 
   },
 

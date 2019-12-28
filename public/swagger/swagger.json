@@ -1,35 +1,236 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "Laravel and Swagger",
-        "description": "Getting started with Laravel and Swagger",
+        "title": "GKDemy",
+        "description": "Getting started with gkdemy swagger doc",
         "termsOfService": "",
         "contact": {
-            "email": "name@example.com"
+            "email": "support@gkdemy.com"
         },
         "version": "1.0.0"
     },
-    "host": "gkdemy.com",
+    "host": "gkdemy.com/api",
     "basePath": "/",
     "schemes": [
         "http"
     ],
     "paths": {
-        "/create": {
+        "/home": {
             "get": {
-                "description": "Return a user's first and last name",
+                "tags": [
+                    "HOME"
+                ],
+                "summary": "Return top most five records",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "422": {
+                        "description": "Missing Data"
+                    }
+                }
+            }
+        },
+        "/category/{category_id}": {
+            "get": {
+                "tags": [
+                    "CATEGORY RELATED POSTS"
+                ],
+                "summary": "Returns category specific post",
                 "parameters": [
                     {
-                        "name": "firstname",
+                        "name": "page",
                         "in": "query",
-                        "description": "Your first name",
+                        "description": "page number",
                         "required": true,
                         "type": "string"
                     },
                     {
-                        "name": "lastname",
+                        "name": "category_id",
+                        "in": "path",
+                        "description": "category id you get from list",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "422": {
+                        "description": "Missing Data"
+                    }
+                }
+            }
+        },
+        "/month": {
+            "get": {
+                "tags": [
+                    "MONTH"
+                ],
+                "summary": "Returns current year months starting from Nov 2019",
+                "parameters": [
+                    {
+                        "name": "page",
                         "in": "query",
-                        "description": "Your last name",
+                        "description": "page number",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "422": {
+                        "description": "Missing Data"
+                    }
+                }
+            }
+        },
+        "/month/{month_id}": {
+            "get": {
+                "tags": [
+                    "MONTH"
+                ],
+                "summary": "Returns month specific posts",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "month_id",
+                        "in": "path",
+                        "description": "month id you get from list",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "422": {
+                        "description": "Missing Data"
+                    }
+                }
+            }
+        },
+        "/post": {
+            "get": {
+                "tags": [
+                    "POST"
+                ],
+                "summary": "Returns top most 10 posts",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "422": {
+                        "description": "Missing Data"
+                    }
+                }
+            }
+        },
+        "/post/{post_id}": {
+            "get": {
+                "tags": [
+                    "POST"
+                ],
+                "summary": "Returns post detail data",
+                "parameters": [
+                    {
+                        "name": "post_id",
+                        "in": "path",
+                        "description": "post id you get from list",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "422": {
+                        "description": "Missing Data"
+                    }
+                }
+            }
+        },
+        "/tag/{tag_id}": {
+            "get": {
+                "tags": [
+                    "TAG RELATED POST"
+                ],
+                "summary": "Returns tag related posts",
+                "parameters": [
+                    {
+                        "name": "tag_id",
+                        "in": "path",
+                        "description": "tag id you get from list",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "422": {
+                        "description": "Missing Data"
+                    }
+                }
+            }
+        },
+        "/jobs": {
+            "get": {
+                "tags": [
+                    "JOBS"
+                ],
+                "summary": "Returns top most 10 jobs",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "422": {
+                        "description": "Missing Data"
+                    }
+                }
+            }
+        },
+        "/jobs/{job_id}": {
+            "get": {
+                "tags": [
+                    "JOBS"
+                ],
+                "summary": "Returns job detail data",
+                "parameters": [
+                    {
+                        "name": "job_id",
+                        "in": "path",
+                        "description": "job id you get from list",
                         "required": true,
                         "type": "string"
                     }

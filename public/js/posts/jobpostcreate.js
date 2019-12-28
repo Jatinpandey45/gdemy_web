@@ -159,6 +159,9 @@ $(document).ready(function () {
         required: true,
         date: true,
       },
+      post_seo_title : {
+        required : true
+      }
   
     },
   
