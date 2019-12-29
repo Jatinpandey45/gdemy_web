@@ -166,7 +166,7 @@
                         "name": "date",
                         "in": "query",
                         "description": "date must in Y-m-d format ex. 1999-12-21",
-                        "required": true,
+                        "required": false,
                         "type": "string"
                     }
                 ],
