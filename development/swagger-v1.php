@@ -168,7 +168,7 @@
  *         in="query",
  *         type="string",
  *         description="date must in Y-m-d format ex. 1999-12-21",
- *         required=true,
+ *         required=false,
  *     ),
  *     @SWG\Response(
  *         response=200,
