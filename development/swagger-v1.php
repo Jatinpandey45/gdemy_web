@@ -151,6 +151,25 @@
  *         description="page number",
  *         required=true,
  *     ),
+ *     @SWG\Parameter(
+*         name="category",
+*         in="query",
+*         description="A list of category IDs (separated by comma) to filter the Returns",
+*         required=false,
+*         type="array",
+*         @SWG\Items(
+*             type="string"
+*         ),
+*         collectionFormat="csv",
+*         uniqueItems=true,
+*     ),
+*     @SWG\Parameter(
+ *         name="date",
+ *         in="query",
+ *         type="string",
+ *         description="date must in Y-m-d format ex. 1999-12-21",
+ *         required=true,
+ *     ),
  *     @SWG\Response(
  *         response=200,
  *         description="OK",
