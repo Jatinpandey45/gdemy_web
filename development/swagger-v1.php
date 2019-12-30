@@ -52,6 +52,22 @@
  */
 
 
+ /**
+ * @SWG\Get(
+ *     path="/all-category",
+ *     tags = {"CATEGORY"},
+ *     summary="Return all available categories as API response code",
+ *     @SWG\Response(
+ *         response=200,
+ *         description="OK",
+ *     ),
+ *     @SWG\Response(
+ *         response=422,
+ *         description="Missing Data"
+ *     )
+ * )
+ */
+
   /**
  * @SWG\Get(
  *     path="/category/{category_id}",

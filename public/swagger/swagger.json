@@ -47,6 +47,22 @@
                 }
             }
         },
+        "/all-category": {
+            "get": {
+                "tags": [
+                    "CATEGORY"
+                ],
+                "summary": "Return all available categories as API response code",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "422": {
+                        "description": "Missing Data"
+                    }
+                }
+            }
+        },
         "/category/{category_id}": {
             "get": {
                 "tags": [
