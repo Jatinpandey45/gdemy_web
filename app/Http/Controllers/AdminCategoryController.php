@@ -29,6 +29,7 @@ class AdminCategoryController extends Controller
      */
     public function index()
     {
+
         return view('admin.categories.index')->with('controller', 'categories');
     }
 
@@ -52,7 +53,7 @@ class AdminCategoryController extends Controller
             $category->category_name = $request->get('category_name');
             $category->category_slug = $request->get('category_slug');
             $category->category_description = $request->get('category_description', '');
-            $category->category_icon = base64_encode(file_get_contents($request->file('category_icon')));
+            $category->category_icon = $request->get('category_icon');
             $category->status = ($request->get('status') == self::STATUS_ON) ? self::ACTIVE_STATUS : self::INACTIVE_STATUS;
             $category->lang_id  = $this->getLocalId();
             $category->save();
@@ -119,8 +120,8 @@ class AdminCategoryController extends Controller
             $category->category_slug = $request->get('category_slug');
             $category->category_description = $request->get('category_description', '');
 
-            if ($request->file('category_icon')) {
-                $category->category_icon = base64_encode(file_get_contents($request->file('category_icon')));
+            if ($request->has('category_icon') && !empty($request->get('category_icon'))) {
+                $category->category_icon = $request->get('category_icon');
             }
             $category->status = ($request->get('status') == self::STATUS_ON) ? self::ACTIVE_STATUS : self::INACTIVE_STATUS;
             $category->lang_id  = $this->getLocalId();
@@ -161,10 +162,10 @@ class AdminCategoryController extends Controller
         $limit = $request->input('length');
         $start = $request->input('start');
         $order = $columns[$request->input('order.0.column')];
-        $dir = $request->input('order.0.dir');
+        $dir   = $request->input('order.0.dir');
 
         if (empty($request->input('search.value'))) {
-            $category = Category::offset($start)
+            $category = Category::withCount('post')->offset($start)
                 ->limit($limit)
                 ->orderBy($order, $dir)
                 ->get();
@@ -173,6 +174,7 @@ class AdminCategoryController extends Controller
 
             $category =  Category::where('category_name', 'LIKE', "%{$search}%")
                 ->orWhere('category_slug', 'LIKE', "%{$search}%")
+                ->withCount('post')
                 ->offset($start)
                 ->limit($limit)
                 ->orderBy($order, $dir)
@@ -183,13 +185,15 @@ class AdminCategoryController extends Controller
                 ->count();
         }
 
+
         $data = array();
         if (!empty($category)) {
             foreach ($category as $row) {
-
+                $nestedData['id'] = $row->id;
                 $nestedData['category_name'] = $row->category_name;
                 $nestedData['category_description'] = $row->category_description;
                 $nestedData['category_slug'] = $row->category_slug;
+                $nestedData['count'] = $row->post_count;
                 $nestedData['action'] = encrypt($nestedData);
                 $nestedData['edit_route'] = route('categories.edit', encrypt($row->id));
                 $data[] = $nestedData;
@@ -203,6 +207,6 @@ class AdminCategoryController extends Controller
             "data"            => $data
         );
 
-        echo json_encode($json_data);
+        return response()->json($json_data);
     }
 }

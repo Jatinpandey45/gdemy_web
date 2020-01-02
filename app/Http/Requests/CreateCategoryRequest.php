@@ -26,7 +26,8 @@ class CreateCategoryRequest extends FormRequest
         return [
             'category_name' => 'required|unique:gk_category',
             'category_slug' => 'required|unique:gk_category',
-            'category_icon' => 'mimes:gif,jpeg,jpg,png,tiff,wbmp,ico,jng,bmp,svg,svgz,webp,tif|required|max:1200' // max 10000kb
+            'category_icon' => 'required' // max 10000kb
+           // 'category_icon' => 'mimes:gif,jpeg,jpg,png,tiff,wbmp,ico,jng,bmp,svg,svgz,webp,tif|required|max:1200' // max 10000kb
         ];
     }
 }

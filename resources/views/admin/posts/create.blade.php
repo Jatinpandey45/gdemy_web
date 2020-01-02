@@ -28,7 +28,13 @@
 
                 </div>
 
-
+                <div class="form-group">
+                    <label for="post_desc">Short Description</label>
+                    <textarea class="form-control" class="validate[required]" rows="5" name="post_short_desc">{{old('post_short_desc')}}</textarea>
+                    @if($errors->has('post_short_desc'))
+                    <span class="error">{{ $errors->first('post_short_desc') }}</span>
+                    @endif
+                </div>
 
                 <div class="form-group">
                     <label for="post_desc">Description</label>
@@ -47,9 +53,8 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="post_seo_title">Title Tag</label>
-                    <!-- <input type="text" id="post_seo_title" value="{{old('post_seo_title')}}" class="form-control" placeholder="Name field must be unique" name="post_seo_title"> -->
-                    <select id="tag_listing_data" name="post_seo_title[]" multiple="multiple"></select>
-                    <div class="help-block">Most search engine use upto 70</div>
+                    <input type="text" id="post_seo_title" value="{{old('post_seo_title')}}" class="form-control enable-counter" placeholder="Name field must be unique" name="post_seo_title">
+                    <div class="help-block text-count-wrapper">Most search engine use upto 70</div>
                     @if($errors->has('post_seo_title'))
                     <span class="error">{{ $errors->first('post_seo_title') }}</span>
                     @endif
@@ -58,7 +63,7 @@
 
                 <div class="form-group">
                     <label for="meta_desc">Meta Description</label>
-                    <textarea id="meta_desc" class="form-control" name="seo_desc">{{old('seo_desc')}}</textarea>
+                    <textarea id="meta_desc" class="form-control enable-counter" name="seo_desc">{{old('seo_desc')}}</textarea>
                     <div class="help-block">Most search engine use upto 140</div>
                     @if($errors->has('seo_desc'))
                     <span class="error">{{ $errors->first('seo_desc') }}</span>
@@ -86,8 +91,22 @@
                     </select>
                 </div>
                 <div class="form-group row gk-align-center">
-                    <label for="publish_at" class="col-md-4 pl-1 pr-1">Publish</label>
-                    <input type="text" id="published_at" value="{{old('published_at')}}" class="form-control col-md-7" name="published_at">
+                <label for="publish_at" class="col-md-4 pl-1 pr-1">Publish</label>
+                    <div id="published_at">
+                   
+                   
+                                <input type="text" name="published_at" readonly="readonly" placeholder="Select Date.." data-input > <!-- input is mandatory -->
+
+                                <a class="input-button" title="toggle" data-toggle>
+                                    <i class="material-icons">calendar_today</i>
+                                </a>
+
+                                <a class="input-button" title="clear" data-clear>
+                                    <i class="material-icons">close</i>
+                                </a>
+                    </div>
+
+
                     @if($errors->has('published_at'))
                     <span class="error">{{ $errors->first('published_at') }}</span>
                     @endif
@@ -99,17 +118,15 @@
             <div class="card-body">
                 {{-- <label for="tag_name">Name</label> --}}
                 {{-- <div class="form-group">
-                        <input type="text" id="tag_name" value="" class="form-control" placeholder="" name="tag_name">
+                        <select id="tag_listing_data" name="tag_name[]" multiple="multiple"></select>
                         <img id="loader_element_id" width="100" height="100" style="display:none;position: absolute;margin: -67px 203px -7px;" src="{{asset('images/Spinner-1s-200px.gif')}}">
             </div> --}}
 
 
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" name="tag_name" id="tag_name">
+            <div class="form-group">
+                <!-- <input type="text" class="form-control" name="tag_name" id="tag_name"> -->
+                <select id="tag_listing_data" class="form-control" name="tag_name[]" multiple="multiple"></select>
                 <img id="loader_element_id" width="100" height="100" style="display:none;position: absolute;margin: -67px 203px -7px;" src="{{asset('images/Spinner-1s-200px.gif')}}">
-                <div class="input-group-append">
-                    <button class="btn btn-primary" id="add_tag">Add</button>
-                </div>
             </div>
             <div class="input-group" id="selected_post_tag">
                 <select type="hidden" class="d-none" name="post_tags" id="post_tags" value=""/>
@@ -223,7 +240,7 @@
 <script src="{{asset('js/category.js')}}"></script>
 <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
 <script src="{{asset('vendor/laravel-filemanager/js/lfm.js')}}"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="{{asset('js/flatpick.js')}}"></script>
 <script src="{{asset('js/jquery.autocomplete.js')}}"></script>
 <script src="{{asset('js/tokenized/tokenize2.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/jquery.slugify.js')}}"></script>
@@ -235,7 +252,7 @@
 
 @section('css')
 {{-- <link rel="stylesheet" href="{{asset('node_modules/darkroom/build/darkroom.css')}}"> --}}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" href="{{asset('css/flatpick.css')}}">
 <link rel="stylesheet" href="{{ asset('css/custom_checkbox.css')}}">
 <link rel="stylesheet" href="{{ asset('css/theme.css')}}">
 <link rel="stylesheet" href="{{asset('js/tokenized/tokenize2.css')}}">

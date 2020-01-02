@@ -402,3 +402,15 @@ div#main {
   flex-wrap: wrap;
   justify-content: space-between;
 }
+
+div#data_table_post_processing {
+  margin-top: 35px;
+  color: green;
+  margin-left: -700px;
+  font-size: 22px;
+  font-style: inherit;
+  font-weight: bold;
+}
+.error{
+  color: red;
+}

@@ -28,6 +28,9 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css"/>
         <link href="{{ asset('css/bootstrap-prestashop-ui-kit.css') }}" rel="stylesheet">
         <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+        <link href="{{ asset('js/jquery-toast-plugin/src/jquery.toast.css') }}" rel="stylesheet">
+        
+    
         
         @yield('css')
     </head>
@@ -77,6 +80,20 @@
                             </a>
                         </li>
 
+                        <li class="list-group-item link-levelone @if(in_array(Route::currentRouteName(),['jobs.index','jobs.edit','jobs.create'])) active @endif" id="tab-AdminArticles">
+                            <a class="link" href="{{ route('jobs.index') }}">
+                                <i class="material-icons">local_post_office</i>
+                                <span>Job Posts</span>
+                            </a>
+                        </li>
+
+                        <li class="list-group-item link-levelone @if(in_array(Route::currentRouteName(),['quiz.index','quiz.edit','quiz.create'])) active @endif" id="tab-AdminArticles">
+                            <a class="link" href="{{ route('jobs.index') }}">
+                                <i class="material-icons">local_post_office</i>
+                                <span>Quiz</span>
+                            </a>
+                        </li>
+
                         <li class="list-group-item  link-levelone " id="tab-AdminLogout">
                             <a class="link" href="{{ route('user.logout') }}">
                                 <i class="material-icons">logout</i>
@@ -104,8 +121,24 @@
                 </div>
             </div>
         </div>
-
-
+        <input type="hidden" value="{{route('move.trash')}}" id="trash_route">
+        <script src="{{asset('js/sweetalert.js')}}"></script>
+        <script src="{{asset('js/word-count/textcounter.min.js')}}"></script>
+        <script src="{{asset('js/custom.counter.js')}}"></script>
+        <script src="{{asset('js/jquery-toast-plugin/src/jquery.toast.js')}}"></script>
+        <script>
+        @if(Session::has('success'))
+        $.toast({
+                heading: 'Information',
+                text: "{{Session::get('success')['message']}}",
+                showHideTransition: 'fade',
+                hideAfter: false,
+                position: 'mid-center',
+                icon: 'info'
+        });
+        @endif
+        </script>
+        
         @yield('pagescript')
 
 

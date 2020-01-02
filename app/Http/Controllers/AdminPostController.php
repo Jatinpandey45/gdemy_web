@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\GkCategoryPost;
+use App\GkTagPost;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePostRequest;
 use App\MonthTags;
@@ -18,6 +19,9 @@ use Illuminate\Support\Facades\Redirect;
 
 class AdminPostController extends Controller
 {
+
+    const LIMIT = 10;
+
     /**
      * Display a listing of the resource.
      *
@@ -25,8 +29,14 @@ class AdminPostController extends Controller
      */
     public function index()
     {
-        //
-        return view('admin.posts.index');
+
+
+        $pagination = Posts::simplePaginate(self::LIMIT);
+
+        $count      = Posts::count();
+
+
+        return view('admin.posts.index', ['page' => $pagination,'count' => $count]);
     }
 
     /**
@@ -39,6 +49,7 @@ class AdminPostController extends Controller
         //
 
         $category = Category::all();
+
         $month    = MonthTags::all();
 
         return view('admin.posts.create', compact('category', 'month'));
@@ -76,9 +87,10 @@ class AdminPostController extends Controller
             $post->post_title = $request->get('post_title');
             $post->post_desc  = $request->get('post_desc');
             $post->month_id   = $request->get('month')[0];
+            $post->post_slug  = $request->get('post_slug');
             $post->lang_id    = $this->getLocalId();
             $post->emp_id     = Auth::user()->id;
-            $post->featured_image  = $request->get('file_hidden', '');
+            $post->featured_image  = $request->get('featured_image', '');
             $post->publish_at   = $request->get('published_at');
             $post->target_device  = $request->get('visibility');
             $post->save();
@@ -92,7 +104,7 @@ class AdminPostController extends Controller
 
             $postSeo = new PostSeo;
             $postSeo->post_id = $post->id;
-            $postSeo->keyword  = implode($request->get('post_seo_title'));
+            $postSeo->keyword  = $request->get('post_seo_title');
             $postSeo->description = $request->get('seo_desc');
             $postSeo->titile = "--";
             $postSeo->save();
@@ -110,13 +122,45 @@ class AdminPostController extends Controller
                 $postCategory->save();
             }
 
+
+            /**
+             * 
+             * Store tags into the data either create custom ones and or save existing with ids
+             */
+
+
+            $tags = $request->get('tag_name');
+            if (!empty($tags)) {
+                foreach ($tags as $val) {
+                    $item = $val;
+                    if (!is_numeric($val)) {
+
+                        $newTag = new Tags;
+                        $newTag->tag_name = $val;
+                        $newTag->tag_slug = str_slug($val);
+                        $newTag->tag_desc = "--";
+                        $newTag->lang_id  = $this->getLocalId();
+                        $newTag->save();
+                        $item = $newTag->id;
+                    }
+
+                    $tagAssociation = new GkTagPost;
+                    $tagAssociation->tag_id = $item;
+                    $tagAssociation->post_id = $post->id;
+                    $tagAssociation->save();
+                }
+            }
+
             DB::commit();
+
+            $http_response_header = ['code' => Response::HTTP_OK, 'message' => trans('message.post_added')];
         } catch (\PDOException $e) {
             // Woopsy
+            $http_response_header = ['code' => $e->getCode(), 'message' => $e->getMessage()];
             DB::rollBack();
         }
 
-        return Redirect::back()->with('success', ['code' => Response::HTTP_OK, 'message' => trans('message.post_added')]);
+        return Redirect::route('posts.index')->with('success', $http_response_header);
     }
 
     /**
@@ -127,7 +171,7 @@ class AdminPostController extends Controller
      */
     public function show($id)
     {
-        //
+      
     }
 
     /**
@@ -138,7 +182,16 @@ class AdminPostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::all();
+        
+        $month    = MonthTags::all();
+
+        $post     = Posts::getPostById(decrypt($id));
+
+    //  dd($post->toArray());
+    
+       return view('admin.posts.edit',compact('category', 'month','post','id'));
+        
     }
 
     /**
@@ -150,7 +203,113 @@ class AdminPostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //dd($request->all());
+
+
+        /**
+         * 
+         *  start storing 
+         * 
+         */
+
+
+        try {
+            DB::beginTransaction();
+            // database queries here
+
+            /*
+            |
+            | store all post data into the database.
+            |
+            */
+
+            $postId = decrypt($id);
+           
+            $post = Posts::find($postId);
+            $post->post_title = $request->get('post_title');
+            $post->post_desc  = $request->get('post_desc');
+            $post->month_id   = $request->get('month')[0];
+            $post->post_slug  = $request->get('post_slug');
+            $post->lang_id    = $this->getLocalId();
+            $post->emp_id     = Auth::user()->id;
+            $post->featured_image  = $request->get('featured_image', '');
+            $post->publish_at   = $request->get('published_at');
+            $post->target_device  = $request->get('visibility');
+            $post->save();
+
+
+            /*
+            |
+            | store tag and post data 
+            |
+            */
+
+            $postSeo = new PostSeo;
+            $postSeo->post_id =  $postId ;
+            $postSeo->keyword  = $request->get('post_seo_title');
+            $postSeo->description = $request->get('seo_desc');
+            $postSeo->titile = "--";
+            $postSeo->save();
+
+
+            /**
+             * store cateogry into the database
+             * remove existing category
+             */
+
+             GkCategoryPost::where('post_id',$postId)->delete();
+             
+
+            $category = $request->get('category');
+            foreach ($category as $key => $val) {
+                $postCategory = new GkCategoryPost;
+                $postCategory->category_id = $val;
+                $postCategory->post_id = $postId;
+                $postCategory->save();
+            }
+
+
+            /**
+             * 
+             * Store tags into the data either create custom ones and or save existing with ids
+             */
+
+             GkTagPost::where('post_id',$postId)->delete();
+
+            $tags = $request->get('tag_name');
+            if (!empty($tags)) {
+                foreach ($tags as $val) {
+                    $item = $val;
+                    if (!is_numeric($val)) {
+
+                        $newTag = new Tags;
+                        $newTag->tag_name = $val;
+                        $newTag->tag_slug = str_slug($val);
+                        $newTag->tag_desc = "--";
+                        $newTag->lang_id  = $this->getLocalId();
+                        $newTag->save();
+                        $item = $newTag->id;
+                    }
+
+                    $tagAssociation = new GkTagPost;
+                    $tagAssociation->tag_id = $item;
+                    $tagAssociation->post_id = $postId;
+                    $tagAssociation->save();
+                }
+            }
+
+            DB::commit();
+
+            $http_response_header = ['code' => Response::HTTP_OK, 'message' => trans('message.post_updated')];
+        } catch (\PDOException $e) {
+            // Woopsy
+            $http_response_header = ['code' => $e->getCode(), 'message' => $e->getMessage()];
+            DB::rollBack();
+        }
+
+        return Redirect::route('posts.index')->with('success', $http_response_header);
+
+
     }
 
     /**
@@ -171,31 +330,6 @@ class AdminPostController extends Controller
 
     public function searchTags(Request $request)
     {
-        $searchTerm = $request->get('query', '');
-
-        $result = Tags::searchTags($searchTerm);
-
-        $returnData = [];
-
-        if (!$result->isEmpty()) {
-
-            foreach ($result as $key => $val) {
-                $returnData[$key] = ['value' => $val->tag_name, 'data' => $val->id];
-            }
-        }
-
-        return response()->json(['suggestions' => $returnData]);
-    }
-
-
-
-    /**
-     * searchTags
-     * @param : query string
-     */
-
-    public function searchTagsSeo(Request $request)
-    {
         $searchTerm = $request->get('search', '');
 
         $result = Tags::searchTags($searchTerm);
@@ -205,59 +339,13 @@ class AdminPostController extends Controller
         if (!$result->isEmpty()) {
 
             foreach ($result as $key => $val) {
-                $returnData[$key] = ['value' => $val->tag_name, 'text' => $val->tag_name];
+                $returnData[$key] = ['value' => $val->id, 'text' => $val->tag_name];
             }
         }
 
         return response()->json($returnData);
     }
 
-    /**
-     * 
-     * storetagData 
-     * @param  : request 
-     * @return : application/json
-     */
-
-    public function storetagData(Request $request)
-    {
-
-        $id = $request->get('id');
-
-        if (is_null($id)) {
-
-            $tag = new Tags;
-            $tag->lang_id = $this->getLocalId();
-            $tag->tag_name  = $request->get('tag');
-            $tag->tag_slug  = str_slug($tag->tag_name, '-');
-            $tag->tag_desc  = "--";
-            $tag->save();
-
-            $http_response_header =
-                [
-                    'code' => Response::HTTP_CREATED,
-                    'message' => "New tag created",
-                    'data' => [
-                        'tag' => $request->get('tag'),
-                        'id' => $tag->id
-                    ]
-                ];
-        } else {
-
-            $http_response_header =
-                [
-                    'code' => Response::HTTP_OK,
-                    'message' => "Tag processed",
-                    'data' => [
-                        'tag' => $request->get('tag'),
-                        'id' => $request->get('id')
-                    ]
-                ];
-        }
-
-
-        return response()->json($http_response_header);
-    }
 
     /**
      * postList
@@ -265,52 +353,46 @@ class AdminPostController extends Controller
      * @return : application/html
      */
 
-     public function postList(Request $request)
-     {
+    public function postList(Request $request)
+    {
         $columns = array(
             'post_title',
-            'post_desc',
             'month',
             'publish_at'
         );
 
-        $totalData = Posts::count();
-
-        $totalFiltered = $totalData;
-
         $limit = $request->input('length');
-        $start = $request->input('start');
+        $start = ($request->input('page') - 1) * $limit;
         $order = $columns[$request->input('order.0.column')];
         $dir = $request->input('order.0.dir');
 
-        if (empty($request->input('search.value'))) {
-            $category = Posts::with(['getMonth'])->offset($start)
-                ->limit($limit)
-                ->orderBy($order, $dir)
-                ->get();
-        } else {
-            $search = $request->input('search.value');
 
-            $category =  Posts::with(['getMonth'])->where('post_title', 'LIKE', "%{$search}%")
+        if (!empty($request->input('search.value'))) {
+
+            $search = $request->input('search.value');
+            $category =  Posts::with(['Month'])->where('post_title', 'LIKE', "%{$search}%")
                 ->orWhere('post_desc', 'LIKE', "%{$search}%")
                 ->offset($start)
                 ->limit($limit)
                 ->orderBy($order, $dir)
                 ->get();
+        } else {
 
-            $totalFiltered = Posts::with(['getMonth'])->where('post_title', 'LIKE', "%{$search}%")
-                ->orWhere('post_desc', 'LIKE', "%{$search}%")
-                ->count();
+            $category = Posts::with(['Month'])->offset($start)
+                ->limit($limit)
+                ->orderBy($order, $dir)
+                ->get();
         }
 
-       // dd($category->toArray());
+       
         $data = array();
+        
         if (!empty($category)) {
             foreach ($category as $row) {
 
+                $nestedData['id'] = $row->id;
                 $nestedData['post_title'] = $row->post_title;
-                $nestedData['post_desc'] = $row->post_desc;
-                $nestedData['month'] = $row->getMonth->month_name;
+                $nestedData['month'] = $row->Month->month_name;
                 $nestedData['publish_at'] = $row->publish_at;
                 $nestedData['action'] = encrypt($nestedData);
                 $nestedData['edit_route'] = route('posts.edit', encrypt($row->id));
@@ -320,12 +402,9 @@ class AdminPostController extends Controller
 
         $json_data = array(
             "draw"            => intval($request->input('draw')),
-            "recordsTotal"    => intval($totalData),
-            "recordsFiltered" => intval($totalFiltered),
             "data"            => $data
         );
 
         return response()->json($json_data);
-
-     }
+    }
 }

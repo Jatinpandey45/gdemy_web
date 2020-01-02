@@ -29,7 +29,7 @@ class UpdateCategoryRequest extends FormRequest
         return [
             'category_name' => ['required',Rule::unique('gk_category')->ignore($this->route('category'))],
             'category_slug' =>  ['required',Rule::unique('gk_category')->ignore($this->route('category'))],
-            'category_icon' => 'mimes:gif,jpeg,jpg,png,tiff,wbmp,ico,jng,bmp,svg,svgz,webp,tif|max:1200' // max 10000kb
+            'category_icon' => '' // max 10000kb
         ];
     }
 }

@@ -16,18 +16,28 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 
-//Route::get('/','HomeController@index')->name('user.home.page');
+// Authentication Routes...
+Route::get('/', 'Auth\LoginController@showLoginForm')->name('login');
+Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::get('/','FrontPageController@index');
+// Registration Routes...
+Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('register', 'Auth\RegisterController@register');
+
+// Password Reset Routes...
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 
-/**
- * current affair routes
- */
 
 
- 
-Auth::routes();
+
+
+
 
 
 Route::group(['middleware' => 'auth'],function(){
@@ -50,6 +60,25 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('user-logout','HomeController@logoutUser')->name('user.logout');
     Route::post('post-add-tag','AdminPostController@storetagData')->name('post.add.new.tag');
     Route::get('post-list','AdminPostController@postList')->name('admin.post.list.records');
+    
+    
+    /**
+     * define jobs post routes
+     * 
+     */
+    
+    
+    Route::resource('jobs','AdminJobController');
+    Route::get('jobs-list','AdminJobController@postList')->name('admin.jobs.list.records');
+    Route::get('search-job-tags','AdminJobController@searchTags')->name('jobs.search.tags');
+
+    /*
+    |
+    | define trash routes
+    |
+    */
+
+    Route::get('remove-status','TrashController@updateStatusAsTrash')->name('move.trash');
 
 });
 
