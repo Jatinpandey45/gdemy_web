@@ -1851,7 +1851,6 @@ module.exports = function isBuffer (obj) {
 
 /***/ }),
 
-<<<<<<< HEAD
 /***/ "./node_modules/jquery/dist/jquery.js":
 /*!********************************************!*\
   !*** ./node_modules/jquery/dist/jquery.js ***!
@@ -12462,8 +12461,6 @@ return jQuery;
 
 /***/ }),
 
-=======
->>>>>>> 0a38333736b1172e0b2f776a3e1bc17079abbf2b
 /***/ "./node_modules/lodash/lodash.js":
 /*!***************************************!*\
   !*** ./node_modules/lodash/lodash.js ***!
@@ -29843,7 +29840,6 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-<<<<<<< HEAD
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -29856,12 +29852,6 @@ window.$ = __webpack_provided_window_dot_jQuery = jquery__WEBPACK_IMPORTED_MODUL
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
-=======
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
->>>>>>> 0a38333736b1172e0b2f776a3e1bc17079abbf2b
 
 /***/ }),
 
@@ -29915,13 +29905,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
 __webpack_require__(/*! /var/www/html/gdemy_web/resources/js/app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! /var/www/html/gdemy_web/resources/sass/app.scss */"./resources/sass/app.scss");
-=======
-__webpack_require__(/*! /var/www/html/gkdemy_web/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /var/www/html/gkdemy_web/resources/sass/app.scss */"./resources/sass/app.scss");
->>>>>>> 0a38333736b1172e0b2f776a3e1bc17079abbf2b
 
 
 /***/ })
