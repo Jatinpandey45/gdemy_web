@@ -88,7 +88,7 @@
                         </li>
 
                         <li class="list-group-item link-levelone @if(in_array(Route::currentRouteName(),['quiz.index','quiz.edit','quiz.create'])) active @endif" id="tab-AdminArticles">
-                            <a class="link" href="{{ route('jobs.index') }}">
+                            <a class="link" href="{{ route('quiz.index') }}">
                                 <i class="material-icons">local_post_office</i>
                                 <span>Quiz</span>
                             </a>

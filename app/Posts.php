@@ -6,11 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use App\Category;
 use App\MonthTags;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
 class Posts extends Model
 {
 
     use SoftDeletes;
+
+    use Searchable;
 
     protected $dates = ['deleted_at'];
 
