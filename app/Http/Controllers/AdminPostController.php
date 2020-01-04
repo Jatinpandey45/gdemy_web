@@ -35,7 +35,6 @@ class AdminPostController extends Controller
 
         $count      = Posts::count();
 
-
         return view('admin.posts.index', ['page' => $pagination,'count' => $count]);
     }
 
@@ -133,14 +132,24 @@ class AdminPostController extends Controller
             if (!empty($tags)) {
                 foreach ($tags as $val) {
                     $item = $val;
+
                     if (!is_numeric($val)) {
 
-                        $newTag = new Tags;
-                        $newTag->tag_name = $val;
-                        $newTag->tag_slug = str_slug($val);
-                        $newTag->tag_desc = "--";
-                        $newTag->lang_id  = $this->getLocalId();
-                        $newTag->save();
+                        // check for existing tags 
+
+                        $newTag = Tags::where('tag_name',$val)->first();
+
+                        if(is_null($newTag)) {
+
+                            $newTag = new Tags;
+                            $newTag->tag_name = $val;
+                            $newTag->tag_slug = str_slug($val);
+                            $newTag->tag_desc = "--";
+                            $newTag->lang_id  = $this->getLocalId();
+                            $newTag->save();
+
+                        }
+                       
                         $item = $newTag->id;
                     }
 
@@ -280,14 +289,24 @@ class AdminPostController extends Controller
             if (!empty($tags)) {
                 foreach ($tags as $val) {
                     $item = $val;
+                   
                     if (!is_numeric($val)) {
 
-                        $newTag = new Tags;
-                        $newTag->tag_name = $val;
-                        $newTag->tag_slug = str_slug($val);
-                        $newTag->tag_desc = "--";
-                        $newTag->lang_id  = $this->getLocalId();
-                        $newTag->save();
+                        // check for existing tags 
+
+                        $newTag = Tags::where('tag_name',$val)->first();
+
+                        if(is_null($newTag)) {
+
+                            $newTag = new Tags;
+                            $newTag->tag_name = $val;
+                            $newTag->tag_slug = str_slug($val);
+                            $newTag->tag_desc = "--";
+                            $newTag->lang_id  = $this->getLocalId();
+                            $newTag->save();
+
+                        }
+                       
                         $item = $newTag->id;
                     }
 

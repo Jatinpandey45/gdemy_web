@@ -96,7 +96,7 @@
     ]
     });
     $( table.table().container() )
-    .addClass( 'table table-responsive
+    .addClass( 'table table-responsive');
     
     $('#tag_slug').slugify('#tag_name');
 
