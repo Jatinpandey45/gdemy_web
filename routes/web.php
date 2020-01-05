@@ -80,5 +80,15 @@ Route::group(['middleware' => 'auth'],function(){
 
     Route::get('remove-status','TrashController@updateStatusAsTrash')->name('move.trash');
 
+
+
+    /**
+     * define quiz section routes
+     * 
+     */
+
+     Route::resource('quiz','AdminQuizController');
+
+
 });
 

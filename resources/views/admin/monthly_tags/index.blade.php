@@ -89,7 +89,7 @@
     ]
     });
     $( table.table().container() )
-    .addClass( 'table table-responsive
+    .addClass( 'table table-responsive');
  
     $('#monthly_slug').slugify('#monthly_name');
 

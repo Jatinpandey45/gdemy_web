@@ -7,3 +7,10 @@ $(document).ready(function() {
         }
     });
 });
+$(document).on('click', '.link-levelone > a.link', function(e) {
+    if ($(this).parent().hasClass('has_submenu')) {
+        e.preventDefault();
+        $(this).parent().find('.submenu').slideToggle();
+        return false;
+    }
+});

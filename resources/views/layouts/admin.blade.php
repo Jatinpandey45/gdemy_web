@@ -55,46 +55,69 @@
                                 <i class="material-icons">chevron_left</i>
                             </span>
                         </li>
-                        <li class="list-group-item link-levelone @if(in_array(Route::currentRouteName(),['posts.index','posts.edit','posts.create'])) active @endif" id="tab-AdminArticles">
+                        <li class="link-levelone @if(in_array(Route::currentRouteName(),['posts.index','posts.edit','posts.create'])) active @endif" id="tab-AdminArticles">
                             <a class="link" href="{{ route('posts.index') }}">
                                 <i class="material-icons">local_post_office</i>
                                 <span>Posts</span>
                             </a>
                         </li>
-                        <li class="list-group-item link-levelone @if(in_array(Route::currentRouteName(),['categories.index','categories.edit'])) active @endif" id="tab-AdminCategories">
+                        <li class="link-levelone @if(in_array(Route::currentRouteName(),['categories.index','categories.edit'])) active @endif" id="tab-AdminCategories">
                             <a class="link" href="{{ route('categories.index') }}">
                                 <i class="material-icons">category</i>
                                 <span>{{ __('message.heading') }}</span>
                             </a>
                         </li>
-                        <li class="list-group-item link-levelone @if(in_array(Route::currentRouteName(),['tags.index','tags.edit'])) active @endif" id="tab-AdminTags">
+                        <li class="link-levelone @if(in_array(Route::currentRouteName(),['tags.index','tags.edit'])) active @endif" id="tab-AdminTags">
                              <a class="link" href="{{ route('tags.index') }}">
                                 <i class="material-icons">category</i>
                                 <span>Tags</span>
                             </a>
                         </li>
-                        <li class="list-group-item link-levelone @if(in_array(Route::currentRouteName(),['monthly.index','monthly.edit'])) active @endif" id="tab-AdminCategories">
+                        <li class="link-levelone @if(in_array(Route::currentRouteName(),['monthly.index','monthly.edit'])) active @endif" id="tab-AdminCategories">
                             <a class="link" href="{{ route('monthly.index') }}">
                                 <i class="material-icons">schedule</i>
                                 <span>Monthly Tags</span>
                             </a>
                         </li>
 
-                        <li class="list-group-item link-levelone @if(in_array(Route::currentRouteName(),['jobs.index','jobs.edit','jobs.create'])) active @endif" id="tab-AdminArticles">
+                        <li class="link-levelone @if(in_array(Route::currentRouteName(),['jobs.index','jobs.edit','jobs.create'])) active @endif" id="tab-AdminArticles">
                             <a class="link" href="{{ route('jobs.index') }}">
                                 <i class="material-icons">local_post_office</i>
                                 <span>Job Posts</span>
                             </a>
                         </li>
 
-                        <li class="list-group-item link-levelone @if(in_array(Route::currentRouteName(),['quiz.index','quiz.edit','quiz.create'])) active @endif" id="tab-AdminArticles">
-                            <a class="link" href="{{ route('posts.index') }}">
-                                <i class="material-icons">local_post_office</i>
+                        <li class="link-levelone has_submenu @if(in_array(Route::currentRouteName(),['quiz.index','quiz.edit','quiz.create'])) active @endif" id="tab-AdminArticles">
+                            <a class="link" href="{{ route('quiz.index') }}">
+                                <i class="material-icons">question_answer</i>
                                 <span>Quiz</span>
+                                <i class="material-icons sub-tabs-arrow">
+                                    keyboard_arrow_down
+                                </i>
                             </a>
+                            <ul id="collapse-9" class="submenu panel-collapse">
+                                <li class="link-leveltwo " id="subtab-AdminProducts" data-submenu="10">
+                                    <a href=""
+                                        class="link">
+                                        Schedule Time
+                                    </a>
+                                </li>
+                                {{-- <li class="link-leveltwo " id="subtab-AdminProducts" data-submenu="10">
+                                    <a href=""
+                                        class="link">
+                                        Category
+                                    </a>
+                                </li> --}}
+                                <li class="link-leveltwo " id="subtab-AdminProducts" data-submenu="10">
+                                    <a href="{{ route('quiz.index') }}"
+                                        class="link">
+                                        Quiz
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
 
-                        <li class="list-group-item  link-levelone " id="tab-AdminLogout">
+                        <li class="link-levelone " id="tab-AdminLogout">
                             <a class="link" href="{{ route('user.logout') }}">
                                 <i class="material-icons">logout</i>
                                 <span>Logout</span>
@@ -126,6 +149,7 @@
         <script src="{{asset('js/word-count/textcounter.min.js')}}"></script>
         <script src="{{asset('js/custom.counter.js')}}"></script>
         <script src="{{asset('js/jquery-toast-plugin/src/jquery.toast.js')}}"></script>
+        {{-- <script src="{{asset('js/admin.tab.js')}}"></script> --}}
         <script>
         @if(Session::has('success'))
         $.toast({

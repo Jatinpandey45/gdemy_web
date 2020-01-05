@@ -59,12 +59,14 @@
   word-break: break-word;
 }
 
-.list-group-item.collapse-drawer span {
+.list-group-item.collapse-drawer span,
+.link-levelone .collapse-drawer span {
   display: block;
   color: white;
   text-align: right;
 }
 
+.link-levelone .collapse-drawer span i,
 .list-group-item.collapse-drawer span i {
   color: white;
 }
@@ -154,19 +156,23 @@ a > i.material-icons {
     background: #202226;
 }
 
-.list-group  .list-group-item .link {
+.list-group  .list-group-item .link,
+.list-group  .link-levelone .link {
   color: white;
   text-decoration: none;
 }
 
-.list-group .list-group-item {
+.list-group .list-group-item,
+.list-group .link-levelone {
   background: transparent;
   border: 1px solid rgba(0,0,0,.125);
   padding: 0px;
 }
 
 .list-group  .list-group-item:first-child,
-.list-group  .list-group-item:last-child {
+.list-group  .list-group-item:last-child,
+.list-group  .link-levelone:first-child,
+.list-group  .link-levelone:last-child {
   border-radius: 0;
 }
 
@@ -182,18 +188,18 @@ a > i.material-icons {
 }
 
 
-.list-group  .list-group-item:hover {
+.list-group  .link-levelone:hover {
   border-left: 2px solid white;
   background: #00000057;
 }
 
 
-.list-group  .list-group-item a.link {
+/* .list-group  .link-levelone a.link {
   display: block;
   outline: none;
-}
+} */
 
-.list-group .list-group-item.active {
+.list-group .link-levelone.active {
   border-color: transparent;
   border-left: 2px solid white;
   background: #202226;
