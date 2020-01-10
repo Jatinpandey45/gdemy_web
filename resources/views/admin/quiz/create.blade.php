@@ -2,7 +2,7 @@
 
 @section('content')
 {{-- <form action="{{route('posts.store')}}" id="post_form_id" class="row" method="POST" enctype="multipart/form-data"> --}}
-    {!! Form::open(['method' => 'POST', 'route' => ['quiz.store']]) !!}
+    {!! Form::open(['method' => 'POST','id' => 'post_form_id', 'route' => ['quiz.store']]) !!}
     <div class="row">
         <div class="col-md-9">
             <div class="card card-default form-group">
@@ -196,6 +196,10 @@
                             </div>
                             @endforeach
                         @endif
+
+                        @if($errors->has('category'))
+                        <span class="error">{{ $errors->first('category') }}</span>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -204,19 +208,9 @@
     </div>
     {!! Form::close() !!}
 
-    {{-- <div class="card card-defaut">
-                
-            </div>
-            <div class="card card-defaut">
-            </div>
-            <div class="card card-defaut">
-            </div>
-            <div class="card card-defaut">
-            </div> --}}
-    {{-- </div> --}}
+  
 {{-- </form> --}}
 <!-- public/js/tiny_mce/plugins/responsivefilemanager -->
-<input type="hidden" value="{{asset('js/tiny_mce/plugins/responsivefilemanager')}}" id="filemanagerlink" />
 <input type="hidden" value="{{route('post.search.tags')}}" id="tag_search_request_route">
 <input type="hidden" value="{{route('post.admin.search.search')}}" id="serrach_tag_seo">
 <input type="hidden" value="{{route('post.add.new.tag')}}" id="add_new_tag_from_post_id">
@@ -231,14 +225,11 @@
 <script src="{{asset('js/jquery.autocomplete.js')}}"></script>
 <script src="{{asset('js/tokenized/tokenize2.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/jquery.slugify.js')}}"></script>
-{{-- <script type="text/javascript" src="{{asset('node_modules/darkroom/vendor/fabric.js')}}"></script>
-<script type="text/javascript" src="{{asset('node_modules/darkroom/build/darkroom.js')}}"></script> --}}
-<script src="{{asset('js/posts/createpost.js')}}"></script>
-{{-- <script src="{{asset('js/imageCropper.js')}}"></script> --}}
+<script src="{{asset('js/quizpost.js')}}"></script>
+
 @endsection
 
 @section('css')
-{{-- <link rel="stylesheet" href="{{asset('node_modules/darkroom/build/darkroom.css')}}"> --}}
 <link rel="stylesheet" href="{{asset('css/flatpick.css')}}">
 <link rel="stylesheet" href="{{ asset('css/custom_checkbox.css')}}">
 <link rel="stylesheet" href="{{ asset('css/theme.css')}}">

@@ -88,6 +88,7 @@ Route::group(['middleware' => 'auth'],function(){
      */
 
      Route::resource('quiz','AdminQuizController');
+     Route::get('quiz-list','AdminQuizController@quizList')->name('admin.quiz.list');
 
 
 });

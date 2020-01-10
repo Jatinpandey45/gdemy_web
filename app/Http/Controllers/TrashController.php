@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\AdminJobPosts;
 use App\Category;
+use App\GkQuiz;
 use App\MonthTags;
 use Illuminate\Http\Request;
 use App\Posts;
@@ -57,7 +58,12 @@ class TrashController extends Controller
 
                 break;
 
+            case 'quiz':
 
+                $quiz = GkQuiz::find($data['id']);
+                $quiz->delete();
+
+                break;
 
             default:
                 break;

@@ -9,14 +9,13 @@
         </div>
         {{-- <h2>Total Posts : {{isset($count)}} {{ $count }} </h2> --}}
         <div class="card card-default">
-            <div class="card-header h3">Posts</div>
+            <div class="card-header h3">Quiz</div>
 
             <div class="card-body">
                 <table class="table" id="data_table_post">
                     <thead>
-                        <th>Title</th>
-                        {{-- <th>Description</th> --}}
-                        <th>Month</th>
+                        <th>Question</th>
+                        <th>Schedule</th>
                         <th>Published At</th>
                         <th>Action</th>
                     </thead>
@@ -32,7 +31,7 @@
 </div>
 </div>
 @include('modal.delete', ['type' => 'post'])
-<input type="hidden" id="route_post_list" value="{{route('admin.post.list.records')}}">
+<input type="hidden" id="route_post_list" value="{{route('admin.quiz.list')}}">
 
 
 @section('pagescript')
@@ -40,7 +39,7 @@
 <script src="{{asset('js/jquery-validation/dist/jquery.validate.min.js')}}"></script>
 <script src="{{asset('js/jquery-validation/dist/additional-methods.min.js')}}"></script>
 <script src="{{asset('js/datatable.min.js')}}"></script>
-<script src="{{asset('js/post.list.js')}}"></script>
+<script src="{{asset('js/quiz.list.js')}}"></script>
 
 @endsection
 
