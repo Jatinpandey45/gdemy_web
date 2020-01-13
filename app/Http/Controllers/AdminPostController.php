@@ -79,7 +79,7 @@ class AdminPostController extends Controller
             // database queries here
 
 
-            $this->uploadImageToS3Bucket($request->get('featured_image'));
+            $fileUpload = $this->uploadImageToS3Bucket($request->get('featured_image'));
 
 
             /*
@@ -96,7 +96,7 @@ class AdminPostController extends Controller
             $post->post_slug  = $request->get('post_slug');
             $post->lang_id    = $this->getLocalId();
             $post->emp_id     = Auth::user()->id;
-            $post->featured_image  = $request->get('featured_image', '');
+            $post->featured_image  = !$fileUpload['error'] ? $fileUpload['url'] : "";
             $post->publish_at   = $request->get('published_at');
             $post->target_device  = $request->get('visibility');
             $post->save();
@@ -460,7 +460,8 @@ class AdminPostController extends Controller
             $response = [
                 'code' => Response::HTTP_CREATED,
                 'message' => "success",
-                'error' => false
+                'error' => false,
+                'url' => $filePath
             ];
 
 
