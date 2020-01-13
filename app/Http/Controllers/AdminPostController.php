@@ -11,11 +11,13 @@ use App\MonthTags;
 use App\Posts;
 use App\PostSeo;
 use App\Tags;
+use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use phpDocumentor\Reflection\DocBlock\Tag;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 
 class AdminPostController extends Controller
 {
@@ -76,11 +78,16 @@ class AdminPostController extends Controller
             DB::beginTransaction();
             // database queries here
 
+
+            $this->uploadImageToS3Bucket($request->get('featured_image'));
+
+
             /*
             |
             | store all post data into the database.
             |
             */
+
 
             $post = new Posts;
             $post->post_title = $request->get('post_title');
@@ -93,6 +100,11 @@ class AdminPostController extends Controller
             $post->publish_at   = $request->get('published_at');
             $post->target_device  = $request->get('visibility');
             $post->save();
+
+
+         
+
+
 
 
             /*
@@ -426,4 +438,44 @@ class AdminPostController extends Controller
 
         return response()->json($json_data);
     }
+
+    /**
+     * uploadImageToS3Bucket
+     *  @param : source 
+     *  @return : application/json
+     */
+
+     private function uploadImageToS3Bucket($fileSource) {
+
+        try
+        {
+
+            $infoPath = pathinfo(public_path($fileSource));
+            $extension = $infoPath['extension'];
+            $name = time() . $extension;
+            $filePath = 'images/' . $name;
+            Storage::disk('s3')->put($filePath, file_get_contents(public_path($fileSource)));
+
+
+            $response = [
+                'code' => Response::HTTP_CREATED,
+                'message' => "success",
+                'error' => false
+            ];
+
+
+        }catch(Exception $e) {
+            $response = [
+                'code' => $e->getCode(),
+                'message' => $e->getMessage(),
+                'error' => true
+            ];
+        }
+
+           return $response;
+
+     }
+
+
+
 }
