@@ -458,6 +458,9 @@ class AdminPostController extends Controller
             Storage::disk('s3')->put($filePath, file_get_contents(public_path($fileSource)));
             
             $thumb = Image::make(public_path($fileSource))->resize(50, 50)->save(public_path('thumb/'.$name));
+            $thumbURL  = public_path('thumb/'.$name);
+            $filePath = 'thumb/' . $name;
+            Storage::disk('s3')->put($filePath, file_get_contents($thumbURL));
            
             $response = [
                 'code' => Response::HTTP_CREATED,
