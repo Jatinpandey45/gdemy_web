@@ -18,6 +18,7 @@ use phpDocumentor\Reflection\DocBlock\Tag;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use  Intervention\Image\Facades\Image;
 
 class AdminPostController extends Controller
 {
@@ -455,13 +456,15 @@ class AdminPostController extends Controller
             $name = time() . $extension;
             $filePath = 'images/' . $name;
             Storage::disk('s3')->put($filePath, file_get_contents(public_path($fileSource)));
-
-
+            
+            $thumb = Image::make(public_path($fileSource))->resize(50, 50)->save(public_path('thumb/'.$name));
+           
             $response = [
                 'code' => Response::HTTP_CREATED,
                 'message' => "success",
                 'error' => false,
-                'url' => $filePath
+                'url' => $filePath,
+                'thumb' => $thumb
             ];
 
 
