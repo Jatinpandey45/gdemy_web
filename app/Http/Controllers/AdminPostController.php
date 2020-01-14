@@ -454,8 +454,8 @@ class AdminPostController extends Controller
             $infoPath = pathinfo(public_path($fileSource));
             $extension = $infoPath['extension'];
             $name = time() . $extension;
-            $filePath = 'images/' . $name;
-            Storage::disk('s3')->put($filePath, file_get_contents(public_path($fileSource)));
+            $filePathPublic = 'images/' . $name;
+            Storage::disk('s3')->put($filePathPublic, file_get_contents(public_path($fileSource)));
             
             $thumb = Image::make(public_path($fileSource))->resize(50, 50)->save(public_path('thumb/'.$name));
             $thumbURL  = public_path('thumb/'.$name);
@@ -466,7 +466,7 @@ class AdminPostController extends Controller
                 'code' => Response::HTTP_CREATED,
                 'message' => "success",
                 'error' => false,
-                'url' => $filePath,
+                'url' => $filePathPublic,
                 'thumb' => $thumb
             ];
 
